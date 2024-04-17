@@ -20,7 +20,11 @@ public class MinesweeperBoard {
 
         generateBoard();
     }
-    public boolean isZero(int i, int j) { return statuses[i][j] == 0; }
+
+    public boolean isZero(int i, int j) {
+        return statuses[i][j] == 0;
+    }
+
     public void generateBoard() {
         Random rand = new Random(System.currentTimeMillis());
         for (int i = 0; i < d; i++) {
