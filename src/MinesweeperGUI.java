@@ -4,7 +4,7 @@ import javax.swing.*;
 public class MinesweeperGUI extends JFrame {
     public MinesweeperGUI() {
         setTitle("Minesweeper");
-        setSize(500, 500);
+        setSize(1920, 1080);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JButton button = new JButton("Click me!");
         add(button);
