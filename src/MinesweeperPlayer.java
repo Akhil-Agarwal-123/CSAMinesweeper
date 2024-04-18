@@ -36,7 +36,13 @@ public class MinesweeperPlayer {
             else board.revealSpot(i, j);
         } while (!board.won() && !board.lost());
 
+        board.printBoardHidden();
+        System.out.println();
         if (board.won()) System.out.println("You won!");
-        else System.out.println("You lost!");
+        else {
+            board.printBoardAllRevealed();
+            System.out.println();
+            System.out.println("You lost!");
+        }
     }
 }
