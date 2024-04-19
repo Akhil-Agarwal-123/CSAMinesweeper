@@ -93,6 +93,17 @@ public class MinesweeperGUI extends JFrame {
     }
 
     private void updateButtonsFromBoard() {
+        String state = board.getGameState();
+        if (state.equals("won")) {
+            JOptionPane.showMessageDialog(this, "You won!");
+        } else if (state.equals("lost")) {
+            JOptionPane.showMessageDialog(this, "You lost!");
+        }
+
+        if (!state.equals("ongoing")) {
+            newGame(Integer.parseInt(gridSizeField.getText()), Integer.parseInt(bombPercentageField.getText()));
+        }
+
         for (int k = 0; k < board.getDimension(); k++) {
             for (int l = 0; l < board.getDimension(); l++) {
                 String num = board.getStringFor(k, l, true);

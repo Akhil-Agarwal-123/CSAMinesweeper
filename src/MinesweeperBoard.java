@@ -113,22 +113,19 @@ public class MinesweeperBoard {
         }
     }
 
-    public boolean won() {
+    public String getGameState() {
         for (int i = 0; i < d; i++) {
             for (int j = 0; j < d; j++) {
-                if (statuses[i][j] != -1 && !visited[i][j]) return false;
+                if (statuses[i][j] != -1 && !visited[i][j]) {
+                    return "ongoing";
+                }
+                if (statuses[i][j] == -1 && visited[i][j]) {
+                    return "lost";
+                }
             }
         }
-        return true;
-    }
 
-    public boolean lost() {
-        for (int i = 0; i < d; i++) {
-            for (int j = 0; j < d; j++) {
-                if (statuses[i][j] == -1 && visited[i][j]) return true;
-            }
-        }
-        return false;
+        return "won";
     }
 
     public void toggleFlag(int i, int j) {

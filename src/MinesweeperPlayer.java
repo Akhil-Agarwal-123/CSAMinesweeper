@@ -33,11 +33,11 @@ public class MinesweeperPlayer {
             char c = scan.next().charAt(0);
             if (c == 'F' || c == 'f') board.toggleFlag(i, j);
             else board.revealSpot(i, j);
-        } while (!board.won() && !board.lost());
+        } while (board.getGameState().equals("ongoing"));
 
         board.printBoardHidden();
         System.out.println();
-        if (board.won()) System.out.println("You won!");
+        if (board.getGameState().equals("won")) System.out.println("You won!");
         else {
             board.printBoardAllRevealed();
             System.out.println();
