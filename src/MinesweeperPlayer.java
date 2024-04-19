@@ -14,9 +14,7 @@ public class MinesweeperPlayer {
         i = scan.nextInt() - 1;
         System.out.print("Enter column number: ");
         j = scan.nextInt() - 1;
-        while (!board.isZero(i, j)) {
-            board.generateBoard();
-        }
+        board.regenUntilGoodFirst(i, j);
         board.revealSpot(i, j);
 
         do {

@@ -22,6 +22,10 @@ public class MinesweeperBoard {
         generateBoard();
     }
 
+    public void regenUntilGoodFirst(int i, int j) {
+        while (!isZero(i, j)) generateBoard();
+    }
+
     public boolean isZero(int i, int j) {
         return statuses[i][j] == 0;
     }
@@ -55,12 +59,7 @@ public class MinesweeperBoard {
     private void printBoard(boolean hidden) {
         for (int i = 0; i < d; i++) {
             for (int j = 0; j < d; j++) {
-                if (flagged[i][j] && !visited[i][j]) System.out.print(" F ");
-                else if (!visited[i][j] && hidden) System.out.print(" - ");
-                else {
-                    if (statuses[i][j] == -1) System.out.print(" B ");
-                    else System.out.print(" " + statuses[i][j] + " ");
-                }
+                System.out.print(" " + getStringFor(i, j, hidden) + " ");
             }
             System.out.println();
         }
@@ -109,4 +108,15 @@ public class MinesweeperBoard {
     public void toggleFlag(int i, int j) {
         flagged[i][j] = !flagged[i][j];
     }
+
+    public String getStringFor(int i, int j, boolean hidden) {
+        if (flagged[i][j] && !visited[i][j]) return "F";
+        else if (!visited[i][j] && hidden) return "-";
+        else {
+            if (statuses[i][j] == -1) return "B";
+            else return "" + statuses[i][j];
+        }
+    }
+
+    public int getDimension() { return d; }
 }
