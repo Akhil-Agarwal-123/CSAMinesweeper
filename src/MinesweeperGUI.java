@@ -6,7 +6,20 @@ import java.awt.event.*;
 public class MinesweeperGUI extends JFrame implements ActionListener {
     private static MinesweeperBoard board;
     private boolean firstClick;
-    private JButton[][] buttons;
+    private final JButton[][] buttons;
+
+    private void updateButtonsFromBoard() {
+        boolean won = board.won();
+        boolean lost = board.lost();
+        for (int k = 0; k < board.getDimension(); k++) {
+            for (int l = 0; l < board.getDimension(); l++) {
+                buttons[k][l].setText(won ? "W" : lost ? "L" : board.getStringFor(k, l, true));
+                buttons[k][l].setEnabled(!won && !lost);
+            }
+        }
+        repaint();
+    }
+
     public MinesweeperGUI(String title) {
         super(title);
         firstClick = true;
@@ -21,6 +34,17 @@ public class MinesweeperGUI extends JFrame implements ActionListener {
                 buttons[i][j] = new JButton("-");
                 buttons[i][j].setActionCommand("Grid: " + i + " " + j);
                 buttons[i][j].addActionListener(this);
+                int finalI = i;
+                int finalJ = j;
+                buttons[i][j].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON3) {
+                            board.toggleFlag(finalI, finalJ);
+                            updateButtonsFromBoard();
+                        }
+                    }
+                });
                 panel.add(buttons[i][j]);
             }
         }
@@ -32,31 +56,10 @@ public class MinesweeperGUI extends JFrame implements ActionListener {
         if (e.getActionCommand().split(" ")[0].equals("Grid:")) {
             int i = Integer.parseInt(e.getActionCommand().split(" ")[1]);
             int j = Integer.parseInt(e.getActionCommand().split(" ")[2]);
-            System.out.println("Clicked button " + i + " " + j);
             if (firstClick) board.regenUntilGoodFirst(i, j);
             firstClick = false;
             board.revealSpot(i, j);
-            if (board.won()) {
-                for (int k = 0; k < board.getDimension(); k++) {
-                    for (int l = 0; l < board.getDimension(); l++) {
-                        buttons[k][l].setText("W");
-                        buttons[k][l].setEnabled(false);
-                    }
-                }
-            } else if (board.lost()) {
-                for (int k = 0; k < board.getDimension(); k++) {
-                    for (int l = 0; l < board.getDimension(); l++) {
-                        buttons[k][l].setText("L");
-                        buttons[k][l].setEnabled(false);
-                    }
-                }
-            } else {
-                for (int k = 0; k < board.getDimension(); k++) {
-                    for (int l = 0; l < board.getDimension(); l++) {
-                        buttons[k][l].setText(board.getStringFor(k, l, true));
-                    }
-                }
-            }
+            updateButtonsFromBoard();
         }
         repaint();
     }
