@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 public class MinesweeperGUI extends JFrame {
     private MinesweeperBoard board;
@@ -13,8 +10,8 @@ public class MinesweeperGUI extends JFrame {
     private JButton newGameButton;
     private boolean firstClick = true;
 
-    public MinesweeperGUI() {
-        setTitle("Minesweeper");
+    public MinesweeperGUI(String title) {
+        super(title);
         setSize(1920, 1080);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -38,7 +35,12 @@ public class MinesweeperGUI extends JFrame {
         JLabel bombPercentageLabel = new JLabel("Bomb Percentage:");
         bombPercentageField = new JTextField("20");
         newGameButton = new JButton("New Game");
-        newGameButton.addActionListener(new NewGameListener());
+        newGameButton.addActionListener(e -> {
+            int gridSize = Integer.parseInt(gridSizeField.getText());
+            int bombPercentage = Integer.parseInt(bombPercentageField.getText());
+            firstClick = true;
+            newGame(gridSize, bombPercentage);
+        });
 
         panel.add(gridSizeLabel);
         panel.add(gridSizeField);
@@ -61,8 +63,26 @@ public class MinesweeperGUI extends JFrame {
         buttons = new JButton[gridSize][gridSize];
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-                buttons[i][j] = new JButton();
-                buttons[i][j].addMouseListener(new CellClickListener(i, j));
+                buttons[i][j] = new JButton("-");
+                int finalI = i;
+                int finalJ = j;
+                buttons[i][j].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON3) {
+                            board.toggleFlag(finalI, finalJ);
+                            updateButtonsFromBoard();
+                        }
+                    }
+                });
+                buttons[i][j].addActionListener(e -> {
+                    if (firstClick) {
+                        board.regenUntilPlayable(finalI, finalJ);
+                        firstClick = false;
+                    }
+                    board.revealSpot(finalI, finalJ);
+                    updateButtonsFromBoard();
+                });
                 gamePanel.add(buttons[i][j]);
             }
         }
@@ -80,61 +100,11 @@ public class MinesweeperGUI extends JFrame {
                 buttons[k][l].setEnabled(num.equals("-"));
             }
         }
+        revalidate();
         repaint();
     }
 
-    private class NewGameListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int gridSize = Integer.parseInt(gridSizeField.getText());
-            int bombPercentage = Integer.parseInt(bombPercentageField.getText());
-            firstClick = true;
-            newGame(gridSize, bombPercentage);
-        }
-    }
-
-    private class CellClickListener implements MouseListener {
-        private int row;
-        private int col;
-
-        public CellClickListener(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (firstClick) {
-                board.regenUntilPlayable(row, col);
-                firstClick = false;
-            }
-            if (e.getButton() == MouseEvent.BUTTON1) {
-                board.revealSpot(row, col);
-            } else if (e.getButton() == MouseEvent.BUTTON3) {
-                board.toggleFlag(row, col);
-            }
-            updateButtonsFromBoard();
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {}
-
-        @Override
-        public void mouseReleased(MouseEvent e) {}
-
-        @Override
-        public void mouseEntered(MouseEvent e) {}
-
-        @Override
-        public void mouseExited(MouseEvent e) {}
-    }
-
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new MinesweeperGUI().setVisible(true);
-            }
-        });
+        new MinesweeperGUI("Minesweeper").setVisible(true);
     }
 }
