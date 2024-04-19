@@ -3,13 +3,15 @@ import java.util.Random;
 public class MinesweeperBoard {
     private final int[][] statuses;
     private final int d;
+    private final int mines;
     private final boolean[][] visited, flagged;
 
-    public MinesweeperBoard(int d) {
+    public MinesweeperBoard(int d, int mines) {
         statuses = new int[d][d];
         visited = new boolean[d][d];
         flagged = new boolean[d][d];
         this.d = d;
+        this.mines = mines;
 
         for (int i = 0; i < d; i++) {
             for (int j = 0; j < d; j++) {
@@ -22,6 +24,10 @@ public class MinesweeperBoard {
         generateBoard();
     }
 
+    public void regenUntilPlayable(int i, int j) {
+        while (!isZero(i, j)) generateBoard();
+    }
+
     public boolean isZero(int i, int j) {
         return statuses[i][j] == 0;
     }
@@ -30,13 +36,22 @@ public class MinesweeperBoard {
         Random rand = new Random(System.currentTimeMillis());
         for (int i = 0; i < d; i++) {
             for (int j = 0; j < d; j++) {
-                if (rand.nextDouble() < 0.2) {
-                    statuses[i][j] = -1; // mine
-                } else {
-                    statuses[i][j] = 0; // not mine
-                }
+                statuses[i][j] = 0; // not mine
             }
         }
+
+        // place mines
+        int currMineCount = 0;
+        while (currMineCount < mines) {
+            int i = rand.nextInt(d);
+            int j = rand.nextInt(d);
+            if (statuses[i][j] != -1) {
+                statuses[i][j] = -1;
+                currMineCount++;
+            }
+        }
+
+        // calculate numbers
         int[] dij = {-1, 0, 1};
         for (int i = 0; i < d; i++) {
             for (int j = 0; j < d; j++) if (statuses[i][j] != -1) {
@@ -52,24 +67,34 @@ public class MinesweeperBoard {
             }
         }
     }
-    private void printBoard(boolean hidden) {
-        for (int i = 0; i < d; i++) {
-            for (int j = 0; j < d; j++) {
-                if (flagged[i][j] && !visited[i][j]) System.out.print(" F ");
-                else if (!visited[i][j] && hidden) System.out.print(" - ");
-                else {
-                    if (statuses[i][j] == -1) System.out.print(" B ");
-                    else System.out.print(" " + statuses[i][j] + " ");
-                }
-            }
-            System.out.println();
-        }
-    }
+
     public void printBoardAllRevealed() {
         printBoard(false);
     }
     public void printBoardHidden() {
         printBoard(true);
+    }
+
+    private void printBoard(boolean hidden) {
+        for (int i = 0; i < d; i++) {
+            for (int j = 0; j < d; j++) {
+                System.out.print(" " + getStringFor(i, j, hidden) + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public String getStringFor(int i, int j, boolean hidden) {
+        if (flagged[i][j] && !visited[i][j]) return "F";
+        else if (!visited[i][j] && hidden) return "-";
+        else {
+            if (statuses[i][j] == -1) return "B";
+            else return "" + statuses[i][j];
+        }
+    }
+
+    public int getCell(int i, int j) {
+        return statuses[i][j];
     }
 
     public void revealSpot(int i, int j) {
@@ -108,5 +133,9 @@ public class MinesweeperBoard {
 
     public void toggleFlag(int i, int j) {
         flagged[i][j] = !flagged[i][j];
+    }
+
+    public int getDimension() {
+        return d;
     }
 }

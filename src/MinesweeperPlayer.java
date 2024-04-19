@@ -6,7 +6,8 @@ public class MinesweeperPlayer {
         Scanner scan = new Scanner(System.in);
         System.out.print("Enter board dimension: ");
         int d = scan.nextInt();
-        MinesweeperBoard board = new MinesweeperBoard(d);
+        int mines = (int) (d * d * 0.2);
+        MinesweeperBoard board = new MinesweeperBoard(d, mines);
         int i, j;
 
         board.printBoardHidden();
@@ -14,9 +15,7 @@ public class MinesweeperPlayer {
         i = scan.nextInt() - 1;
         System.out.print("Enter column number: ");
         j = scan.nextInt() - 1;
-        while (!board.isZero(i, j)) {
-            board.generateBoard();
-        }
+        board.regenUntilPlayable(i, j);
         board.revealSpot(i, j);
 
         do {
