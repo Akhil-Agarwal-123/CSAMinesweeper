@@ -15,6 +15,7 @@ public class MinesweeperBoard {
             for (int j = 0; j < d; j++) {
                 statuses[i][j] = 0;
                 visited[i][j] = false;
+                flagged[i][j] = false;
             }
         }
 
@@ -32,7 +33,7 @@ public class MinesweeperBoard {
                 if (rand.nextDouble() < 0.2) {
                     statuses[i][j] = -1; // mine
                 } else {
-                    statuses[i][j] = 0;
+                    statuses[i][j] = 0; // not mine
                 }
             }
         }
@@ -54,7 +55,8 @@ public class MinesweeperBoard {
     private void printBoard(boolean hidden) {
         for (int i = 0; i < d; i++) {
             for (int j = 0; j < d; j++) {
-                if (!visited[i][j] && hidden) System.out.print(" - ");
+                if (flagged[i][j] && !visited[i][j]) System.out.print(" F ");
+                else if (!visited[i][j] && hidden) System.out.print(" - ");
                 else {
                     if (statuses[i][j] == -1) System.out.print(" B ");
                     else System.out.print(" " + statuses[i][j] + " ");
@@ -102,5 +104,9 @@ public class MinesweeperBoard {
             }
         }
         return false;
+    }
+
+    public void toggleFlag(int i, int j) {
+        flagged[i][j] = !flagged[i][j];
     }
 }
