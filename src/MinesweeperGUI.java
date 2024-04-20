@@ -4,9 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Map;
 
 public class MinesweeperGUI extends JFrame {
     private MinesweeperBoard board;
+    private Map<String, ImageIcon> images;
+    private final String icons = "012345678BF-";
     private JLabel[][] boardIcons;
     private JTextField gridSizeField;
     private JTextField bombPercentageField;
@@ -62,16 +65,26 @@ public class MinesweeperGUI extends JFrame {
             remove(boardIcons[0][0].getParent());
         }
 
+        images = new java.util.HashMap<>();
+        for (int i = 0; i < icons.length(); i++) {
+            try {
+                BufferedImage img = ImageIO.read(new File(icons.charAt(i) + ".png"));
+                ImageIcon ii = new ImageIcon(img.getScaledInstance(Math.min(getHeight() - 50, getWidth() - 100)/gridSize,
+                        Math.min(getHeight() - 50, getWidth() - 100)/gridSize, 0));
+                images.put(icons.charAt(i) + "", ii);
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
         GridLayout layout = new GridLayout(gridSize, gridSize);
         JPanel gamePanel = new JPanel(layout);
         boardIcons = new JLabel[gridSize][gridSize];
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 try {
-                    BufferedImage img = ImageIO.read(new File("-.png"));
-                    ImageIcon ii = new ImageIcon(img.getScaledInstance(Math.min(getHeight() - 50, getWidth() - 100)/gridSize,
-                            Math.min(getHeight() - 50, getWidth() - 100)/gridSize, 0));
-                    boardIcons[i][j] = new JLabel(ii);
+                    ImageIcon img = images.get("-");
+                    boardIcons[i][j] = new JLabel(img);
                     boardIcons[i][j].setBackground((i + j) % 2 == 0 ? new Color(172, 208, 94) : new Color(179, 214, 101));
                     boardIcons[i][j].setOpaque(true);
                 } catch(Exception e) {
@@ -125,10 +138,8 @@ public class MinesweeperGUI extends JFrame {
                     num = "-";
                 }
                 try {
-                    BufferedImage img = ImageIO.read(new File(num + ".png"));
-                    ImageIcon ii = new ImageIcon(img.getScaledInstance(Math.min(getHeight() - 50, getWidth() - 100) / boardIcons.length,
-                            Math.min(getHeight() - 50, getWidth() - 100) / boardIcons.length, 0));
-                    boardIcons[k][l].setIcon(ii);
+                    ImageIcon img = images.get(num);
+                    boardIcons[k][l].setIcon(img);
                 } catch(Exception e) {
                     System.out.println(e.getMessage());
                 }
