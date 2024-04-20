@@ -85,7 +85,7 @@ public class MinesweeperBoard {
     }
 
     public String getStringFor(int i, int j, boolean hidden) {
-        if (flagged[i][j] && !visited[i][j]) return "F";
+        if (flagged[i][j] && !visited[i][j] && hidden) return "F";
         else if (!visited[i][j] && hidden) return "-";
         else {
             if (statuses[i][j] == -1) return "B";
