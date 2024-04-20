@@ -1,10 +1,13 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class MinesweeperGUI extends JFrame {
     private MinesweeperBoard board;
-    private JButton[][] buttons;
+    private JLabel[][] boardIcons;
     private JTextField gridSizeField;
     private JTextField bombPercentageField;
     private JButton newGameButton;
@@ -12,9 +15,9 @@ public class MinesweeperGUI extends JFrame {
 
     public MinesweeperGUI(String title) {
         super(title);
-        setSize(1920, 1080);
+        setSize(1900, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setLayout(new FlowLayout());
 
         JPanel controlPanel = createControlPanel();
         add(controlPanel, BorderLayout.WEST);
@@ -55,39 +58,48 @@ public class MinesweeperGUI extends JFrame {
         int numBombs = (int) (gridSize * gridSize * bombPercentage / 100.0);
         board = new MinesweeperBoard(gridSize, numBombs);
 
-        if (buttons != null) {
-            remove(buttons[0][0].getParent());
+        if (boardIcons != null) {
+            remove(boardIcons[0][0].getParent());
         }
 
-        JPanel gamePanel = new JPanel(new GridLayout(gridSize, gridSize));
-        buttons = new JButton[gridSize][gridSize];
+        GridLayout layout = new GridLayout(gridSize, gridSize);
+        JPanel gamePanel = new JPanel(layout);
+        boardIcons = new JLabel[gridSize][gridSize];
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-                buttons[i][j] = new JButton("-");
+                try {
+                    BufferedImage img = ImageIO.read(new File("-.png"));
+                    ImageIcon ii = new ImageIcon(img.getScaledInstance(Math.min(getHeight() - 50, getWidth() - 100)/gridSize,
+                            Math.min(getHeight() - 50, getWidth() - 100)/gridSize, 0));
+                    boardIcons[i][j] = new JLabel(ii);
+                    boardIcons[i][j].setBackground((i + j) % 2 == 0 ? new Color(172, 208, 94) : new Color(179, 214, 101));
+                    boardIcons[i][j].setOpaque(true);
+                } catch(Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 int finalI = i;
                 int finalJ = j;
-                buttons[i][j].addMouseListener(new MouseAdapter() {
+                boardIcons[i][j].addMouseListener(new MouseAdapter() {
                     @Override
-                    public void mouseClicked(MouseEvent e) {
+                    public void mouseReleased(MouseEvent e) {
+                        if (e.getButton() == MouseEvent.BUTTON1) {
+                            if (firstClick) {
+                                board.regenUntilPlayable(finalI, finalJ);
+                                firstClick = false;
+                            }
+                            board.revealSpot(finalI, finalJ);
+                        }
                         if (e.getButton() == MouseEvent.BUTTON3) {
                             board.toggleFlag(finalI, finalJ);
-                            updateButtonsFromBoard();
                         }
+                        updateButtonsFromBoard();
                     }
                 });
-                buttons[i][j].addActionListener(e -> {
-                    if (firstClick) {
-                        board.regenUntilPlayable(finalI, finalJ);
-                        firstClick = false;
-                    }
-                    board.revealSpot(finalI, finalJ);
-                    updateButtonsFromBoard();
-                });
-                gamePanel.add(buttons[i][j]);
+                gamePanel.add(boardIcons[i][j]);
             }
         }
 
-        add(gamePanel, BorderLayout.CENTER);
+        add(gamePanel);
         revalidate();
         repaint();
     }
@@ -106,9 +118,20 @@ public class MinesweeperGUI extends JFrame {
 
         for (int k = 0; k < board.getDimension(); k++) {
             for (int l = 0; l < board.getDimension(); l++) {
-                String num = board.getStringFor(k, l, true);
-                buttons[k][l].setText(num);
-                buttons[k][l].setEnabled(num.equals("-"));
+                String num = board.getStringFor(k, l, state.equals("ongoing"));
+                if (state.equals("won")) {
+                    if (!num.equals("B"))
+                        boardIcons[k][l].setBackground((k + l) % 2 == 0 ? new Color(147, 195, 242) : new Color(156, 200, 245));
+                    num = "-";
+                }
+                try {
+                    BufferedImage img = ImageIO.read(new File(num + ".png"));
+                    ImageIcon ii = new ImageIcon(img.getScaledInstance(Math.min(getHeight() - 50, getWidth() - 100) / boardIcons.length,
+                            Math.min(getHeight() - 50, getWidth() - 100) / boardIcons.length, 0));
+                    boardIcons[k][l].setIcon(ii);
+                } catch(Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
         revalidate();

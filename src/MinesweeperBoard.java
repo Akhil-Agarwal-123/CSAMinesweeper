@@ -85,7 +85,7 @@ public class MinesweeperBoard {
     }
 
     public String getStringFor(int i, int j, boolean hidden) {
-        if (flagged[i][j] && !visited[i][j]) return "F";
+        if (flagged[i][j] && !visited[i][j] && hidden) return "F";
         else if (!visited[i][j] && hidden) return "-";
         else {
             if (statuses[i][j] == -1) return "B";
@@ -114,10 +114,11 @@ public class MinesweeperBoard {
     }
 
     public String getGameState() {
+        boolean full = true;
         for (int i = 0; i < d; i++) {
             for (int j = 0; j < d; j++) {
                 if (statuses[i][j] != -1 && !visited[i][j]) {
-                    return "ongoing";
+                    full = false;
                 }
                 if (statuses[i][j] == -1 && visited[i][j]) {
                     return "lost";
@@ -125,7 +126,7 @@ public class MinesweeperBoard {
             }
         }
 
-        return "won";
+        return full ? "won" : "ongoing";
     }
 
     public void toggleFlag(int i, int j) {
