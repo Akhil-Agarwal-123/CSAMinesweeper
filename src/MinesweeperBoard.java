@@ -93,6 +93,27 @@ public class MinesweeperBoard {
         }
     }
 
+    public boolean hint() {
+        int[][] possible = new int[d * d][2];
+        int count = 0;
+        for (int i = 0; i < d; i++) {
+            for (int j = 0; j < d; j++) {
+                if (!visited[i][j] && !flagged[i][j] && statuses[i][j] != -1) {
+                    possible[count][0] = i;
+                    possible[count][1] = j;
+                    count++;
+                }
+            }
+        }
+        if (count == 0) {
+            return false;
+        }
+        Random rand = new Random(System.currentTimeMillis());
+        int index = rand.nextInt(count);
+        revealSpot(possible[index][0], possible[index][1]);
+        return true;
+    }
+
     public int getCell(int i, int j) {
         return statuses[i][j];
     }

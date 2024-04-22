@@ -11,9 +11,11 @@ public class MinesweeperGUI extends JFrame {
     private Map<String, ImageIcon> images;
     private final String icons = "012345678BF-";
     private JLabel[][] boardIcons;
-    private JTextField gridSizeField;
-    private JTextField bombPercentageField;
+    private JSlider gridSizeSlider;
+    private JSlider bombPercentageSlider;
+    private JSlider clusterThresholdSlider;
     private JButton newGameButton;
+    private JButton hintButton;
     private boolean firstClick = true;
 
     public MinesweeperGUI(String title) {
@@ -36,23 +38,55 @@ public class MinesweeperGUI extends JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel gridSizeLabel = new JLabel("Grid Size:");
-        gridSizeField = new JTextField("10");
-        JLabel bombPercentageLabel = new JLabel("Bomb Percentage:");
-        bombPercentageField = new JTextField("20");
+        gridSizeSlider = new JSlider(2, 100, 10);
+        JLabel gridSizeLabel = new JLabel("Grid Size: " + gridSizeSlider.getValue());
+        gridSizeSlider.setPaintTrack(true);
+        gridSizeSlider.addChangeListener(e -> {
+            int gridSize = gridSizeSlider.getValue();
+            gridSizeLabel.setText("Grid Size: " + gridSize);
+        });
+
+        bombPercentageSlider = new JSlider(0, 100, 20);
+        JLabel bombPercentageLabel = new JLabel("Bomb Percentage: " + bombPercentageSlider.getValue() + "%");
+        bombPercentageSlider.setPaintTrack(true);
+        bombPercentageSlider.addChangeListener(e -> {
+            int bombPercentage = bombPercentageSlider.getValue();
+            bombPercentageLabel.setText("Bomb Percentage: " + bombPercentage + "%");
+        });
+
+        clusterThresholdSlider = new JSlider(0, 100, 0);
+        JLabel clusterThresholdLabel = new JLabel("Cluster Threshold: " + clusterThresholdSlider.getValue());
+        clusterThresholdSlider.setPaintTrack(true);
+        clusterThresholdSlider.addChangeListener(e -> {
+            int clusterThreshold = clusterThresholdSlider.getValue();
+            clusterThresholdLabel.setText("Cluster Threshold: " + clusterThreshold);
+        });
+
         newGameButton = new JButton("New Game");
         newGameButton.addActionListener(e -> {
-            int gridSize = Integer.parseInt(gridSizeField.getText());
-            int bombPercentage = Integer.parseInt(bombPercentageField.getText());
+            int gridSize = Integer.parseInt(gridSizeSlider.getValue() + "");
+            int bombPercentage = Integer.parseInt(bombPercentageSlider.getValue() + "");
             firstClick = true;
             newGame(gridSize, bombPercentage);
         });
 
+        hintButton = new JButton("Hint");
+        hintButton.addActionListener(e -> {
+            boolean ret = board.hint();
+            if (!ret) {
+                JOptionPane.showMessageDialog(this, "No hints available.");
+            }
+            updateButtonsFromBoard();
+        });
+
+        panel.add(gridSizeSlider);
         panel.add(gridSizeLabel);
-        panel.add(gridSizeField);
+        panel.add(bombPercentageSlider);
         panel.add(bombPercentageLabel);
-        panel.add(bombPercentageField);
+        panel.add(clusterThresholdSlider);
+        panel.add(clusterThresholdLabel);
         panel.add(newGameButton);
+        panel.add(hintButton);
 
         return panel;
     }
