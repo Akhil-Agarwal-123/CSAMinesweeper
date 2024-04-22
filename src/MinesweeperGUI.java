@@ -9,11 +9,12 @@ import java.util.Map;
 public class MinesweeperGUI extends JFrame {
     private MinesweeperBoard board;
     private Map<String, ImageIcon> images;
-    private final String icons = "012345678BF-";
+    private final String ICONS = "012345678BF-";
     private JLabel[][] boardIcons;
     private JSlider gridSizeSlider;
     private JSlider bombPercentageSlider;
     private JSlider clusterThresholdSlider;
+    private final int MAX_CLUSTER_THRESHOLD = 6;
     private JButton newGameButton;
     private JButton hintButton;
     private boolean firstClick = true;
@@ -27,7 +28,7 @@ public class MinesweeperGUI extends JFrame {
         JPanel controlPanel = createControlPanel();
         add(controlPanel, BorderLayout.WEST);
 
-        newGame(10, 20); // Default grid size and bomb percentage
+        newGame(gridSizeSlider.getValue(), bombPercentageSlider.getValue(), clusterThresholdSlider.getValue());
 
         pack();
         setLocationRelativeTo(null);
@@ -66,8 +67,9 @@ public class MinesweeperGUI extends JFrame {
         newGameButton.addActionListener(e -> {
             int gridSize = Integer.parseInt(gridSizeSlider.getValue() + "");
             int bombPercentage = Integer.parseInt(bombPercentageSlider.getValue() + "");
+            int clusterThreshold = Integer.parseInt(clusterThresholdSlider.getValue() + "");
             firstClick = true;
-            newGame(gridSize, bombPercentage);
+            newGame(gridSize, bombPercentage, clusterThreshold);
         });
 
         hintButton = new JButton("Hint");
@@ -91,21 +93,21 @@ public class MinesweeperGUI extends JFrame {
         return panel;
     }
 
-    private void newGame(int gridSize, int bombPercentage) {
+    private void newGame(int gridSize, int bombPercentage, int clusterThreshold) {
         int numBombs = (int) (gridSize * gridSize * bombPercentage / 100.0);
-        board = new MinesweeperBoard(gridSize, numBombs);
+        board = new MinesweeperBoard(gridSize, numBombs, clusterThreshold * MAX_CLUSTER_THRESHOLD / 100.0);
 
         if (boardIcons != null) {
             remove(boardIcons[0][0].getParent());
         }
 
         images = new java.util.HashMap<>();
-        for (int i = 0; i < icons.length(); i++) {
+        for (int i = 0; i < ICONS.length(); i++) {
             try {
-                BufferedImage img = ImageIO.read(new File(icons.charAt(i) + ".png"));
+                BufferedImage img = ImageIO.read(new File(ICONS.charAt(i) + ".png"));
                 ImageIcon ii = new ImageIcon(img.getScaledInstance(Math.min(getHeight() - 50, getWidth() - 100)/gridSize,
                         Math.min(getHeight() - 50, getWidth() - 100)/gridSize, 0));
-                images.put(icons.charAt(i) + "", ii);
+                images.put(ICONS.charAt(i) + "", ii);
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }

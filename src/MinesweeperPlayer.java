@@ -7,7 +7,7 @@ public class MinesweeperPlayer {
         System.out.print("Enter board dimension: ");
         int d = scan.nextInt();
         int mines = (int) (d * d * 0.2);
-        MinesweeperBoard board = new MinesweeperBoard(d, mines);
+        MinesweeperBoard board = new MinesweeperBoard(d, mines, 0);
         int i, j;
 
         board.printBoardHidden();

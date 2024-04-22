@@ -4,14 +4,16 @@ public class MinesweeperBoard {
     private final int[][] statuses;
     private final int d;
     private final int mines;
+    private final double clusteringThreshold;
     private final boolean[][] visited, flagged;
 
-    public MinesweeperBoard(int d, int mines) {
+    public MinesweeperBoard(int d, int mines, double clusteringThreshold) {
         statuses = new int[d][d];
         visited = new boolean[d][d];
         flagged = new boolean[d][d];
         this.d = d;
         this.mines = mines;
+        this.clusteringThreshold = clusteringThreshold;
 
         for (int i = 0; i < d; i++) {
             for (int j = 0; j < d; j++) {
@@ -33,7 +35,7 @@ public class MinesweeperBoard {
     }
 
     public void generateBoard() {
-        Random rand = new Random(System.currentTimeMillis());
+        int[] dij = {-1, 0, 1};
         for (int i = 0; i < d; i++) {
             for (int j = 0; j < d; j++) {
                 statuses[i][j] = 0; // not mine
@@ -41,18 +43,59 @@ public class MinesweeperBoard {
         }
 
         // place mines
-        int currMineCount = 0;
-        while (currMineCount < mines) {
-            int i = rand.nextInt(d);
-            int j = rand.nextInt(d);
-            if (statuses[i][j] != -1) {
-                statuses[i][j] = -1;
-                currMineCount++;
+        double thresholds[] = new double[d * d];
+        for (int i = 0; i < d; i++) {
+            for (int j = 0; j < d; j++) {
+                thresholds[i * d + j] = 1;
+            }
+        }
+        for (int currMineCount = 0; currMineCount < mines; currMineCount++) {
+            // normalize probabilities (softmax)
+            double max = -1;
+            for (int i = 0; i < d; i++) {
+                for (int j = 0; j < d; j++) {
+                    double t = thresholds[i * d + j];
+                    if (t > max) {
+                        max = t;
+                    }
+                }
+            }
+
+            double[] probabilities = new double[d * d];
+            double sum = 0;
+            for (int i = 0; i < d; i++) {
+                for (int j = 0; j < d; j++) {
+                    probabilities[i * d + j] = Math.exp(thresholds[i * d + j] - max);
+                    sum += probabilities[i * d + j];
+                }
+            }
+
+            // find random spot
+            int idx = 0;
+            for (double r = Math.random() * sum; idx < d * d - 1; idx++) {
+                r -= probabilities[idx];
+                if (r <= 0.0) break;
+            }
+
+            // place mine
+            int r = idx / d;
+            int c = idx % d;
+            statuses[r][c] = -1;
+            thresholds[r * d + c] = 0;
+
+            // update thresholds
+            for (int a : dij) {
+                for (int b : dij) {
+                    int newR = r + a;
+                    int newC = c + b;
+                    if (newR < d && newR >= 0 && newC < d && newC >= 0) {
+                        if (thresholds[newR * d + newC] == 1) thresholds[newR * d + newC] += clusteringThreshold;
+                    }
+                }
             }
         }
 
         // calculate numbers
-        int[] dij = {-1, 0, 1};
         for (int i = 0; i < d; i++) {
             for (int j = 0; j < d; j++) if (statuses[i][j] != -1) {
                 int count = 0;
@@ -71,6 +114,7 @@ public class MinesweeperBoard {
     public void printBoardAllRevealed() {
         printBoard(false);
     }
+
     public void printBoardHidden() {
         printBoard(true);
     }
