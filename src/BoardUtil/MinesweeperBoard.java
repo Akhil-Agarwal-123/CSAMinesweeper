@@ -1,27 +1,32 @@
+package BoardUtil;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MinesweeperBoard {
     private final int[][] statuses;
-    private final int d;
-    private final int mines;
+    private final int dim, mines;
     private final double clusteringThreshold;
     private final boolean[][] visited, flagged;
+    private Random rand;
 
-    public MinesweeperBoard(int d, int mines, double clusteringThreshold) {
-        statuses = new int[d][d];
-        visited = new boolean[d][d];
-        flagged = new boolean[d][d];
-        this.d = d;
+    public MinesweeperBoard(int dim, int mines, double clusteringThreshold) {
+        statuses = new int[dim][dim];
+        visited = new boolean[dim][dim];
+        flagged = new boolean[dim][dim];
+        this.dim = dim;
         this.mines = mines;
         this.clusteringThreshold = clusteringThreshold;
 
-        for (int i = 0; i < d; i++) {
-            for (int j = 0; j < d; j++) {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
                 statuses[i][j] = 0;
                 visited[i][j] = false;
                 flagged[i][j] = false;
             }
         }
+
+        rand = new Random(System.currentTimeMillis());
 
         generateBoard();
     }
@@ -34,74 +39,75 @@ public class MinesweeperBoard {
         return statuses[i][j] == 0;
     }
 
+    private boolean inRange(int i, int j) {
+        return i >= 0 && i < dim && j >= 0 && j < dim;
+    }
+
     public void generateBoard() {
         int[] dij = {-1, 0, 1};
-        for (int i = 0; i < d; i++) {
-            for (int j = 0; j < d; j++) {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
                 statuses[i][j] = 0; // not mine
             }
         }
 
         // place mines
-        double thresholds[] = new double[d * d];
-        for (int i = 0; i < d; i++) {
-            for (int j = 0; j < d; j++) {
-                thresholds[i * d + j] = 1;
+        double[] thresholds = new double[dim * dim];
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                thresholds[i * dim + j] = 1;
             }
         }
         for (int currMineCount = 0; currMineCount < mines; currMineCount++) {
             // normalize probabilities (softmax)
             double max = -1;
-            for (int i = 0; i < d; i++) {
-                for (int j = 0; j < d; j++) {
-                    double t = thresholds[i * d + j];
-                    if (t > max) {
-                        max = t;
-                    }
-                }
+            for (double threshold : thresholds) {
+                max = Math.max(max, threshold);
             }
 
-            double[] probabilities = new double[d * d];
+            double[] probabilities = new double[dim * dim];
             double sum = 0;
-            for (int i = 0; i < d; i++) {
-                for (int j = 0; j < d; j++) {
-                    probabilities[i * d + j] = Math.exp(thresholds[i * d + j] - max);
-                    sum += probabilities[i * d + j];
+            for (int i = 0; i < dim; i++) {
+                for (int j = 0; j < dim; j++) {
+                    if (thresholds[i * dim + j] == 0) probabilities[i * dim + j] = 0;
+                    else probabilities[i * dim + j] = Math.exp(thresholds[i * dim + j] - max);
+
+                    sum += probabilities[i * dim + j];
                 }
             }
 
             // find random spot
             int idx = 0;
-            for (double r = Math.random() * sum; idx < d * d - 1; idx++) {
+            for (double r = rand.nextDouble() * sum; idx < dim * dim; idx++) {
                 r -= probabilities[idx];
-                if (r <= 0.0) break;
+                if (r <= 0) break;
             }
 
             // place mine
-            int r = idx / d;
-            int c = idx % d;
+            int r = idx / dim;
+            int c = idx % dim;
             statuses[r][c] = -1;
-            thresholds[r * d + c] = 0;
+            thresholds[r * dim + c] = 0;
 
             // update thresholds
             for (int a : dij) {
                 for (int b : dij) {
                     int newR = r + a;
                     int newC = c + b;
-                    if (newR < d && newR >= 0 && newC < d && newC >= 0) {
-                        if (thresholds[newR * d + newC] == 1) thresholds[newR * d + newC] += clusteringThreshold;
+                    if (inRange(newR, newC) && thresholds[newR * dim + newC] == 1) {
+                        thresholds[newR * dim + newC] += clusteringThreshold;
                     }
                 }
             }
         }
 
-        // calculate numbers
-        for (int i = 0; i < d; i++) {
-            for (int j = 0; j < d; j++) if (statuses[i][j] != -1) {
+        // calculate numbers for non-bomb squares
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) if (statuses[i][j] != -1) {
                 int count = 0;
                 for (int a : dij) {
                     for (int b : dij) {
-                        if (i + a < d && i + a >= 0 && j + b < d && j + b >= 0 && statuses[i + a][j + b] == -1) {
+                        if (inRange(i + a, j + b) && statuses[i + a][j + b] == -1) {
                             count++;
                         }
                     }
@@ -120,8 +126,8 @@ public class MinesweeperBoard {
     }
 
     private void printBoard(boolean hidden) {
-        for (int i = 0; i < d; i++) {
-            for (int j = 0; j < d; j++) {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
                 System.out.print(" " + getStringFor(i, j, hidden) + " ");
             }
             System.out.println();
@@ -138,13 +144,12 @@ public class MinesweeperBoard {
     }
 
     public boolean hint() {
-        int[][] possible = new int[d * d][2];
+        ArrayList<int[]> possible = new ArrayList<>();
         int count = 0;
-        for (int i = 0; i < d; i++) {
-            for (int j = 0; j < d; j++) {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
                 if (!visited[i][j] && !flagged[i][j] && statuses[i][j] != -1) {
-                    possible[count][0] = i;
-                    possible[count][1] = j;
+                    possible.add(new int[] {i, j});
                     count++;
                 }
             }
@@ -152,9 +157,8 @@ public class MinesweeperBoard {
         if (count == 0) {
             return false;
         }
-        Random rand = new Random(System.currentTimeMillis());
         int index = rand.nextInt(count);
-        revealSpot(possible[index][0], possible[index][1]);
+        revealSpot(possible.get(index)[0], possible.get(index)[1]);
         return true;
     }
 
@@ -165,12 +169,12 @@ public class MinesweeperBoard {
     public void revealSpot(int i, int j) {
         if (visited[i][j]) return;
         visited[i][j] = true;
+
         if (statuses[i][j] == 0) {
             int[] dij = {-1, 0, 1};
             for (int a : dij) {
                 for (int b : dij) {
-                    if (i + a < d && i + a >= 0 && j + b < d && j + b >= 0 &&
-                            statuses[i + a][j + b] != -1) {
+                    if (inRange(i + a, j + b) && statuses[i + a][j + b] != -1) {
                         revealSpot(i + a, j + b);
                     }
                 }
@@ -178,20 +182,20 @@ public class MinesweeperBoard {
         }
     }
 
-    public String getGameState() {
-        boolean full = true;
-        for (int i = 0; i < d; i++) {
-            for (int j = 0; j < d; j++) {
+    public GameStatus getGameState() {
+        boolean uncoveredAllNonBombs = true;
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
                 if (statuses[i][j] != -1 && !visited[i][j]) {
-                    full = false;
+                    uncoveredAllNonBombs = false;
                 }
                 if (statuses[i][j] == -1 && visited[i][j]) {
-                    return "lost";
+                    return GameStatus.LOST;
                 }
             }
         }
 
-        return full ? "won" : "ongoing";
+        return uncoveredAllNonBombs ? GameStatus.WON : GameStatus.ONGOING;
     }
 
     public void toggleFlag(int i, int j) {
@@ -199,6 +203,6 @@ public class MinesweeperBoard {
     }
 
     public int getDimension() {
-        return d;
+        return dim;
     }
 }
