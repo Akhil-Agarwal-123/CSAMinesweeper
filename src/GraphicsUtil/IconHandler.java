@@ -19,7 +19,7 @@ public class IconHandler {
         String ICONS = "012345678BF-";
         for (int i = 0; i < ICONS.length(); i++) {
             try {
-                BufferedImage img = ImageIO.read(new File("resources/" + ICONS.charAt(i) + ".png"));
+                BufferedImage img = ImageIO.read(new File("assets/" + ICONS.charAt(i) + ".png"));
                 int imgDim = Math.min(h - 50, w - 100) / dim;
                 ImageIcon ii = new ImageIcon(img.getScaledInstance(imgDim, imgDim, 0));
                 ICON_MAP.put(ICONS.charAt(i) + "", ii);

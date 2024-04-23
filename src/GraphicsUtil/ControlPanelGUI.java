@@ -1,9 +1,11 @@
 package GraphicsUtil;
 
-import GameModes.NormalModeGame;
+import GameModes.*;
 import Global.Global;
 
 import javax.swing.*;
+import java.util.Map;
+import java.util.Objects;
 
 public class ControlPanelGUI extends JPanel {
     private final JSlider gridSizeSlider;
@@ -12,9 +14,19 @@ public class ControlPanelGUI extends JPanel {
     private final int MAX_CLUSTER_THRESHOLD = 6;
     private final JButton newGameButton;
     private final JButton hintButton;
+    private final JComboBox<String> gameModeDropdown;
+
+    private final Map<String, Class<? extends Game>> GAME_MODES = Map.of(
+            "Original Mode", NormalModeGame.class,
+            "Anti-Flag Mode", AntiFlagModeGame.class
+    );
+
     public ControlPanelGUI() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        gameModeDropdown = new JComboBox<>(GAME_MODES.keySet().toArray(new String[0]));
+        gameModeDropdown.setSelectedItem(GAME_MODES.keySet().iterator().next());
 
         gridSizeSlider = new JSlider(2, 100, 10);
         JLabel gridSizeLabel = new JLabel("Grid Size: " + gridSizeSlider.getValue());
@@ -51,6 +63,7 @@ public class ControlPanelGUI extends JPanel {
             Global.minesweeperGUI.boardGUI.update();
         });
 
+        add(gameModeDropdown);
         add(gridSizeSlider);
         add(gridSizeLabel);
         add(bombPercentageSlider);
@@ -61,6 +74,10 @@ public class ControlPanelGUI extends JPanel {
         add(hintButton);
     }
 
+    public String getGameMode() {
+        return Objects.requireNonNull(gameModeDropdown.getSelectedItem()).toString();
+    }
+
     public void newGame() {
         int gridSize = Integer.parseInt(gridSizeSlider.getValue() + "");
         int bombPercentage = Integer.parseInt(bombPercentageSlider.getValue() + "");
@@ -68,9 +85,20 @@ public class ControlPanelGUI extends JPanel {
 
         int numBombs = (int) (gridSize * gridSize * bombPercentage / 100.0);
 
-        Global.game = new NormalModeGame(gridSize, numBombs,
-                clusterThreshold * MAX_CLUSTER_THRESHOLD / 100.0,
-                Global.minesweeperGUI.getHeight(), Global.minesweeperGUI.getWidth());
+        try {
+            Global.game = GAME_MODES.get(getGameMode())
+                    .getDeclaredConstructor(int.class, int.class, double.class, int.class, int.class)
+                    .newInstance(
+                            gridSize,
+                            numBombs,
+                            clusterThreshold * (double) MAX_CLUSTER_THRESHOLD / 100.0,
+                            Global.minesweeperGUI.getHeight(),
+                            Global.minesweeperGUI.getWidth()
+                    );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (Global.minesweeperGUI.boardGUI != null)
             Global.minesweeperGUI.remove(Global.minesweeperGUI.boardGUI);
 
