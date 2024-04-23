@@ -18,7 +18,8 @@ public class ControlPanelGUI extends JPanel {
 
     private final Map<String, Class<? extends Game>> GAME_MODES = Map.of(
             "Original Mode", NormalModeGame.class,
-            "Anti-Flag Mode", AntiFlagModeGame.class
+            "Anti-Flag Mode", AntiFlagModeGame.class,
+            "Crazy House Mode", CrazyHouseModeGame.class
     );
 
     public ControlPanelGUI() {

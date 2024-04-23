@@ -11,7 +11,7 @@ public class NormalModeGame extends Game {
     }
 
     protected void onFirstClick(int i, int j) {
-        board.regenUntilPlayable(i, j);
+        board.genBoard(i, j);
         normalClick(i, j);
     }
 
