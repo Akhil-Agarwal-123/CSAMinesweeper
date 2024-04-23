@@ -26,7 +26,9 @@ public class BoardGUI extends JPanel {
                     @Override
                     public void mouseReleased(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON1) {
-                            Global.game.leftClick(finalI, finalJ);
+                            if (!Global.game.getVisited(finalI, finalJ)) {
+                                Global.game.leftClick(finalI, finalJ);
+                            }
                         }
                         if (e.getButton() == MouseEvent.BUTTON3) {
                             Global.game.rightClick(finalI, finalJ);

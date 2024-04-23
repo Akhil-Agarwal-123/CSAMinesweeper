@@ -31,6 +31,10 @@ public abstract class Game {
         firstClick = false;
     }
 
+    public boolean getVisited(int i, int j) {
+        return board.getVisited(i, j);
+    }
+
     protected abstract void onFirstClick(int i, int j);
 
     protected abstract void normalClick(int i, int j);
