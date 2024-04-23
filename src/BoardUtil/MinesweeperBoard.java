@@ -27,23 +27,53 @@ public class MinesweeperBoard {
         }
 
         rand = new Random(System.currentTimeMillis());
-
-        generateBoard();
-    }
-
-    public void regenUntilPlayable(int i, int j) {
-        while (!isZero(i, j)) generateBoard();
-    }
-
-    public boolean isZero(int i, int j) {
-        return statuses[i][j] == 0;
     }
 
     private boolean inRange(int i, int j) {
         return i >= 0 && i < dim && j >= 0 && j < dim;
     }
 
-    public void generateBoard() {
+    public void clearFlags() {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                flagged[i][j] = false;
+            }
+        }
+    }
+
+    public boolean getVisited(int i, int j) {
+        return visited[i][j];
+    }
+
+    public void setVisited(int i, int j, boolean value) {
+        visited[i][j] = value;
+    }
+
+    public void genBoard(int i, int j) {
+        int[][] mineMask = new int[dim][dim];
+        for (int a = 0; a < dim; a++) {
+            for (int b = 0; b < dim; b++) {
+                mineMask[a][b] = 1;
+            }
+        }
+
+        // 0 probability for spawning a mine on a clicked cell
+        int[] dij = {-1, 0, 1};
+        for (int a : dij) {
+            for (int b : dij) {
+                if (inRange(i + a, j + b)) {
+                    mineMask[i + a][j + b] = 0;
+                }
+            }
+        }
+        generateBoard(mineMask);
+    }
+
+    public void genBoard(int[][] mineMask) {
+        generateBoard(mineMask);
+    }
+
+    public void generateBoard(int[][] mineMask) {
         int[] dij = {-1, 0, 1};
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
@@ -71,6 +101,9 @@ public class MinesweeperBoard {
                 for (int j = 0; j < dim; j++) {
                     if (thresholds[i * dim + j] == 0) probabilities[i * dim + j] = 0;
                     else probabilities[i * dim + j] = Math.exp(thresholds[i * dim + j] - max);
+
+                    // mineMask is 1 if you can place a mine there, and 0 if you can't
+                    if (mineMask[i][j] == 0) probabilities[i * dim + j] = 0;
 
                     sum += probabilities[i * dim + j];
                 }
@@ -162,8 +195,14 @@ public class MinesweeperBoard {
         return true;
     }
 
-    public int getCell(int i, int j) {
-        return statuses[i][j];
+    public int[][] getStatuses() {
+        return statuses;
+    }
+
+    public void setStatuses(int[][] statuses) {
+        for (int i = 0; i < dim; i++) {
+            System.arraycopy(statuses[i], 0, this.statuses[i], 0, dim);
+        }
     }
 
     public void revealSpot(int i, int j) {
