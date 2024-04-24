@@ -22,7 +22,7 @@ public class CrazyHouseModeGame extends NormalModeGame{
             return;
         }
 
-        // generate a new board with special mine map
+        // generate a new board with special mine mask
         int[][] mineMask = new int[board.getDimension()][board.getDimension()];
         for (int a = 0; a < board.getDimension(); a++) {
             for (int b = 0; b < board.getDimension(); b++) {
@@ -35,11 +35,14 @@ public class CrazyHouseModeGame extends NormalModeGame{
         }
         board.genBoard(mineMask);
 
-        // TODO: Optimize? When there's a new board just expand at each visited spot so numbers are on edges
         for (int a = 0; a < board.getDimension(); a++) {
             for (int b = 0; b < board.getDimension(); b++) {
-                if (board.getVisited(a, b)) {
-                    board.setVisited(a, b, false);
+                board.setVisited(a, b, false);
+            }
+        }
+        for (int a = 0; a < board.getDimension(); a++) {
+            for (int b = 0; b < board.getDimension(); b++) {
+                if (mineMask[a][b] == 0 && !board.getVisited(a, b)) {
                     board.revealSpot(a, b);
                 }
             }
