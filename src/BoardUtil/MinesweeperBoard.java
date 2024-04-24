@@ -102,9 +102,6 @@ public class MinesweeperBoard {
                     if (thresholds[i * dim + j] == 0) probabilities[i * dim + j] = 0;
                     else probabilities[i * dim + j] = Math.exp(thresholds[i * dim + j] - max);
 
-//                    // mineMask is 1 if you can place a mine there, and 0 if you can't
-//                    if (mineMask[i][j] == 0) probabilities[i * dim + j] = 0;
-
                     sum += probabilities[i * dim + j];
                 }
             }

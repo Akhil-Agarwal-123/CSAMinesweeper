@@ -31,10 +31,13 @@ public class CrazyHouseModeGame extends NormalModeGame{
                     mineMask[a][b] = 0;
                 } else {
                     mineMask[a][b] = 1;
-                    for (int di : dij)
-                        for (int dj : dij)
-                            if (board.inRange(a + di, b + dj) && board.getVisited(a + di, b + dj))
+                    for (int di : dij) {
+                        for (int dj : dij) {
+                            if (board.inRange(a + di, b + dj) && board.getVisited(a + di, b + dj)) {
                                 mineMask[a][b] = 2.5;
+                            }
+                        }
+                    }
                 }
             }
         }
