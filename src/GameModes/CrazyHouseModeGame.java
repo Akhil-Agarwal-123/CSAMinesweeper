@@ -12,13 +12,17 @@ public class CrazyHouseModeGame extends NormalModeGame{
 
     protected void normalClick(int i, int j) {
         board.revealSpot(i, j);
+
+        // flags won't be needed on new board
         board.clearFlags();
 
+        // don't regen board if game is over
         GameStatus gameState = board.getGameState();
         if (gameState != GameStatus.ONGOING) {
             return;
         }
 
+        // generate a new board with special mine map
         int[][] mineMask = new int[board.getDimension()][board.getDimension()];
         for (int a = 0; a < board.getDimension(); a++) {
             for (int b = 0; b < board.getDimension(); b++) {
