@@ -29,7 +29,7 @@ public class MinesweeperBoard {
         rand = new Random(System.currentTimeMillis());
     }
 
-    private boolean inRange(int i, int j) {
+    public boolean inRange(int i, int j) {
         return i >= 0 && i < dim && j >= 0 && j < dim;
     }
 
@@ -50,7 +50,7 @@ public class MinesweeperBoard {
     }
 
     public void genBoard(int i, int j) {
-        int[][] mineMask = new int[dim][dim];
+        double[][] mineMask = new double[dim][dim];
         for (int a = 0; a < dim; a++) {
             for (int b = 0; b < dim; b++) {
                 mineMask[a][b] = 1;
@@ -69,11 +69,11 @@ public class MinesweeperBoard {
         generateBoard(mineMask);
     }
 
-    public void genBoard(int[][] mineMask) {
+    public void genBoard(double[][] mineMask) {
         generateBoard(mineMask);
     }
 
-    public void generateBoard(int[][] mineMask) {
+    private void generateBoard(double[][] mineMask) {
         int[] dij = {-1, 0, 1};
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
@@ -85,7 +85,7 @@ public class MinesweeperBoard {
         double[] thresholds = new double[dim * dim];
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                thresholds[i * dim + j] = 1;
+                thresholds[i * dim + j] = mineMask[i][j];
             }
         }
         for (int currMineCount = 0; currMineCount < mines; currMineCount++) {
@@ -102,8 +102,8 @@ public class MinesweeperBoard {
                     if (thresholds[i * dim + j] == 0) probabilities[i * dim + j] = 0;
                     else probabilities[i * dim + j] = Math.exp(thresholds[i * dim + j] - max);
 
-                    // mineMask is 1 if you can place a mine there, and 0 if you can't
-                    if (mineMask[i][j] == 0) probabilities[i * dim + j] = 0;
+//                    // mineMask is 1 if you can place a mine there, and 0 if you can't
+//                    if (mineMask[i][j] == 0) probabilities[i * dim + j] = 0;
 
                     sum += probabilities[i * dim + j];
                 }
