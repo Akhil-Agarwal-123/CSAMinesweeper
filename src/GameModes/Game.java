@@ -2,6 +2,7 @@ package GameModes;
 
 import BoardUtil.GameStatus;
 import BoardUtil.MinesweeperBoard;
+import BoardUtil.SquareBoard;
 import GraphicsUtil.IconHandler;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ public abstract class Game {
     }
 
     public void newGame(int dim, int mines, double clusteringThreshold, int h, int w) {
-        board = new MinesweeperBoard(dim, mines, clusteringThreshold);
+        board = new SquareBoard(dim, mines, clusteringThreshold);
         status = GameStatus.ONGOING;
         iconHandler = new IconHandler(h, w, dim);
         firstClick = true;

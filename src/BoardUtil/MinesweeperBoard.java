@@ -1,13 +1,14 @@
 package BoardUtil;
 
 import Global.Global;
+
 import java.util.ArrayList;
 
-public class MinesweeperBoard {
-    private final int[][] statuses;
-    private final int dim, mines;
-    private final double clusteringThreshold;
-    private final boolean[][] visited, flagged;
+public abstract class MinesweeperBoard {
+    protected final int[][] statuses;
+    protected final int dim, mines;
+    protected final double clusteringThreshold;
+    protected final boolean[][] visited, flagged;
 
     public MinesweeperBoard(int dim, int mines, double clusteringThreshold) {
         statuses = new int[dim][dim];
@@ -38,6 +39,8 @@ public class MinesweeperBoard {
         }
     }
 
+    protected abstract ArrayList<int[]> getNeighbors(int i, int j);
+
     public boolean getVisited(int i, int j) {
         return visited[i][j];
     }
@@ -55,14 +58,14 @@ public class MinesweeperBoard {
         }
 
         // 0 probability for spawning a mine on a clicked cell
-        int[] dij = {-1, 0, 1};
-        for (int a : dij) {
-            for (int b : dij) {
-                if (inRange(i + a, j + b)) {
-                    mineMask[i + a][j + b] = 0;
-                }
-            }
+        ArrayList<int[]> neighbors = getNeighbors(i, j);
+        for (int[] neighbor : neighbors) {
+            int a = neighbor[0];
+            int b = neighbor[1];
+            mineMask[a][b] = 0;
         }
+        mineMask[i][j] = 0;
+
         generateBoard(mineMask);
     }
 
@@ -70,21 +73,25 @@ public class MinesweeperBoard {
         generateBoard(mineMask);
     }
 
-    private void generateBoard(double[][] mineMask) {
-        int[] dij = {-1, 0, 1};
+    protected void generateBoard(double[][] mineMask) {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 statuses[i][j] = 0; // not mine
             }
         }
 
-        // place mines
+        placeMines(mineMask);
+        calculateNumbers();
+    }
+
+    protected void placeMines(double[][] mineMask) {
         double[] thresholds = new double[dim * dim];
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 thresholds[i * dim + j] = mineMask[i][j];
             }
         }
+
         for (int currMineCount = 0; currMineCount < mines; currMineCount++) {
             // normalize probabilities (softmax)
             double max = -1;
@@ -117,29 +124,34 @@ public class MinesweeperBoard {
             thresholds[r * dim + c] = 0;
 
             // update thresholds
-            for (int a : dij) {
-                for (int b : dij) {
-                    int newR = r + a;
-                    int newC = c + b;
-                    if (inRange(newR, newC) && thresholds[newR * dim + newC] == 1) {
-                        thresholds[newR * dim + newC] += clusteringThreshold;
-                    }
+            ArrayList<int[]> neighbors = getNeighbors(r, c);
+            for (int[] neighbor : neighbors) {
+                int a = neighbor[0];
+                int b = neighbor[1];
+                if (thresholds[a * dim + b] > 0) {
+                    thresholds[a * dim + b] += clusteringThreshold;
                 }
             }
         }
+    }
 
-        // calculate numbers for non-bomb squares
+    protected void calculateNumbers() {
         for (int i = 0; i < dim; i++) {
-            for (int j = 0; j < dim; j++) if (statuses[i][j] != -1) {
-                int count = 0;
-                for (int a : dij) {
-                    for (int b : dij) {
-                        if (inRange(i + a, j + b) && statuses[i + a][j + b] == -1) {
+            for (int j = 0; j < dim; j++) {
+                if (statuses[i][j] != -1) {
+                    int count = 0;
+
+                    ArrayList<int[]> dij = getNeighbors(i, j);
+                    for (int[] neighbor : dij) {
+                        int a = neighbor[0];
+                        int b = neighbor[1];
+                        if (statuses[a][b] == -1) {
                             count++;
                         }
                     }
+
+                    statuses[i][j] = count;
                 }
-                statuses[i][j] = count;
             }
         }
     }
@@ -152,14 +164,7 @@ public class MinesweeperBoard {
         printBoard(true);
     }
 
-    private void printBoard(boolean hidden) {
-        for (int i = 0; i < dim; i++) {
-            for (int j = 0; j < dim; j++) {
-                System.out.print(" " + getStringFor(i, j, hidden) + " ");
-            }
-            System.out.println();
-        }
-    }
+    protected abstract void printBoard(boolean hidden);
 
     public String getStringFor(int i, int j, boolean hidden) {
         if (flagged[i][j] && !visited[i][j] && hidden) return "F";
@@ -190,15 +195,14 @@ public class MinesweeperBoard {
     }
 
     public void placeMine(int i, int j) {
-        int[] dij = {-1, 0, 1};
-
         statuses[i][j] = -1;
 
-        for (int a : dij) {
-            for (int b : dij) {
-                if (inRange(i + a, j + b) && statuses[i + a][j + b] != -1) {
-                    statuses[i + a][j + b]++;
-                }
+        ArrayList<int[]> neighbors = getNeighbors(i, j);
+        for (int[] neighbor : neighbors) {
+            int a = neighbor[0];
+            int b = neighbor[1];
+            if (statuses[a][b] != -1) {
+                statuses[a][b]++;
             }
         }
     }
@@ -207,27 +211,17 @@ public class MinesweeperBoard {
         return statuses[i][j] == -1;
     }
 
-    public int[][] getStatuses() {
-        return statuses;
-    }
-
-    public void setStatuses(int[][] statuses) {
-        for (int i = 0; i < dim; i++) {
-            System.arraycopy(statuses[i], 0, this.statuses[i], 0, dim);
-        }
-    }
-
     public void revealSpot(int i, int j) {
         if (visited[i][j]) return;
         visited[i][j] = true;
 
         if (statuses[i][j] == 0) {
-            int[] dij = {-1, 0, 1};
-            for (int a : dij) {
-                for (int b : dij) {
-                    if (inRange(i + a, j + b) && statuses[i + a][j + b] != -1) {
-                        revealSpot(i + a, j + b);
-                    }
+            ArrayList<int[]> neighbors = getNeighbors(i, j);
+
+            for (int[] neighbor : neighbors) {
+                int a = neighbor[0], b = neighbor[1];
+                if (statuses[a][b] != -1) {
+                    revealSpot(a, b);
                 }
             }
         }
