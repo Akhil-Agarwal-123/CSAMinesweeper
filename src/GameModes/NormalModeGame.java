@@ -32,16 +32,31 @@ public class NormalModeGame extends Game {
     }
 
     public Color getBackgroundColor(int i, int j) {
-        if (status == GameStatus.WON && !board.getStringFor(i, j, false).equals("B")) {
-            return (i + j) % 2 == 0 ?
-                    new Color(147, 195, 242) :
-                    new Color(156, 200, 245);
+        if (status != GameStatus.ONGOING) {
+            // if game is over display mines as red
+            if (board.getMine(i, j)) {
+                return (i + j) % 2 == 0 ?
+                        new Color(255, 0, 0) :
+                        new Color(255, 51, 51);
+            }
         }
+
+        if (status == GameStatus.WON) {
+            // display cells as blue if you win
+            if (!board.getMine(i, j)) {
+                return (i + j) % 2 == 0 ?
+                        new Color(147, 195, 242) :
+                        new Color(156, 200, 245);
+            }
+        }
+
         if (board.getVisited(i, j)) {
+            // visited cells are light brown
             return (i + j) % 2 == 0 ?
                     new Color(215, 184, 153) :
                     new Color(229, 194, 159);
         } else {
+            // unvisited cells are green
             return (i + j) % 2 == 0 ?
                     new Color(172, 208, 94) :
                     new Color(179, 214, 101);
