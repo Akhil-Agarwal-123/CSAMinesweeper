@@ -16,4 +16,6 @@ An AP Computer Science A class project, made with Java swing.
   - Original
   - Anti-Flag
   - Crazy House
+  - Mine Tick
+  - Automated Board
 - Mine clustering algorithm
