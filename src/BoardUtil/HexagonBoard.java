@@ -32,8 +32,8 @@ public class HexagonBoard extends MinesweeperBoard {
 
     protected void printBoard(boolean hidden) {
         for (int i = 0; i < dim; i++) {
+            if (i % 2 == 1) System.out.print("  ");
             for (int j = 0; j < dim; j++) {
-                if (j % 2 == 1) System.out.print(" ");
                 System.out.print(" " + getStringFor(i, j, hidden) + " ");
             }
             System.out.println();
