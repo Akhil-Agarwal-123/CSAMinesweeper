@@ -10,11 +10,6 @@ public class NormalModeGame extends Game {
         super(dim, mines, clusteringThreshold, h, w);
     }
 
-    protected void onFirstClick(int i, int j) {
-        board.genBoard(i, j);
-        normalClick(i, j);
-    }
-
     protected void normalClick(int i, int j) {
         board.revealSpot(i, j);
     }
@@ -25,10 +20,6 @@ public class NormalModeGame extends Game {
 
     public boolean hint() {
         return board.hint();
-    }
-
-    public void updateGameStatus() {
-        status = board.getGameState();
     }
 
     public Color getBackgroundColor(int i, int j) {

@@ -13,6 +13,7 @@ public abstract class Game {
     protected GameStatus status;
     protected IconHandler iconHandler;
     protected boolean firstClick;
+    protected Thread backgroundTask;
 
     public Game(int dim, int mines, double clusteringThreshold, int h, int w) {
         newGame(dim, mines, clusteringThreshold, h, w);
@@ -36,7 +37,14 @@ public abstract class Game {
         return board.getVisited(i, j);
     }
 
-    protected abstract void onFirstClick(int i, int j);
+    protected void onFirstClick(int i, int j) {
+        board.genBoard(i, j);
+        normalClick(i, j);
+
+        if (backgroundTask != null) {
+            backgroundTask.start();
+        }
+    }
 
     protected abstract void normalClick(int i, int j);
 
@@ -44,7 +52,13 @@ public abstract class Game {
 
     public abstract boolean hint();
 
-    public abstract void updateGameStatus();
+    public void updateGameStatus() {
+        status = board.getGameState();
+
+        if (status != GameStatus.ONGOING && backgroundTask != null) {
+            backgroundTask.interrupt();
+        }
+    }
 
     public GameStatus getLastUpdatedGameStatus() {
         return status;

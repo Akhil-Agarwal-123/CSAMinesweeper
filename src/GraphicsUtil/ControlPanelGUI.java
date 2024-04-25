@@ -20,7 +20,8 @@ public class ControlPanelGUI extends JPanel {
             "Original Mode", NormalModeGame.class,
             "Anti-Flag Mode", AntiFlagModeGame.class,
             "Crazy House Mode", CrazyHouseModeGame.class,
-            "Mine Tick Mode", MineTickModeGame.class
+            "Mine Tick Mode", MineTickModeGame.class,
+            "Automated Board Mode", AutomatedBoardModeGame.class
     );
 
     public ControlPanelGUI() {
