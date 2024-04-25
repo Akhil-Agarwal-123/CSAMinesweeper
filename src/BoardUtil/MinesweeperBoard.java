@@ -1,14 +1,13 @@
 package BoardUtil;
 
+import Global.Global;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MinesweeperBoard {
     private final int[][] statuses;
     private final int dim, mines;
     private final double clusteringThreshold;
     private final boolean[][] visited, flagged;
-    private Random rand;
 
     public MinesweeperBoard(int dim, int mines, double clusteringThreshold) {
         statuses = new int[dim][dim];
@@ -25,8 +24,6 @@ public class MinesweeperBoard {
                 flagged[i][j] = false;
             }
         }
-
-        rand = new Random(System.currentTimeMillis());
     }
 
     public boolean inRange(int i, int j) {
@@ -108,7 +105,7 @@ public class MinesweeperBoard {
 
             // find random spot
             int idx = 0;
-            for (double r = rand.nextDouble() * sum; idx < dim * dim; idx++) {
+            for (double r = Global.rand.nextDouble() * sum; idx < dim * dim; idx++) {
                 r -= probabilities[idx];
                 if (r <= 0) break;
             }
@@ -187,9 +184,27 @@ public class MinesweeperBoard {
         if (count == 0) {
             return false;
         }
-        int index = rand.nextInt(count);
+        int index = Global.rand.nextInt(count);
         revealSpot(possible.get(index)[0], possible.get(index)[1]);
         return true;
+    }
+
+    public void placeMine(int i, int j) {
+        int[] dij = {-1, 0, 1};
+
+        statuses[i][j] = -1;
+
+        for (int a : dij) {
+            for (int b : dij) {
+                if (inRange(i + a, j + b) && statuses[i + a][j + b] != -1) {
+                    statuses[i + a][j + b]++;
+                }
+            }
+        }
+    }
+
+    public boolean getMine(int i, int j) {
+        return statuses[i][j] == -1;
     }
 
     public int[][] getStatuses() {

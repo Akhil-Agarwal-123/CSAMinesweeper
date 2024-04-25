@@ -16,9 +16,10 @@ public class IconHandler {
 
     public void regen(int h, int w, int dim) {
         ICON_MAP.clear();
-        String ICONS = "012345678BF-";
+        String ICONS = "12345678BF-";
         for (int i = 0; i < ICONS.length(); i++) {
             try {
+                // String extension = String.valueOf(ICONS.charAt(i)).matches("[1-8]") ? ".svg" : ".png";
                 BufferedImage img = ImageIO.read(new File("assets/" + ICONS.charAt(i) + ".png"));
                 int imgDim = Math.min(h - 50, w - 100) / dim;
                 ImageIcon ii = new ImageIcon(img.getScaledInstance(imgDim, imgDim, 0));

@@ -37,9 +37,15 @@ public class NormalModeGame extends Game {
                     new Color(147, 195, 242) :
                     new Color(156, 200, 245);
         }
-        return (i + j) % 2 == 0 ?
-                new Color(172, 208, 94) :
-                new Color(179, 214, 101);
+        if (board.getVisited(i, j)) {
+            return (i + j) % 2 == 0 ?
+                    new Color(215, 184, 153) :
+                    new Color(229, 194, 159);
+        } else {
+            return (i + j) % 2 == 0 ?
+                    new Color(172, 208, 94) :
+                    new Color(179, 214, 101);
+        }
     }
 
     public ImageIcon getIcon(int i, int j) {
