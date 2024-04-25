@@ -39,7 +39,7 @@ public abstract class MinesweeperBoard {
         }
     }
 
-    protected abstract ArrayList<int[]> getNeighbors(int i, int j);
+    public abstract ArrayList<int[]> getNeighbors(int i, int j);
 
     public boolean getVisited(int i, int j) {
         return visited[i][j];

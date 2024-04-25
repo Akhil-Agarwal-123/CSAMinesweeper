@@ -11,22 +11,23 @@ public class HexagonBoard extends MinesweeperBoard {
 
     public ArrayList<int[]> getNeighbors(int i, int j) {
         ArrayList<int[]> neighbors = new ArrayList<>();
-        int[] dij = {-1, 0, 1};
-        for (int a : dij) {
-            for (int b : dij) {
-                if (a == 0 && b == 0) continue;
-                if (inRange(i + a, j + b)) {
-                    neighbors.add(new int[]{i + a, j + b});
-                }
-
-                if (b != 0) {
-                    int offset = (i % 2 == 0) ? -1 : 1;
-                    if (inRange(i + a + offset, j + b)) {
-                        neighbors.add(new int[]{i + a + offset, j + b});
-                    }
-                }
+        int[] dij = {-1, 1};
+        for (int h : dij) {
+            if (inRange(i, j + h)) {
+                neighbors.add(new int[]{i, j + h});
             }
         }
+
+        int offset = (i % 2 == 0) ? -1 : 1;
+        for (int v : dij) {
+            if (inRange(i + v, j)) {
+                neighbors.add(new int[]{i + v, j});
+            }
+            if (inRange(i + v, j + offset)) {
+                neighbors.add(new int[]{i + v, j + offset});
+            }
+        }
+
         return neighbors;
     }
 
