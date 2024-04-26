@@ -31,6 +31,6 @@ public class IconHandler {
     }
 
     public ImageIcon getIcon(String s) {
-        return ICON_MAP.get(s);
+        return ICON_MAP.get(s.equals("0") ? "-" : s);
     }
 }

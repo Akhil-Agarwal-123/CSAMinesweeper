@@ -1,5 +1,6 @@
 package GraphicsUtil;
 
+import BoardUtil.BoardType;
 import GameModes.*;
 import Global.Global;
 
@@ -21,6 +22,7 @@ public class ControlPanelGUI extends JPanel {
             "Anti-Flag Mode", AntiFlagModeGame.class,
             "Crazy House Mode", CrazyHouseModeGame.class,
             "Mine Tick Mode", MineTickModeGame.class,
+            "Hexagon Mode", HexagonModeGame.class,
             "Automated Board Mode", AutomatedBoardModeGame.class
     );
 
@@ -105,7 +107,7 @@ public class ControlPanelGUI extends JPanel {
         if (Global.minesweeperGUI.boardGUI != null)
             Global.minesweeperGUI.remove(Global.minesweeperGUI.boardGUI);
 
-        Global.minesweeperGUI.boardGUI = new BoardGUI();
+        Global.minesweeperGUI.boardGUI = new BoardGUI(getGameMode().equals("Hexagon Mode") ? BoardType.HEXAGON : BoardType.SQUARE);
         Global.minesweeperGUI.add(Global.minesweeperGUI.boardGUI);
 
         Global.minesweeperGUI.revalidate();

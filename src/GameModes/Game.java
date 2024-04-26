@@ -1,8 +1,6 @@
 package GameModes;
 
-import BoardUtil.GameStatus;
-import BoardUtil.MinesweeperBoard;
-import BoardUtil.SquareBoard;
+import BoardUtil.*;
 import GraphicsUtil.IconHandler;
 
 import javax.swing.*;
@@ -15,12 +13,13 @@ public abstract class Game {
     protected boolean firstClick;
     protected Thread backgroundTask;
 
-    public Game(int dim, int mines, double clusteringThreshold, int h, int w) {
-        newGame(dim, mines, clusteringThreshold, h, w);
+    public Game(BoardType boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
+        newGame(boardType, dim, mines, clusteringThreshold, h, w);
     }
 
-    public void newGame(int dim, int mines, double clusteringThreshold, int h, int w) {
-        board = new SquareBoard(dim, mines, clusteringThreshold);
+    public void newGame(BoardType boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
+        board = boardType == BoardType.SQUARE ? new SquareBoard(dim, mines, clusteringThreshold) :
+                new HexagonBoard(dim, mines, clusteringThreshold);
         status = GameStatus.ONGOING;
         iconHandler = new IconHandler(h, w, dim);
         firstClick = true;

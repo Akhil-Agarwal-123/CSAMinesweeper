@@ -21,7 +21,6 @@ public class MinesweeperGUI extends JFrame {
         add(controlPanelGUI, BorderLayout.WEST);
         controlPanelGUI.newGame();
 
-        pack();
         setLocationRelativeTo(null);
     }
 }
