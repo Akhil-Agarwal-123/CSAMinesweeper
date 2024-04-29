@@ -47,7 +47,6 @@ public abstract class Game {
     }
 
     public void newGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
-        // option 1
         try {
             board = BOARD_TYPES.get(boardType).getDeclaredConstructor(int.class, int.class, double.class)
                     .newInstance(dim, mines, clusteringThreshold);
@@ -55,12 +54,6 @@ public abstract class Game {
             e.printStackTrace();
         }
 
-//        // option 2
-//        if (boardType.equals(SquareBoardGUI.class)) {
-//            board = new SquareBoard(dim, mines, clusteringThreshold);
-//        } else if (boardType.equals(HexagonBoardGUI.class)) {
-//            board = new HexagonBoard(dim, mines, clusteringThreshold);
-//        }
         status = GameStatus.ONGOING;
         iconHandler = new IconHandler(h, w, dim);
         firstClick = true;
