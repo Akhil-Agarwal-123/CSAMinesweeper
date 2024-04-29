@@ -1,12 +1,13 @@
 package GameModes;
 
-import BoardUtil.GameStatus;
 import Global.Global;
+import GraphicsUtil.BoardGUI;
+
 import java.util.ArrayList;
 
-public class MineTickModeGame extends NormalModeGame{
-    public MineTickModeGame(int dim, int mines, double clusteringThreshold, int h, int w) {
-        super(dim, mines, clusteringThreshold, h, w);
+public class MineTickModeGame extends NormalModeGame {
+    public MineTickModeGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
+        super(boardType, dim, mines, clusteringThreshold, h, w);
     }
 
     protected void normalClick(int i, int j) {

@@ -2,13 +2,14 @@ package GameModes;
 
 import BoardUtil.GameStatus;
 import Global.Global;
+import GraphicsUtil.BoardGUI;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
 public class AutomatedBoardModeGame extends NormalModeGame {
-    public AutomatedBoardModeGame(int dim, int mines, double clusteringThreshold, int h, int w) {
-        super(dim, mines, clusteringThreshold, h, w);
+    public AutomatedBoardModeGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
+        super(boardType, dim, mines, clusteringThreshold, h, w);
 
         final int TIME_INTERVAL = 5;  // seconds
         final double CHANCE_BOMB = 0.05;

@@ -1,7 +1,5 @@
 package GraphicsUtil;
 
-import BoardUtil.BoardType;
-import BoardUtil.MinesweeperBoard;
 import GameModes.*;
 import Global.Global;
 
@@ -16,20 +14,26 @@ public class ControlPanelGUI extends JPanel {
     private final int MAX_CLUSTER_THRESHOLD = 6;
     private final JButton newGameButton;
     private final JButton hintButton;
-    private final JComboBox<String> gameModeDropdown;
+    private final JComboBox<String> boardShapeDropdown, gameModeDropdown;
 
+    private final Map<String, Class<? extends BoardGUI>> BOARD_SHAPES = Map.of(
+            "Square Board", SquareBoardGUI.class,
+            "Hexagonal Board", HexagonBoardGUI.class
+    );
     private final Map<String, Class<? extends Game>> GAME_MODES = Map.of(
             "Original Mode", NormalModeGame.class,
             "Anti-Flag Mode", AntiFlagModeGame.class,
             "Crazy House Mode", CrazyHouseModeGame.class,
             "Mine Tick Mode", MineTickModeGame.class,
-            "Hexagon Mode", HexagonModeGame.class,
             "Automated Board Mode", AutomatedBoardModeGame.class
     );
 
     public ControlPanelGUI() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        boardShapeDropdown = new JComboBox<>(BOARD_SHAPES.keySet().toArray(new String[0]));
+        boardShapeDropdown.setSelectedItem(BOARD_SHAPES.keySet().iterator().next());
 
         gameModeDropdown = new JComboBox<>(GAME_MODES.keySet().toArray(new String[0]));
         gameModeDropdown.setSelectedItem(GAME_MODES.keySet().iterator().next());
@@ -69,6 +73,7 @@ public class ControlPanelGUI extends JPanel {
             Global.minesweeperGUI.boardGUI.update();
         });
 
+        add(boardShapeDropdown);
         add(gameModeDropdown);
         add(gridSizeSlider);
         add(gridSizeLabel);
@@ -80,6 +85,9 @@ public class ControlPanelGUI extends JPanel {
         add(hintButton);
     }
 
+    public String getBoardType() {
+        return Objects.requireNonNull(boardShapeDropdown.getSelectedItem()).toString();
+    }
     public String getGameMode() {
         return Objects.requireNonNull(gameModeDropdown.getSelectedItem()).toString();
     }
@@ -93,23 +101,27 @@ public class ControlPanelGUI extends JPanel {
 
         try {
             Global.game = GAME_MODES.get(getGameMode())
-                    .getDeclaredConstructor(int.class, int.class, double.class, int.class, int.class)
+                    .getDeclaredConstructor(Class.class, int.class, int.class, double.class, int.class, int.class)
                     .newInstance(
+                            BOARD_SHAPES.get(getBoardType()),
                             gridSize,
                             numBombs,
                             clusterThreshold * (double) MAX_CLUSTER_THRESHOLD / 100.0,
                             Global.minesweeperGUI.getHeight(),
                             Global.minesweeperGUI.getWidth()
                     );
+
+            if (Global.minesweeperGUI.boardGUI != null)
+                Global.minesweeperGUI.remove(Global.minesweeperGUI.boardGUI);
+
+            Global.minesweeperGUI.boardGUI = BOARD_SHAPES.get(getBoardType())
+                    .getDeclaredConstructor()
+                    .newInstance();
+
+            Global.minesweeperGUI.add(Global.minesweeperGUI.boardGUI);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        if (Global.minesweeperGUI.boardGUI != null)
-            Global.minesweeperGUI.remove(Global.minesweeperGUI.boardGUI);
-
-        Global.minesweeperGUI.boardGUI = new BoardGUI(getGameMode().equals("Hexagon Mode") ? BoardType.HEXAGON : BoardType.SQUARE);
-        Global.minesweeperGUI.add(Global.minesweeperGUI.boardGUI);
 
         Global.minesweeperGUI.revalidate();
         Global.minesweeperGUI.repaint();

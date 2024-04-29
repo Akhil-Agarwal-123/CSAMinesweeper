@@ -1,14 +1,14 @@
 package GameModes;
 
 import BoardUtil.GameStatus;
+import GraphicsUtil.BoardGUI;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
-public class CrazyHouseModeGame extends NormalModeGame{
-    public CrazyHouseModeGame(int dim, int mines, double clusteringThreshold, int h, int w) {
-        super(dim, mines, clusteringThreshold, h, w);
+public class CrazyHouseModeGame extends NormalModeGame {
+
+    public CrazyHouseModeGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
+        super(boardType, dim, mines, clusteringThreshold, h, w);
     }
 
     protected void normalClick(int i, int j) {

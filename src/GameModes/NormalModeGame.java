@@ -1,16 +1,14 @@
 package GameModes;
 
-import BoardUtil.BoardType;
 import BoardUtil.GameStatus;
+import GraphicsUtil.BoardGUI;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class NormalModeGame extends Game {
-    public NormalModeGame(int dim, int mines, double clusteringThreshold, int h, int w) {
-        super(BoardType.SQUARE, dim, mines, clusteringThreshold, h, w);
-    }
-    protected NormalModeGame(BoardType boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
+
+    public NormalModeGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         super(boardType, dim, mines, clusteringThreshold, h, w);
     }
 

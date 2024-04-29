@@ -1,13 +1,17 @@
 package GameModes;
 
 import BoardUtil.*;
+import GraphicsUtil.BoardGUI;
+import GraphicsUtil.HexagonBoardGUI;
 import GraphicsUtil.IconHandler;
+import GraphicsUtil.SquareBoardGUI;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 
 public abstract class Game {
     protected MinesweeperBoard board;
@@ -23,7 +27,12 @@ public abstract class Game {
     );
     private final double COLOR_OFFSET = 0.97;
 
-    public Game(BoardType boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
+    private final Map<Class<? extends BoardGUI>, Class<? extends MinesweeperBoard>> BOARD_TYPES = Map.of(
+            SquareBoardGUI.class, SquareBoard.class,
+            HexagonBoardGUI.class, HexagonBoard.class
+    );
+
+    public Game(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         newGame(boardType, dim, mines, clusteringThreshold, h, w);
 
         for (String key : colorMap.keySet()) {
@@ -37,9 +46,21 @@ public abstract class Game {
         }
     }
 
-    public void newGame(BoardType boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
-        board = boardType == BoardType.SQUARE ? new SquareBoard(dim, mines, clusteringThreshold) :
-                new HexagonBoard(dim, mines, clusteringThreshold);
+    public void newGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
+        // option 1
+        try {
+            board = BOARD_TYPES.get(boardType).getDeclaredConstructor(int.class, int.class, double.class)
+                    .newInstance(dim, mines, clusteringThreshold);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        // option 2
+//        if (boardType.equals(SquareBoardGUI.class)) {
+//            board = new SquareBoard(dim, mines, clusteringThreshold);
+//        } else if (boardType.equals(HexagonBoardGUI.class)) {
+//            board = new HexagonBoard(dim, mines, clusteringThreshold);
+//        }
         status = GameStatus.ONGOING;
         iconHandler = new IconHandler(h, w, dim);
         firstClick = true;
