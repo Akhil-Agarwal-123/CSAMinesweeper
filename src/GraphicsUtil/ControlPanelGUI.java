@@ -1,6 +1,7 @@
 package GraphicsUtil;
 
 import BoardUtil.BoardType;
+import BoardUtil.MinesweeperBoard;
 import GameModes.*;
 import Global.Global;
 

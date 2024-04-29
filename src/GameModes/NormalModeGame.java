@@ -30,31 +30,44 @@ public class NormalModeGame extends Game {
         if (status != GameStatus.ONGOING) {
             // if game is over display mines as red
             if (board.getMine(i, j)) {
-                return (i + j) % 2 == 0 ?
-                        new Color(255, 0, 0) :
-                        new Color(255, 51, 51);
+                Color c = colorMap.get("MINE").get(0);
+                for (int k = 0; k < board.getCellId(i, j); k++) {
+                    // make it slightly darker (multiply rgbs by 0.95)
+                    c = new Color((int) (c.getRed() * 0.95), (int) (c.getGreen() * 0.95), (int) (c.getBlue() * 0.95));
+                }
+                return c;
+                // return colorMap.get("MINE").get(board.getCellId(i, j));
             }
         }
 
         if (status == GameStatus.WON) {
             // display cells as blue if you win
             if (!board.getMine(i, j)) {
-                return (i + j) % 2 == 0 ?
-                        new Color(147, 195, 242) :
-                        new Color(156, 200, 245);
+                Color c = colorMap.get("WATER").get(0);
+                for (int k = 0; k < board.getCellId(i, j); k++) {
+                    c = new Color((int) (c.getRed() * 0.95), (int) (c.getGreen() * 0.95), (int) (c.getBlue() * 0.95));
+                }
+                return c;
+                // return colorMap.get("WATER").get(board.getCellId(i, j));
             }
         }
 
         if (board.getVisited(i, j)) {
             // visited cells are light brown
-            return (i + j) % 2 == 0 ?
-                    new Color(215, 184, 153) :
-                    new Color(229, 194, 159);
+            Color c = colorMap.get("SAND").get(0);
+            for (int k = 0; k < board.getCellId(i, j); k++) {
+                c = new Color((int) (c.getRed() * 0.95), (int) (c.getGreen() * 0.95), (int) (c.getBlue() * 0.95));
+            }
+            return c;
+            // return colorMap.get("SAND").get(board.getCellId(i, j));
         } else {
             // unvisited cells are green
-            return (i + j) % 2 == 0 ?
-                    new Color(172, 208, 94) :
-                    new Color(179, 214, 101);
+            Color c = colorMap.get("GRASS").get(0);
+            for (int k = 0; k < board.getCellId(i, j); k++) {
+                c = new Color((int) (c.getRed() * 0.95), (int) (c.getGreen() * 0.95), (int) (c.getBlue() * 0.95));
+            }
+            return c;
+            // return colorMap.get("GRASS").get(board.getCellId(i, j));
         }
     }
 

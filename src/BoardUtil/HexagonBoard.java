@@ -34,4 +34,8 @@ public class HexagonBoard extends MinesweeperBoard {
             System.out.println();
         }
     }
+
+    public int getCellId(int i, int j) {
+        return (i + j) % 2;
+    }
 }

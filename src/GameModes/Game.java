@@ -5,6 +5,9 @@ import GraphicsUtil.IconHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public abstract class Game {
     protected MinesweeperBoard board;
@@ -12,9 +15,26 @@ public abstract class Game {
     protected IconHandler iconHandler;
     protected boolean firstClick;
     protected Thread backgroundTask;
+    protected final Map<String, ArrayList<Color>> colorMap = Map.of(
+            "GRASS", new ArrayList<>(List.of(new Color(172, 208, 94))),
+            "SAND", new ArrayList<>(List.of(new Color(215, 184, 153))),
+            "WATER", new ArrayList<>(List.of(new Color(147, 195, 242))),
+            "MINE", new ArrayList<>(List.of(new Color(255, 0, 0)))
+    );
+    private final double COLOR_OFFSET = 0.97;
 
     public Game(BoardType boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         newGame(boardType, dim, mines, clusteringThreshold, h, w);
+
+        for (String key : colorMap.keySet()) {
+            for (int i = 1; i < 4; i++) {
+                colorMap.get(key).add(new Color(
+                        (int) (colorMap.get(key).get(i - 1).getRed() * COLOR_OFFSET),
+                        (int) (colorMap.get(key).get(i - 1).getGreen() * COLOR_OFFSET),
+                        (int) (colorMap.get(key).get(i - 1).getBlue() * COLOR_OFFSET)
+                ));
+            }
+        }
     }
 
     public void newGame(BoardType boardType, int dim, int mines, double clusteringThreshold, int h, int w) {

@@ -41,6 +41,8 @@ public abstract class MinesweeperBoard {
 
     public abstract ArrayList<int[]> getNeighbors(int i, int j);
 
+    public abstract int getCellId(int i, int j);
+
     public boolean getVisited(int i, int j) {
         return visited[i][j];
     }
