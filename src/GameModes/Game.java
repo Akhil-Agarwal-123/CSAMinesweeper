@@ -2,9 +2,10 @@ package GameModes;
 
 import BoardUtil.*;
 import GraphicsUtil.BoardGUI;
-import GraphicsUtil.HexagonBoardGUI;
+import GraphicsUtil.Hexagon.HexagonBoardGUI;
 import GraphicsUtil.IconHandler;
-import GraphicsUtil.SquareBoardGUI;
+import GraphicsUtil.Square.SquareBoardGUI;
+import GraphicsUtil.Triangle.TriangleBoardGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +30,8 @@ public abstract class Game {
 
     private final Map<Class<? extends BoardGUI>, Class<? extends MinesweeperBoard>> BOARD_TYPES = Map.of(
             SquareBoardGUI.class, SquareBoard.class,
-            HexagonBoardGUI.class, HexagonBoard.class
+            HexagonBoardGUI.class, HexagonBoard.class,
+            TriangleBoardGUI.class, TriangleBoard.class
     );
 
     public Game(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {

@@ -1,4 +1,4 @@
-package GraphicsUtil;
+package GraphicsUtil.Hexagon;
 
 import Global.Global;
 

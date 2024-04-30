@@ -1,8 +1,7 @@
-package GraphicsUtil;
+package GraphicsUtil.Hexagon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class HexagonLabel extends JLabel {
 

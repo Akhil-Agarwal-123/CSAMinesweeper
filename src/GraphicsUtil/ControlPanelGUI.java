@@ -2,6 +2,9 @@ package GraphicsUtil;
 
 import GameModes.*;
 import Global.Global;
+import GraphicsUtil.Hexagon.HexagonBoardGUI;
+import GraphicsUtil.Square.SquareBoardGUI;
+import GraphicsUtil.Triangle.TriangleBoardGUI;
 
 import javax.swing.*;
 import java.util.Map;
@@ -18,7 +21,8 @@ public class ControlPanelGUI extends JPanel {
 
     private final Map<String, Class<? extends BoardGUI>> BOARD_SHAPES = Map.of(
             "Square Board", SquareBoardGUI.class,
-            "Hexagonal Board", HexagonBoardGUI.class
+            "Hexagonal Board", HexagonBoardGUI.class,
+            "Triangular Board", TriangleBoardGUI.class
     );
     private final Map<String, Class<? extends Game>> GAME_MODES = Map.of(
             "Original Mode", NormalModeGame.class,

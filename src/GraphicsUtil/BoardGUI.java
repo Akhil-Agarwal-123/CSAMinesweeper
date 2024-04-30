@@ -16,7 +16,7 @@ public abstract class BoardGUI extends JPanel {
         boardIcons = new JLabel[Global.game.getDimension()][Global.game.getDimension()];
         for (int i = 0; i < Global.game.getDimension(); i++) {
             for (int j = 0; j < Global.game.getDimension(); j++) {
-                boardIcons[i][j] = getLabel(Global.game.getIcon(i, j));
+                boardIcons[i][j] = getLabel(i, j); // Global.game.getIcon(i, j));
 
                 boardIcons[i][j].setBackground(Global.game.getBackgroundColor(i, j));
                 boardIcons[i][j].setOpaque(true);
@@ -42,7 +42,7 @@ public abstract class BoardGUI extends JPanel {
         }
     }
     protected abstract LayoutManager getLayoutManager();
-    protected abstract JLabel getLabel(ImageIcon icon);
+    protected abstract JLabel getLabel(int i, int j);
     public void update() {
         Global.game.updateGameStatus();
 
