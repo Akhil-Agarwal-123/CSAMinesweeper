@@ -24,3 +24,13 @@ An AP Computer Science A class project, made with Java swing.
   - Automated Board
 - Mine clustering algorithm
 - Hints when stuck
+
+## TODO:
+- [ ] Create an abstract class for board GUI operations
+- [ ] Improve control center UI
+- [ ] Improve/add animations
+- [ ] Add more game modes
+  - [ ] Build a wall, places immovable blocks every couple of secs
+  - [ ] Convert mine tick from move based to time based
+  - [ ] Climate change, board type changes every move
+  - [ ] Jihad, unflagged mines 'explode' every couple of secs, causing the surrounding tiles to be randomized, undoing some progress
