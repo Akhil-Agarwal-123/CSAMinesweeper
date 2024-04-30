@@ -12,6 +12,10 @@ An AP Computer Science A class project, made with Java swing.
 
 
 ## Features
+- Board types:
+  - Square mode (original)
+  - Hexagonal mode
+  - Triangular mode
 - Game modes:
   - Original
   - Anti-Flag
@@ -19,3 +23,4 @@ An AP Computer Science A class project, made with Java swing.
   - Mine Tick
   - Automated Board
 - Mine clustering algorithm
+- Hints when stuck
