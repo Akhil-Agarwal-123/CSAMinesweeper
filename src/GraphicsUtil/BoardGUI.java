@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 
 public abstract class BoardGUI extends JPanel {
     private final JLabel[][] boardIcons;
+
     public BoardGUI() {
         setLayout(getLayoutManager());
 

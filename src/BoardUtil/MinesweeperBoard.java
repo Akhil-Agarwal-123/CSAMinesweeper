@@ -5,10 +5,10 @@ import Global.Global;
 import java.util.ArrayList;
 
 public abstract class MinesweeperBoard {
-    protected final int[][] statuses;
+    protected int[][] statuses;
     protected final int dim, mines;
     protected final double clusteringThreshold;
-    protected final boolean[][] visited, flagged;
+    protected boolean[][] visited, flagged;
 
     public MinesweeperBoard(int dim, int mines, double clusteringThreshold) {
         statuses = new int[dim][dim];
@@ -43,12 +43,36 @@ public abstract class MinesweeperBoard {
 
     public abstract int getCellId(int i, int j);
 
+    public int[][] getStatuses() {
+        return statuses;
+    }
+
+    public void setStatues(int[][] statuses) {
+        this.statuses = statuses;
+    }
+
     public boolean getVisited(int i, int j) {
         return visited[i][j];
     }
 
+    public boolean[][] getAllVisited() {
+        return visited;
+    }
+
+    public boolean[][] getAllFlagged() {
+        return flagged;
+    }
+
+    public void setAllFlagged(boolean[][] flagged) {
+        this.flagged = flagged;
+    }
+
     public void setVisited(int i, int j, boolean value) {
         visited[i][j] = value;
+    }
+
+    public void setAllVisited(boolean[][] visited) {
+        this.visited = visited;
     }
 
     public void genBoard(int i, int j) {
@@ -137,7 +161,7 @@ public abstract class MinesweeperBoard {
         }
     }
 
-    protected void calculateNumbers() {
+    public void calculateNumbers() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 if (statuses[i][j] != -1) {
@@ -251,5 +275,13 @@ public abstract class MinesweeperBoard {
 
     public int getDimension() {
         return dim;
+    }
+
+    public int getNumMines() {
+        return mines;
+    }
+
+    public double getClusteringThreshold() {
+        return clusteringThreshold;
     }
 }

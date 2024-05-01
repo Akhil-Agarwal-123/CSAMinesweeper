@@ -26,13 +26,13 @@ public abstract class Game {
             "WATER", new ArrayList<>(List.of(new Color(147, 195, 242))),
             "MINE", new ArrayList<>(List.of(new Color(255, 0, 0)))
     );
-    private final double COLOR_OFFSET = 0.97;
-
-    private final Map<Class<? extends BoardGUI>, Class<? extends MinesweeperBoard>> BOARD_TYPES = Map.of(
+    protected final Map<Class<? extends BoardGUI>, Class<? extends MinesweeperBoard>> BOARD_TYPES = Map.of(
             SquareBoardGUI.class, SquareBoard.class,
             HexagonBoardGUI.class, HexagonBoard.class,
             TriangleBoardGUI.class, TriangleBoard.class
     );
+
+    private final double COLOR_OFFSET = 0.97;
 
     public Game(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         newGame(boardType, dim, mines, clusteringThreshold, h, w);
