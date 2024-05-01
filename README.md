@@ -22,15 +22,12 @@ An AP Computer Science A class project, made with Java swing.
   - Crazy House
   - Mine Tick
   - Automated Board
+  - Climate Change
 - Mine clustering algorithm
 - Hints when stuck
 
 ## TODO:
-- [ ] Create an abstract class for board GUI operations
 - [ ] Improve control center UI
-- [ ] Improve/add animations
 - [ ] Add more game modes
   - [ ] Build a wall, places immovable blocks every couple of secs
-  - [x] Convert mine tick from move based to time based
-  - [x] Climate change, board type changes every move
   - [ ] Jihad, unflagged mines 'explode' every couple of secs, causing the surrounding tiles to be randomized, undoing some progress

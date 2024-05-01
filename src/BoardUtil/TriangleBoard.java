@@ -7,7 +7,7 @@ public class TriangleBoard extends MinesweeperBoard {
         super(dim, mines, clusteringThreshold);
     }
 
-    public ArrayList<int[]> getNeighbors(int i, int j) {
+    protected ArrayList<int[]> getAllNeighbors(int i, int j) {
         ArrayList<int[]> neighbors = new ArrayList<>();
         if ((i + j) % 2 == 0) {
             // add right

@@ -24,7 +24,8 @@ public abstract class Game {
             "GRASS", new ArrayList<>(List.of(new Color(172, 208, 94))),
             "SAND", new ArrayList<>(List.of(new Color(215, 184, 153))),
             "WATER", new ArrayList<>(List.of(new Color(147, 195, 242))),
-            "MINE", new ArrayList<>(List.of(new Color(255, 0, 0)))
+            "MINE", new ArrayList<>(List.of(new Color(255, 0, 0))),
+            "WALL", new ArrayList<>(List.of(new Color(150, 150, 150)))
     );
     protected final Map<Class<? extends BoardGUI>, Class<? extends MinesweeperBoard>> BOARD_TYPES = Map.of(
             SquareBoardGUI.class, SquareBoard.class,
@@ -62,6 +63,8 @@ public abstract class Game {
     }
 
     public void leftClick(int i, int j) {
+        if (board.getWalled(i, j)) return;
+
         if (firstClick) onFirstClick(i, j);
         else normalClick(i, j);
 

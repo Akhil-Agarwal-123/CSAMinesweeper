@@ -9,7 +9,7 @@ public class SquareBoard extends MinesweeperBoard {
         super(dim, mines, clusteringThreshold);
     }
 
-    public ArrayList<int[]> getNeighbors(int i, int j) {
+    protected ArrayList<int[]> getAllNeighbors(int i, int j) {
         ArrayList<int[]> neighbors = new ArrayList<>();
         int[] dij = {-1, 0, 1};
         for (int a : dij) {

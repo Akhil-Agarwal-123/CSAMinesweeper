@@ -8,12 +8,13 @@ public abstract class MinesweeperBoard {
     protected int[][] statuses;
     protected final int dim, mines;
     protected final double clusteringThreshold;
-    protected boolean[][] visited, flagged;
+    protected boolean[][] visited, flagged, walled;
 
     public MinesweeperBoard(int dim, int mines, double clusteringThreshold) {
         statuses = new int[dim][dim];
         visited = new boolean[dim][dim];
         flagged = new boolean[dim][dim];
+        walled = new boolean[dim][dim];
         this.dim = dim;
         this.mines = mines;
         this.clusteringThreshold = clusteringThreshold;
@@ -23,6 +24,7 @@ public abstract class MinesweeperBoard {
                 statuses[i][j] = 0;
                 visited[i][j] = false;
                 flagged[i][j] = false;
+                walled[i][j] = false;
             }
         }
     }
@@ -39,7 +41,18 @@ public abstract class MinesweeperBoard {
         }
     }
 
-    public abstract ArrayList<int[]> getNeighbors(int i, int j);
+    public ArrayList<int[]> getValidNeighbors(int i, int j) {
+        ArrayList<int[]> ret = new ArrayList<>();
+        ArrayList<int[]> allNeighbors = getAllNeighbors(i, j);
+        for (int[] a : allNeighbors) {
+            if (!walled[a[0]][a[1]]) {
+                ret.add(a);
+            }
+        }
+        return ret;
+    }
+
+    protected abstract ArrayList<int[]> getAllNeighbors(int i, int j);
 
     public abstract int getCellId(int i, int j);
 
@@ -75,6 +88,15 @@ public abstract class MinesweeperBoard {
         this.visited = visited;
     }
 
+    public void setWalled(int i, int j, boolean value) {
+        walled[i][j] = value;
+        setVisited(i, j, true);
+    }
+
+    public boolean getWalled(int i, int j) {
+        return walled[i][j];
+    }
+
     public void genBoard(int i, int j) {
         double[][] mineMask = new double[dim][dim];
         for (int a = 0; a < dim; a++) {
@@ -84,7 +106,7 @@ public abstract class MinesweeperBoard {
         }
 
         // 0 probability for spawning a mine on a clicked cell
-        ArrayList<int[]> neighbors = getNeighbors(i, j);
+        ArrayList<int[]> neighbors = getValidNeighbors(i, j);
         for (int[] neighbor : neighbors) {
             int a = neighbor[0];
             int b = neighbor[1];
@@ -150,7 +172,7 @@ public abstract class MinesweeperBoard {
             thresholds[r * dim + c] = 0;
 
             // update thresholds
-            ArrayList<int[]> neighbors = getNeighbors(r, c);
+            ArrayList<int[]> neighbors = getValidNeighbors(r, c);
             for (int[] neighbor : neighbors) {
                 int a = neighbor[0];
                 int b = neighbor[1];
@@ -167,7 +189,7 @@ public abstract class MinesweeperBoard {
                 if (statuses[i][j] != -1) {
                     int count = 0;
 
-                    ArrayList<int[]> dij = getNeighbors(i, j);
+                    ArrayList<int[]> dij = getValidNeighbors(i, j);
                     for (int[] neighbor : dij) {
                         int a = neighbor[0];
                         int b = neighbor[1];
@@ -193,6 +215,7 @@ public abstract class MinesweeperBoard {
     protected abstract void printBoard(boolean hidden);
 
     public String getStringFor(int i, int j, boolean hidden) {
+        if (walled[i][j]) return "W";
         if (flagged[i][j] && !visited[i][j] && hidden) return "F";
         else if (!visited[i][j] && hidden) return "-";
         else {
@@ -223,7 +246,7 @@ public abstract class MinesweeperBoard {
     public void placeMine(int i, int j) {
         statuses[i][j] = -1;
 
-        ArrayList<int[]> neighbors = getNeighbors(i, j);
+        ArrayList<int[]> neighbors = getValidNeighbors(i, j);
         for (int[] neighbor : neighbors) {
             int a = neighbor[0];
             int b = neighbor[1];
@@ -242,7 +265,7 @@ public abstract class MinesweeperBoard {
         visited[i][j] = true;
 
         if (statuses[i][j] == 0) {
-            ArrayList<int[]> neighbors = getNeighbors(i, j);
+            ArrayList<int[]> neighbors = getValidNeighbors(i, j);
 
             for (int[] neighbor : neighbors) {
                 int a = neighbor[0], b = neighbor[1];
