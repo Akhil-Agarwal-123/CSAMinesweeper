@@ -31,7 +31,7 @@ public class CrazyHouseModeGame extends NormalModeGame {
                     mineMask[a][b] = 0;
                 } else {
                     mineMask[a][b] = 1;
-                    ArrayList<int[]> neighbors = board.getNeighbors(a, b);
+                    ArrayList<int[]> neighbors = board.getValidNeighbors(a, b);
                     for (int[] neighbor : neighbors) {
                         if (board.getVisited(neighbor[0], neighbor[1])) {
                             mineMask[a][b] = 2.5;

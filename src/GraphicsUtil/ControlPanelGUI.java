@@ -30,7 +30,8 @@ public class ControlPanelGUI extends JPanel {
             "Crazy House Mode", CrazyHouseModeGame.class,
             "Mine Tick Mode", MineTickModeGame.class,
             "Automated Board Mode", AutomatedBoardModeGame.class,
-            "Climate Change Mode", ClimateChangeModeGame.class
+            "Climate Change Mode", ClimateChangeModeGame.class,
+            "Build a Wall Mode", BuildAWallModeGame.class
     );
 
     public ControlPanelGUI() {
