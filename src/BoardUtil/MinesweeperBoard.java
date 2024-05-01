@@ -51,6 +51,14 @@ public abstract class MinesweeperBoard {
         this.statuses = statuses;
     }
 
+    public int getStatus(int i, int j) {
+        return statuses[i][j];
+    }
+
+    public void setStatus(int i, int j, int value) {
+        statuses[i][j] = value;
+    }
+
     public boolean getVisited(int i, int j) {
         return visited[i][j];
     }
