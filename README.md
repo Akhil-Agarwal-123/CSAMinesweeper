@@ -32,5 +32,5 @@ An AP Computer Science A class project, made with Java swing.
 - [ ] Add more game modes
   - [ ] Build a wall, places immovable blocks every couple of secs
   - [x] Convert mine tick from move based to time based
-  - [ ] Climate change, board type changes every move
+  - [x] Climate change, board type changes every move
   - [ ] Jihad, unflagged mines 'explode' every couple of secs, causing the surrounding tiles to be randomized, undoing some progress
