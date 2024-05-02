@@ -3,6 +3,7 @@ package BoardUtil;
 import Global.Global;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class MinesweeperBoard {
     protected int[][] statuses;
@@ -72,6 +73,10 @@ public abstract class MinesweeperBoard {
         statuses[i][j] = value;
     }
 
+    public boolean getFlagged(int i, int j) {
+        return flagged[i][j];
+    }
+
     public boolean getVisited(int i, int j) {
         return visited[i][j];
     }
@@ -86,6 +91,10 @@ public abstract class MinesweeperBoard {
 
     public void setAllFlagged(boolean[][] flagged) {
         this.flagged = flagged;
+    }
+
+    public void setFlagged(int i, int j, boolean value) {
+        flagged[i][j] = value;
     }
 
     public void setVisited(int i, int j, boolean value) {
@@ -103,6 +112,25 @@ public abstract class MinesweeperBoard {
 
     public boolean getWalled(int i, int j) {
         return walled[i][j];
+    }
+
+    public void expandZeros() {
+        boolean[][] prevVisited = new boolean[dim][dim];
+
+        for (int a = 0; a < dim; a++) {
+            for (int b = 0; b < dim; b++) {
+                prevVisited[a][b] = visited[a][b];
+                visited[a][b] = false;
+            }
+        }
+
+        for (int a = 0; a < dim; a++) {
+            for (int b = 0; b < dim; b++) {
+                if (prevVisited[a][b]) {
+                    revealSpot(a, b);
+                }
+            }
+        }
     }
 
     public void genBoard(int i, int j) {
@@ -136,11 +164,11 @@ public abstract class MinesweeperBoard {
             }
         }
 
-        placeMines(mineMask);
+        placeMines(mineMask, mines);
         calculateNumbers();
     }
 
-    protected void placeMines(double[][] mineMask) {
+    public void placeMines(double[][] mineMask, int mines) {
         double[] thresholds = new double[dim * dim];
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {

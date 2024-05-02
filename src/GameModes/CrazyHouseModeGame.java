@@ -1,6 +1,7 @@
 package GameModes;
 
 import BoardUtil.GameStatus;
+import Global.Global;
 import GraphicsUtil.BoardGUI;
 
 import java.util.ArrayList;
@@ -41,18 +42,6 @@ public class CrazyHouseModeGame extends NormalModeGame {
             }
         }
         board.genBoard(mineMask);
-
-        for (int a = 0; a < board.getDimension(); a++) {
-            for (int b = 0; b < board.getDimension(); b++) {
-                board.setVisited(a, b, false);
-            }
-        }
-        for (int a = 0; a < board.getDimension(); a++) {
-            for (int b = 0; b < board.getDimension(); b++) {
-                if (mineMask[a][b] == 0 && !board.getVisited(a, b)) {
-                    board.revealSpot(a, b);
-                }
-            }
-        }
+        board.expandZeros();
     }
 }
