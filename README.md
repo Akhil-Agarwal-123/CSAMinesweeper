@@ -28,6 +28,3 @@ An AP Computer Science A class project, made with Java swing.
 
 ## TODO:
 - [ ] Improve control center UI
-- [ ] Add more game modes
-  - [ ] Build a wall, places immovable blocks every couple of secs
-  - [ ] Jihad, unflagged mines 'explode' every couple of secs, causing the surrounding tiles to be randomized, undoing some progress

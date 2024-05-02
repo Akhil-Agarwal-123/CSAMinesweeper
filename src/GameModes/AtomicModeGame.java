@@ -12,7 +12,7 @@ public class AtomicModeGame extends NormalModeGame {
         super(boardType, dim, mines, clusteringThreshold, h, w);
 
         final int TIME_INTERVAL = 5;
-        final int NEIGHBOR_RADIUS = 1;
+        final int NEIGHBOR_RADIUS = Math.min(1 + board.getDimension()/15, 3);
 
         backgroundTask = new Thread(() -> {
             while (status == GameStatus.ONGOING) {
