@@ -97,11 +97,15 @@ public abstract class MinesweeperBoard {
     }
 
     public void setFlagged(int i, int j, boolean value) {
-        flagged[i][j] = value;
-
         if (flagged[i][j] != value) {
-            flagCount += value ? 1 : -1;
+            if (value) {
+                flagCount++;
+            } else {
+                flagCount--;
+            }
         }
+
+        flagged[i][j] = value;
     }
 
     public void setVisited(int i, int j, boolean value) {
