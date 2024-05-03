@@ -7,7 +7,8 @@ import java.util.Arrays;
 
 public abstract class MinesweeperBoard {
     protected int[][] statuses;
-    protected final int dim, mines;
+    protected final int dim;
+    protected int mines;
     protected final double clusteringThreshold;
     protected boolean[][] visited, flagged, walled;
 
@@ -281,6 +282,7 @@ public abstract class MinesweeperBoard {
 
     public void placeMine(int i, int j) {
         statuses[i][j] = -1;
+        mines++;
 
         ArrayList<int[]> neighbors = getValidNeighbors(i, j);
         for (int[] neighbor : neighbors) {
