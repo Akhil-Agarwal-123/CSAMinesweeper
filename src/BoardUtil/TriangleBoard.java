@@ -3,10 +3,22 @@ package BoardUtil;
 import java.util.ArrayList;
 
 public class TriangleBoard extends MinesweeperBoard {
+    /**
+     * Constructor to make triangular board
+     * @param dim the dimension of the board
+     * @param mines the number of mines on the board
+     * @param clusteringThreshold the clustering threshold value
+     */
     public TriangleBoard(int dim, int mines, double clusteringThreshold) {
         super(dim, mines, clusteringThreshold);
     }
 
+    /**
+     * Gets all neighbors of a certain board point in the triangle
+     * @param i the row index
+     * @param j the column index
+     * @return the neighbors of the point at (i, j)
+     */
     protected ArrayList<int[]> getAllNeighbors(int i, int j) {
         ArrayList<int[]> neighbors = new ArrayList<>();
         if ((i + j) % 2 == 0) {

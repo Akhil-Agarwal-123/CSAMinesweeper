@@ -5,10 +5,22 @@ import Global.Global;
 import java.util.ArrayList;
 
 public class SquareBoard extends MinesweeperBoard {
+    /**
+     * Constructor to make square board
+     * @param dim the dimension of the board
+     * @param mines the number of mines on the board
+     * @param clusteringThreshold the clustering threshold value
+     */
     public SquareBoard(int dim, int mines, double clusteringThreshold) {
         super(dim, mines, clusteringThreshold);
     }
 
+    /**
+     * Gets all neighbors of a certain board point in the square
+     * @param i the row index
+     * @param j the column index
+     * @return the neighbors of the point at (i, j)
+     */
     protected ArrayList<int[]> getAllNeighbors(int i, int j) {
         ArrayList<int[]> neighbors = new ArrayList<>();
         int[] dij = {-1, 0, 1};

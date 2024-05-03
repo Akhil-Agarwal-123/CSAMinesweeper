@@ -1,14 +1,27 @@
 package BoardUtil;
 
-import Global.Global;
-
 import java.util.ArrayList;
 
+/**
+ * The board which handles hexagonal placements and neighbors
+ */
 public class HexagonBoard extends MinesweeperBoard {
+    /**
+     * Constructor to make hexagon board
+     * @param dim the dimension of the board
+     * @param mines the number of mines on the board
+     * @param clusteringThreshold the clustering threshold value
+     */
     public HexagonBoard(int dim, int mines, double clusteringThreshold) {
         super(dim, mines, clusteringThreshold);
     }
 
+    /**
+     * Gets all neighbors of a certain board point in the hexagon
+     * @param i the row index
+     * @param j the column index
+     * @return the neighbors of the point at (i, j)
+     */
     protected ArrayList<int[]> getAllNeighbors(int i, int j) {
         ArrayList<int[]> neighbors = new ArrayList<>();
         int[][] dij;

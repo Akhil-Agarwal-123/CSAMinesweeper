@@ -3,7 +3,6 @@ package BoardUtil;
 import Global.Global;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public abstract class MinesweeperBoard {
     protected int[][] statuses;
@@ -13,6 +12,12 @@ public abstract class MinesweeperBoard {
     protected boolean[][] visited, flagged, walled;
     protected int flagCount;
 
+    /**
+     * Constructor to make generic board
+     * @param dim the dimension of the board
+     * @param mines the number of mines on the board
+     * @param clusteringThreshold the clustering threshold value
+     */
     public MinesweeperBoard(int dim, int mines, double clusteringThreshold) {
         statuses = new int[dim][dim];
         visited = new boolean[dim][dim];
@@ -33,10 +38,19 @@ public abstract class MinesweeperBoard {
         }
     }
 
+    /**
+     * Returns whether or not (i, j) is in the board
+     * @param i the row index
+     * @param j the column index
+     * @return whether or not (i, j) is in the board
+     */
     public boolean inRange(int i, int j) {
         return i >= 0 && i < dim && j >= 0 && j < dim;
     }
 
+    /**
+     * Clears all of the flags on the board
+     */
     public void clearFlags() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
@@ -45,6 +59,12 @@ public abstract class MinesweeperBoard {
         }
     }
 
+    /**
+     * Gets all non-walled neighbors of a certain board point
+     * @param i the row index
+     * @param j the column index
+     * @return the non-walled neighbors of the point at (i, j)
+     */
     public ArrayList<int[]> getValidNeighbors(int i, int j) {
         ArrayList<int[]> ret = new ArrayList<>();
         ArrayList<int[]> allNeighbors = getAllNeighbors(i, j);
@@ -56,46 +76,108 @@ public abstract class MinesweeperBoard {
         return ret;
     }
 
+    /**
+     * Gets all neighbors of a certain board point
+     * @param i the row index
+     * @param j the column index
+     * @return the neighbors of the point at (i, j)
+     */
     protected abstract ArrayList<int[]> getAllNeighbors(int i, int j);
 
+    /**
+     * Gets the cell id for coloring based on the indices
+     * @param i the row index
+     * @param j the column index
+     * @return the cell id of the indices
+     */
     public abstract int getCellId(int i, int j);
 
+    /**
+     * Gets the statuses of each cell on the board
+     * @return the statuses
+     */
     public int[][] getStatuses() {
         return statuses;
     }
 
-    public void setStatues(int[][] statuses) {
+    /**
+     * Sets the statuses on the board
+     * @param statuses the statuses to update the board with
+     */
+    public void setStatuses(int[][] statuses) {
         this.statuses = statuses;
     }
 
+    /**
+     * Gets the status at a point
+     * @param i the row index
+     * @param j the column index
+     * @return the status at (i, j)
+     */
     public int getStatus(int i, int j) {
         return statuses[i][j];
     }
 
+    /**
+     * Sets the status at a certain point
+     * @param i the row index
+     * @param j the column index
+     * @param value the value to set the status to
+     */
     public void setStatus(int i, int j, int value) {
         statuses[i][j] = value;
     }
 
+    /**
+     * Gets whether or not the point is flagged
+     * @param i the row index
+     * @param j the column index
+     * @return whether or not (i, j) is flagged
+     */
     public boolean getFlagged(int i, int j) {
         return flagged[i][j];
     }
 
+    /**
+     * Gets whether or not a certain point is visited
+     * @param i the row index
+     * @param j the column index
+     * @return whether or not (i, j) is visited
+     */
     public boolean getVisited(int i, int j) {
         return visited[i][j];
     }
 
+    /**
+     * Gets the full visited array
+     * @return the visited array
+     */
     public boolean[][] getAllVisited() {
         return visited;
     }
 
+    /**
+     * Gets the full flag array
+     * @return the flagged array
+     */
     public boolean[][] getAllFlagged() {
         return flagged;
     }
 
+    /**
+     * Sets the flag array to the parameter
+     * @param flagged the new flag array
+     */
     public void setAllFlagged(boolean[][] flagged) {
         this.flagged = flagged;
     }
 
+    /**
+     * Sets the value of the flagged array at a certain point
+     * @param i the row index
+     * @param j the column index
+     * @param value the value to update to
+     */
     public void setFlagged(int i, int j, boolean value) {
         if (flagged[i][j] != value) {
             if (value) {
@@ -108,14 +190,30 @@ public abstract class MinesweeperBoard {
         flagged[i][j] = value;
     }
 
+    /**
+     * Sets the visited array at a certain point
+     * @param i the row index
+     * @param j the column index
+     * @param value the new value
+     */
     public void setVisited(int i, int j, boolean value) {
         visited[i][j] = value;
     }
 
+    /**
+     * Sets the whole visited array to the parameter
+     * @param visited the new visited array
+     */
     public void setAllVisited(boolean[][] visited) {
         this.visited = visited;
     }
 
+    /**
+     * Set a certain location to walled/not walled
+     * @param i the row index
+     * @param j the column index
+     * @param value the value to set (i, j) to
+     */
     public void setWalled(int i, int j, boolean value) {
         walled[i][j] = value;
         setVisited(i, j, true);

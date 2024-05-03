@@ -52,7 +52,7 @@ public class ClimateChangeModeGame extends NormalModeGame {
             // setup board
             board = newBoardType.getDeclaredConstructor(int.class, int.class, double.class)
                     .newInstance(board.getDimension(), board.getNumMines(), board.getClusteringThreshold());
-            board.setStatues(previousStatuses);
+            board.setStatuses(previousStatuses);
             board.setAllVisited(previousVisited);
             board.setAllFlagged(previousFlagged);
             board.calculateNumbers();
