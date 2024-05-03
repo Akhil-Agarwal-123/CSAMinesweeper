@@ -11,6 +11,7 @@ public abstract class MinesweeperBoard {
     protected int mines;
     protected final double clusteringThreshold;
     protected boolean[][] visited, flagged, walled;
+    protected int flagCount;
 
     public MinesweeperBoard(int dim, int mines, double clusteringThreshold) {
         statuses = new int[dim][dim];
@@ -20,6 +21,7 @@ public abstract class MinesweeperBoard {
         this.dim = dim;
         this.mines = mines;
         this.clusteringThreshold = clusteringThreshold;
+        flagCount = 0;
 
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
@@ -96,6 +98,10 @@ public abstract class MinesweeperBoard {
 
     public void setFlagged(int i, int j, boolean value) {
         flagged[i][j] = value;
+
+        if (flagged[i][j] != value) {
+            flagCount += value ? 1 : -1;
+        }
     }
 
     public void setVisited(int i, int j, boolean value) {
