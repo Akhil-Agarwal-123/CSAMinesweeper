@@ -18,6 +18,7 @@ public class ControlPanelGUI extends JPanel {
     private final JButton newGameButton;
     private final JButton hintButton;
     private final JComboBox<String> boardShapeDropdown, gameModeDropdown;
+    private final JLabel timer;
 
     private final Map<String, Class<? extends BoardGUI>> BOARD_SHAPES = Map.of(
             "Square Board", SquareBoardGUI.class,
@@ -80,6 +81,8 @@ public class ControlPanelGUI extends JPanel {
             Global.minesweeperGUI.boardGUI.update();
         });
 
+        timer = new JLabel("Time: ");
+
         add(boardShapeDropdown);
         add(gameModeDropdown);
         add(gridSizeSlider);
@@ -90,6 +93,14 @@ public class ControlPanelGUI extends JPanel {
         add(clusterThresholdLabel);
         add(newGameButton);
         add(hintButton);
+        add(timer);
+    }
+
+    public void updateTimer(double time) {
+        int a = (int) (time / 1000);
+        timer.setText("Time: " + a);
+        Global.minesweeperGUI.revalidate();
+        Global.minesweeperGUI.repaint();
     }
 
     public String getBoardType() {

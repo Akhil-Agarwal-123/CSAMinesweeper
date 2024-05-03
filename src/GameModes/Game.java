@@ -1,6 +1,7 @@
 package GameModes;
 
 import BoardUtil.*;
+import Global.Global;
 import GraphicsUtil.BoardGUI;
 import GraphicsUtil.Hexagon.HexagonBoardGUI;
 import GraphicsUtil.IconHandler;
@@ -20,6 +21,9 @@ public abstract class Game {
     protected IconHandler iconHandler;
     protected boolean firstClick;
     protected Thread backgroundTask;
+    protected Thread timerTask;
+    protected double currentTime;
+    protected double startTime;
     protected final Map<String, ArrayList<Color>> colorMap = Map.of(
             "GRASS", new ArrayList<>(List.of(new Color(172, 208, 94))),
             "SAND", new ArrayList<>(List.of(new Color(215, 184, 153))),
@@ -78,6 +82,24 @@ public abstract class Game {
     protected void onFirstClick(int i, int j) {
         board.genBoard(i, j);
         normalClick(i, j);
+
+        timerTask = new Thread(() -> {
+            //
+            startTime = System.currentTimeMillis();
+            while (status == GameStatus.ONGOING) {
+                try {
+                    Thread.sleep(995);
+                } catch (InterruptedException e) {
+                    break;
+                }
+                if (status != GameStatus.ONGOING) {
+                    break;
+                }
+                currentTime = System.currentTimeMillis() - startTime;
+                Global.minesweeperGUI.controlPanelGUI.updateTimer(currentTime);
+            }
+        });
+        timerTask.start();
 
         if (backgroundTask != null) {
             backgroundTask.start();
