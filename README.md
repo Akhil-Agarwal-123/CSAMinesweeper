@@ -23,8 +23,11 @@ An AP Computer Science A class project, made with Java swing.
   - Mine Tick
   - Automated Board
   - Climate Change
+  - Build A Wall
+  - Atomic
 - Mine clustering algorithm
 - Hints when stuck
+- Resizeable GUI
 
 ## TODO:
 - [ ] Improve control center UI
