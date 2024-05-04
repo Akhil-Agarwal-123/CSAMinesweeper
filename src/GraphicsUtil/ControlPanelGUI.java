@@ -36,6 +36,9 @@ public class ControlPanelGUI extends JPanel {
             "Atomic Mode", AtomicModeGame.class
     );
 
+    /**
+     * Creates a control panel GUI with a certain layout manager
+     */
     public ControlPanelGUI() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -96,6 +99,10 @@ public class ControlPanelGUI extends JPanel {
         add(timer);
     }
 
+    /**
+     * Updates the timer
+     * @param time the time to update the timer to
+     */
     public void updateTimer(double time) {
         int a = (int) (time / 1000);
         timer.setText("Time: " + a);
@@ -103,13 +110,25 @@ public class ControlPanelGUI extends JPanel {
         Global.minesweeperGUI.repaint();
     }
 
+    /**
+     * Returns the board type
+     * @return the board type
+     */
     public String getBoardType() {
         return Objects.requireNonNull(boardShapeDropdown.getSelectedItem()).toString();
     }
+
+    /**
+     * Returns the game mode
+     * @return the game mode
+     */
     public String getGameMode() {
         return Objects.requireNonNull(gameModeDropdown.getSelectedItem()).toString();
     }
 
+    /**
+     * Starts a new game
+     */
     public void newGame() {
         int gridSize = Integer.parseInt(gridSizeSlider.getValue() + "");
         int bombPercentage = Integer.parseInt(bombPercentageSlider.getValue() + "");

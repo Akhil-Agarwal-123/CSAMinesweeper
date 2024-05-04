@@ -9,6 +9,10 @@ public class MinesweeperGUI extends JFrame {
     public BoardGUI boardGUI;
     public ControlPanelGUI controlPanelGUI;
 
+    /**
+     * Creates a minesweeper GUI with a certain title
+     * @param title the title of the minesweeper GUI
+     */
     public MinesweeperGUI(String title) {
         super(title);
         setSize(1900, 800);

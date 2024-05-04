@@ -11,6 +11,9 @@ import java.awt.event.MouseEvent;
 public abstract class BoardGUI extends JPanel {
     private final JLabel[][] boardIcons;
 
+    /**
+     * Creates a board GUI with a certain layout manager
+     */
     public BoardGUI() {
         setLayout(getLayoutManager());
 
@@ -42,8 +45,24 @@ public abstract class BoardGUI extends JPanel {
             }
         }
     }
+
+    /**
+     * Returns the layout manager of the board
+     * @return the layout manager of the board
+     */
     protected abstract LayoutManager getLayoutManager();
+
+    /**
+     * Returns the label at a certain position on the board
+     * @param i the row of the label
+     * @param j the column of the label
+     * @return the label at a certain position on the board
+     */
     protected abstract JLabel getLabel(int i, int j);
+
+    /**
+     * Updates the board
+     */
     public void update() {
         Global.game.updateGameStatus();
 

@@ -13,21 +13,39 @@ public class HexagonLayout implements LayoutManager {
     private Map<Component, Dimension> componentSizes = new HashMap<>();
     private int widthOfEach, heightOfEach;
 
+    /**
+     * Sets the width and height of each hexagon
+     * @param wOfEach the width of each hexagon
+     * @param hOfEach the height of each hexagon
+     */
     public void setWidthHeight(double wOfEach, double hOfEach) {
         widthOfEach = (int) wOfEach;
         heightOfEach = (int) hOfEach;
     }
 
+    /**
+     * Adds a layout component
+     * @param name the name of the component
+     * @param comp the component
+     */
     @Override
     public void addLayoutComponent(String name, Component comp) {
         // Not used
     }
 
+    /**
+     * Lays out the components
+     * @param comp the container
+     */
     @Override
     public void removeLayoutComponent(Component comp) {
         componentSizes.remove(comp);
     }
 
+    /**
+     * Lays out the components
+     * @param parent the container
+     */
     @Override
     public Dimension preferredLayoutSize(Container parent) {
         if (parent.getSize().width == 0) {
@@ -37,11 +55,19 @@ public class HexagonLayout implements LayoutManager {
         }
     }
 
+    /**
+     * Lays out the components
+     * @param parent the container
+     */
     @Override
     public Dimension minimumLayoutSize(Container parent) {
         return preferredLayoutSize(parent);
     }
 
+    /**
+     * Lays out the components
+     * @param parent the container
+     */
     @Override
     public void layoutContainer(Container parent) {
         int x = 0;

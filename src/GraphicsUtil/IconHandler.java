@@ -10,10 +10,22 @@ import java.util.Map;
 public class IconHandler {
     private final Map<String, ImageIcon> ICON_MAP = new HashMap<>();
 
+    /**
+     * Creates an icon handler with a certain height, width, and dimension
+     * @param h the height of the icon
+     * @param w the width of the icon
+     * @param dim the dimension of the icon
+     */
     public IconHandler(int h, int w, int dim) {
         regen(h, w, dim);
     }
 
+    /**
+     * Regenerates the icons with a certain height, width, and dimension
+     * @param h the height of the icon
+     * @param w the width of the icon
+     * @param dim the dimension of the icon
+     */
     public void regen(int h, int w, int dim) {
         ICON_MAP.clear();
         String ICONS = "12345678BF-";
@@ -30,6 +42,11 @@ public class IconHandler {
         }
     }
 
+    /**
+     * Returns the icon of a certain string
+     * @param s the string to get the icon of
+     * @return the icon of a certain string
+     */
     public ImageIcon getIcon(String s) {
         return ICON_MAP.get(s.equals("0") || s.equals("W") ? "-" : s);
     }

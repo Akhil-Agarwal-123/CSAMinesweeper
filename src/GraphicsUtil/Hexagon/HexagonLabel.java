@@ -29,10 +29,9 @@ public class HexagonLabel extends JLabel {
 
     /**
      * Creates a hexagon of certain height / width and ratio multiplier
-     * @param width
-     * @param height
-     * @param ratio
-     * @return
+     * @param width the width of the hexagon
+     * @param height the height of the hexagon
+     * @return the hexagon polygon
      */
     private Polygon hexagon(int width, int height, double ratio) {
         Polygon hexagon = new Polygon();
@@ -44,12 +43,17 @@ public class HexagonLabel extends JLabel {
         return hexagon;
     }
 
+    /**
+     * Calculates the bounds of the button
+     */
     private void calculateBounds() {
         this.bounds = this.hexagon(this.getWidth(), this.getHeight(), 1);
     }
 
     /**
      * Returns whether a certain point is within the bounds of this button.
+     * @param p the point
+     * @return whether the point is within the bounds
      */
     @Override
     public boolean contains(Point p) {
@@ -58,6 +62,9 @@ public class HexagonLabel extends JLabel {
 
     /**
      * Returns whether supplied x,y coordinates is within the bounds of this button.
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @return whether the point is within the bounds
      */
     @Override
     public boolean contains(int x, int y) {
@@ -66,6 +73,7 @@ public class HexagonLabel extends JLabel {
 
     /**
      * Sets the dimension of the button
+     * @param d the dimension
      */
     @Override
     public void setSize(Dimension d) {
@@ -75,6 +83,8 @@ public class HexagonLabel extends JLabel {
 
     /**
      * Sets the dimension of the button
+     * @param w the width
+     * @param h the height
      */
     @Override
     public void setSize(int w, int h) {
@@ -84,6 +94,10 @@ public class HexagonLabel extends JLabel {
 
     /**
      * Sets the bounds of the button
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param width the width
+     * @param height the height
      */
     @Override
     public void setBounds(int x, int y, int width, int height) {
@@ -93,6 +107,7 @@ public class HexagonLabel extends JLabel {
 
     /**
      * Sets the bounds of the button
+     * @param r the rectangle
      */
     @Override
     public void setBounds(Rectangle r) {
@@ -102,6 +117,7 @@ public class HexagonLabel extends JLabel {
 
     /**
      * Draws the button
+     * @param graphics the graphics object
      */
     @Override
     protected void paintComponent(Graphics graphics) {
@@ -114,12 +130,20 @@ public class HexagonLabel extends JLabel {
         icon.paintIcon(this, graphics, (getWidth() - icon.getIconWidth())/2, (getHeight() - icon.getIconHeight())/2);
     }
 
+    /**
+     * Paints the button
+     * @param g the graphics object
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         paintComponent(g);
     }
 
+    /**
+     * Sets the icon of the button
+     * @param icon the icon
+     */
     @Override
     public void setIcon(Icon icon) {
         super.setIcon(icon);

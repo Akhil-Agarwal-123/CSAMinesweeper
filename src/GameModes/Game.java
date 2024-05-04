@@ -39,6 +39,15 @@ public abstract class Game {
 
     private final double COLOR_OFFSET = 0.97;
 
+    /**
+     * Constructor for Game
+     * @param boardType the type of board
+     * @param dim the dimension of the board
+     * @param mines the number of mines on the board
+     * @param clusteringThreshold the clustering threshold value
+     * @param h the height of the board
+     * @param w the width of the board
+     */
     public Game(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         newGame(boardType, dim, mines, clusteringThreshold, h, w);
 
@@ -53,6 +62,15 @@ public abstract class Game {
         }
     }
 
+    /**
+     * Starts a new game
+     * @param boardType the type of board
+     * @param dim the dimension of the board
+     * @param mines the number of mines on the board
+     * @param clusteringThreshold the clustering threshold value
+     * @param h the height of the board
+     * @param w the width of the board
+     */
     public void newGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         try {
             board = BOARD_TYPES.get(boardType).getDeclaredConstructor(int.class, int.class, double.class)
@@ -66,6 +84,11 @@ public abstract class Game {
         firstClick = true;
     }
 
+    /**
+     * Left click handler for Game
+     * @param i the row index
+     * @param j the column index
+     */
     public void leftClick(int i, int j) {
         if (board.getWalled(i, j)) return;
 
@@ -75,10 +98,21 @@ public abstract class Game {
         firstClick = false;
     }
 
+    /**
+     * Gets the visited status of a spot on the board
+     * @param i the row index
+     * @param j the column index
+     * @return the visited status of the spot
+     */
     public boolean getVisited(int i, int j) {
         return board.getVisited(i, j);
     }
 
+    /**
+     * Gets the flagged status of a spot on the board
+     * @param i the row index
+     * @param j the column index
+     */
     protected void onFirstClick(int i, int j) {
         board.genBoard(i, j);
         normalClick(i, j);
@@ -106,12 +140,29 @@ public abstract class Game {
         }
     }
 
+    /**
+     * Left click handler for Game
+     * @param i the row index
+     * @param j the column index
+     */
     protected abstract void normalClick(int i, int j);
 
+    /**
+     * Right click handler for Game
+     * @param i the row index
+     * @param j the column index
+     */
     public abstract void rightClick(int i, int j);
 
+    /**
+     * Gets the game status
+     * @return the game status
+     */
     public abstract boolean hint();
 
+    /**
+     * Gets the game status
+     */
     public void updateGameStatus() {
         status = board.getGameState();
 
@@ -120,14 +171,34 @@ public abstract class Game {
         }
     }
 
+    /**
+     * Gets the game status
+     * @return the game status
+     */
     public GameStatus getLastUpdatedGameStatus() {
         return status;
     }
 
+    /**
+     * Gets the string representation of the board
+     * @param i the row index
+     * @param j the column index
+     * @return the string representation of the board
+     */
     public abstract Color getBackgroundColor(int i, int j);
 
+    /**
+     * Gets the string representation of the board
+     * @param i the row index
+     * @param j the column index
+     * @return the string representation of the board
+     */
     public abstract ImageIcon getIcon(int i, int j);
 
+    /**
+     * Gets the string representation of the board
+     * @return the string representation of the board
+     */
     public int getDimension() {
         return board.getDimension();
     }

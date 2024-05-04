@@ -219,10 +219,19 @@ public abstract class MinesweeperBoard {
         setVisited(i, j, true);
     }
 
+    /**
+     * Get whether or not a certain point is walled
+     * @param i the row index
+     * @param j the column index
+     * @return whether or not (i, j) is walled
+     */
     public boolean getWalled(int i, int j) {
         return walled[i][j];
     }
 
+    /**
+     * Get the flag count
+     */
     public void expandZeros() {
         boolean[][] prevVisited = new boolean[dim][dim];
 
@@ -242,6 +251,11 @@ public abstract class MinesweeperBoard {
         }
     }
 
+    /**
+     * Generates a board with a mine at (i, j)
+     * @param i the row index
+     * @param j the column index
+     */
     public void genBoard(int i, int j) {
         double[][] mineMask = new double[dim][dim];
         for (int a = 0; a < dim; a++) {
@@ -262,10 +276,18 @@ public abstract class MinesweeperBoard {
         generateBoard(mineMask);
     }
 
+    /**
+     * Generates a board with a certain mine mask
+     * @param mineMask the mine mask to generate the board with
+     */
     public void genBoard(double[][] mineMask) {
         generateBoard(mineMask);
     }
 
+    /**
+     * Generates a board with a certain mine mask
+     * @param mineMask the mine mask to generate the board with
+     */
     protected void generateBoard(double[][] mineMask) {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
@@ -277,6 +299,11 @@ public abstract class MinesweeperBoard {
         calculateNumbers();
     }
 
+    /**
+     * Places mines on the board based on a mine mask
+     * @param mineMask the mine mask to place mines on the board with
+     * @param mines the number of mines to place
+     */
     public void placeMines(double[][] mineMask, int mines) {
         double[] thresholds = new double[dim * dim];
         for (int i = 0; i < dim; i++) {
@@ -328,6 +355,9 @@ public abstract class MinesweeperBoard {
         }
     }
 
+    /**
+     * Calculates the numbers on the board
+     */
     public void calculateNumbers() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
@@ -349,16 +379,33 @@ public abstract class MinesweeperBoard {
         }
     }
 
+    /**
+     * Prints the board with all cells revealed
+     */
     public void printBoardAllRevealed() {
         printBoard(false);
     }
 
+    /**
+     * Prints the board as it would be seen by the player
+     */
     public void printBoardHidden() {
         printBoard(true);
     }
 
+    /**
+     * Prints the board with a certain visibility
+     * @param hidden whether or not the board is hidden
+     */
     protected abstract void printBoard(boolean hidden);
 
+    /**
+     * Gets the string representation of a certain cell
+     * @param i the row index
+     * @param j the column index
+     * @param hidden whether or not the board is hidden
+     * @return the string representation of the cell
+     */
     public String getStringFor(int i, int j, boolean hidden) {
         if (walled[i][j]) return "W";
         if (flagged[i][j] && !visited[i][j] && hidden) return "F";
@@ -369,6 +416,11 @@ public abstract class MinesweeperBoard {
         }
     }
 
+    /**
+     * Reveals a certain spot on the board
+     * @param i the row index
+     * @param j the column index
+     */
     public boolean hint() {
         ArrayList<int[]> possible = new ArrayList<>();
         int count = 0;
@@ -388,6 +440,11 @@ public abstract class MinesweeperBoard {
         return true;
     }
 
+    /**
+     * Reveals a certain spot on the board
+     * @param i the row index
+     * @param j the column index
+     */
     public void placeMine(int i, int j) {
         statuses[i][j] = -1;
         mines++;
@@ -402,10 +459,21 @@ public abstract class MinesweeperBoard {
         }
     }
 
+    /**
+     * Gets whether or not a certain point is a mine
+     * @param i the row index
+     * @param j the column index
+     * @return whether or not (i, j) is a mine
+     */
     public boolean getMine(int i, int j) {
         return statuses[i][j] == -1;
     }
 
+    /**
+     * Reveals a certain spot on the board
+     * @param i the row index
+     * @param j the column index
+     */
     public void revealSpot(int i, int j) {
         if (visited[i][j]) return;
         visited[i][j] = true;
@@ -422,6 +490,10 @@ public abstract class MinesweeperBoard {
         }
     }
 
+    /**
+     * Gets the game state
+     * @return the game state
+     */
     public GameStatus getGameState() {
         boolean uncoveredAllNonBombs = true;
         for (int i = 0; i < dim; i++) {
@@ -438,18 +510,35 @@ public abstract class MinesweeperBoard {
         return uncoveredAllNonBombs ? GameStatus.WON : GameStatus.ONGOING;
     }
 
+    /**
+     * Toggles the flag at a certain point
+     * @param i the row index
+     * @param j the column index
+     */
     public void toggleFlag(int i, int j) {
         flagged[i][j] = !flagged[i][j];
     }
 
+    /**
+     * Gets the flag count
+     * @return the flag count
+     */
     public int getDimension() {
         return dim;
     }
 
+    /**
+     * Gets the flag count
+     * @return the flag count
+     */
     public int getNumMines() {
         return mines;
     }
 
+    /**
+     * Gets the flag count
+     * @return the flag count
+     */
     public double getClusteringThreshold() {
         return clusteringThreshold;
     }

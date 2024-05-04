@@ -7,11 +7,24 @@ import GraphicsUtil.BoardGUI;
 import java.util.ArrayList;
 
 public class CrazyHouseModeGame extends NormalModeGame {
-
+    /**
+     * Constructor for Crazy House mode
+     * @param boardType the type of board
+     * @param dim the dimension of the board
+     * @param mines the number of mines on the board
+     * @param clusteringThreshold the clustering threshold value
+     * @param h the height of the board
+     * @param w the width of the board
+     */
     public CrazyHouseModeGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         super(boardType, dim, mines, clusteringThreshold, h, w);
     }
 
+    /**
+     * Left click handler for Crazy House mode
+     * @param i the row index
+     * @param j the column index
+     */
     protected void normalClick(int i, int j) {
         board.revealSpot(i, j);
 

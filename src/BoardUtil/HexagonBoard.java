@@ -38,6 +38,11 @@ public class HexagonBoard extends MinesweeperBoard {
         return neighbors;
     }
 
+    /**
+     * Gets the string representation of the board
+     * @param hidden whether the board is hidden
+     * @return the string representation of the board
+     */
     protected void printBoard(boolean hidden) {
         for (int i = 0; i < dim; i++) {
             if (i % 2 == 1) System.out.print("  ");
@@ -48,6 +53,12 @@ public class HexagonBoard extends MinesweeperBoard {
         }
     }
 
+    /**
+     * Gets the string representation of a certain cell
+     * @param i the row index
+     * @param j the column index
+     * @return the string representation of the cell
+     */
     public int getCellId(int i, int j) {
         if (i % 2 == 0) {
             return j % 3;
