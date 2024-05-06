@@ -10,6 +10,9 @@ import javax.swing.*;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Handler for all control panel GUI functionality
+ */
 public class ControlPanelGUI extends JPanel {
     /**
      * The JSlider for the grid size

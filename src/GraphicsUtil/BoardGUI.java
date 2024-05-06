@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Handler for all board GUI functionality
+ */
 public abstract class BoardGUI extends JPanel {
     /**
      * The board icons of each cell

@@ -6,6 +6,9 @@ import GraphicsUtil.BoardGUI;
 
 import java.util.ArrayList;
 
+/**
+ * Game Mode: Cells of the board reveal themselves with a set time interval, having a 5% chance of being a bomb
+ */
 public class AutomatedBoardModeGame extends NormalModeGame {
     /**
      * Constructor for Automated Board mode

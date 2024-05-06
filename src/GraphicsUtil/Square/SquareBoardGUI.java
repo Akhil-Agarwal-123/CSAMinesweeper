@@ -6,6 +6,9 @@ import GraphicsUtil.BoardGUI;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Board GUI to handle square labels and layout
+ */
 public class SquareBoardGUI extends BoardGUI {
     /**
      * Gets the layout manager for a square board

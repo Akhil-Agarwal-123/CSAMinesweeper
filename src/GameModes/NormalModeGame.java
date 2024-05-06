@@ -6,6 +6,9 @@ import GraphicsUtil.BoardGUI;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Game Mode: Classic minesweeper
+ */
 public class NormalModeGame extends Game {
     /**
      * Constructor for Normal mode

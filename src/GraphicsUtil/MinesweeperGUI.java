@@ -5,6 +5,9 @@ import Global.Global;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Overall GUI handler for entire screen
+ */
 public class MinesweeperGUI extends JFrame {
     /**
      * The board GUI handler

@@ -4,6 +4,9 @@ import Global.Global;
 
 import java.awt.*;
 
+/**
+ * Handles the layout of all triangular labels for the board
+ */
 public class TriangleLayout implements LayoutManager {
     /**
      * The width of each triangle

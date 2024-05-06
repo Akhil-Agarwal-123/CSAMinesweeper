@@ -6,6 +6,9 @@ import GraphicsUtil.BoardGUI;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Board GUI to handle hexagonal labels and layout
+ */
 public class HexagonBoardGUI extends BoardGUI {
     /**
      * Gets the layout manager for a hexagon board

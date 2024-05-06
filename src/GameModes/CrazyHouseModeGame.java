@@ -5,6 +5,9 @@ import GraphicsUtil.BoardGUI;
 
 import java.util.ArrayList;
 
+/**
+ * Game Mode: Board scrambles all unvisited cells after each move
+ */
 public class CrazyHouseModeGame extends NormalModeGame {
     /**
      * Constructor for Crazy House mode

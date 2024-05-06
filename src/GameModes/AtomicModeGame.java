@@ -7,6 +7,9 @@ import GraphicsUtil.BoardGUI;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+/**
+ * Game Mode: Un-flagged bombs continually explode with a set time interval, scrambling and undoing nearby progress
+ */
 public class AtomicModeGame extends NormalModeGame {
     /**
      * Constructor for Atomic mode

@@ -6,6 +6,9 @@ import GraphicsUtil.BoardGUI;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Board GUI to handle triangular labels and layout
+ */
 public class TriangleBoardGUI extends BoardGUI {
     /**
      * Gets the layout manager for a triangle board

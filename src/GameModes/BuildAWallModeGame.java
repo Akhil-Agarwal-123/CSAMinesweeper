@@ -6,6 +6,9 @@ import GraphicsUtil.BoardGUI;
 
 import java.util.ArrayList;
 
+/**
+ * Game Mode: Cells which are not bombs are "walled" with a set time interval, allowing less easy progress
+ */
 public class BuildAWallModeGame extends NormalModeGame {
     /**
      * Constructor for Build a Wall mode

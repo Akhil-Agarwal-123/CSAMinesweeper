@@ -5,6 +5,9 @@ import GraphicsUtil.MinesweeperGUI;
 
 import java.util.Random;
 
+/**
+ * Stores all variables which must be accessed by all classes
+ */
 public class Global {
     /**
      * The game that is occurring

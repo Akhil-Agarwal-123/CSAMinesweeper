@@ -2,6 +2,9 @@ package GameModes;
 
 import GraphicsUtil.BoardGUI;
 
+/**
+ * Game Mode: Users cannot flag
+ */
 public class AntiFlagModeGame extends NormalModeGame {
     /**
      * Constructor for Anti-Flag mode

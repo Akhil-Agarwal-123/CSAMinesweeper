@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Abstract class to handle all gameplay
+ */
 public abstract class Game {
     /**
      * The board

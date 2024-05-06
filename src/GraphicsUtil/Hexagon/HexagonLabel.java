@@ -3,6 +3,9 @@ package GraphicsUtil.Hexagon;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class to handle hexagonal labels
+ */
 public class HexagonLabel extends JLabel {
     /**
      * The bounds for the hexagon label

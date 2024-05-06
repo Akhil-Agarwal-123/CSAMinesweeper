@@ -2,6 +2,9 @@ package BoardUtil;
 
 import java.util.ArrayList;
 
+/**
+ * The board which handles triangular placements and neighbors
+ */
 public class TriangleBoard extends MinesweeperBoard {
     /**
      * Constructor to make triangular board

@@ -7,6 +7,9 @@ import GraphicsUtil.BoardGUI;
 
 import java.util.ArrayList;
 
+/**
+ * Game Mode: Board changes shapes every move, between square and hexagon
+ */
 public class ClimateChangeModeGame extends NormalModeGame {
     /**
      * Constructor for Climate Change mode

@@ -2,6 +2,9 @@ package BoardUtil;
 
 import java.util.ArrayList;
 
+/**
+ * The board which handles square placements and neighbors
+ */
 public class SquareBoard extends MinesweeperBoard {
     /**
      * Constructor to make square board

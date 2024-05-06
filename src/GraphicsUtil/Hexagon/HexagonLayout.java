@@ -4,6 +4,9 @@ import Global.Global;
 
 import java.awt.*;
 
+/**
+ * Handles the layout of all hexagonal labels for the board
+ */
 public class HexagonLayout implements LayoutManager {
     /**
      * The width of each hexagon

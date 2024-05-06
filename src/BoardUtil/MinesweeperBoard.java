@@ -4,6 +4,9 @@ import Global.Global;
 
 import java.util.ArrayList;
 
+/**
+ * The board which handles generic placements and neighbors, abstracted to allow for different board shapes
+ */
 public abstract class MinesweeperBoard {
     /**
      * Statuses of each place on the board

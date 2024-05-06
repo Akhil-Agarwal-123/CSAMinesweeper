@@ -3,6 +3,9 @@ package GraphicsUtil.Triangle;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class to handle left-sided triangular labels
+ */
 public class TriangleLeftLabel extends JLabel {
     /**
      * The bounds for the triangle label

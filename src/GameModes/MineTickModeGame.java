@@ -6,6 +6,9 @@ import GraphicsUtil.BoardGUI;
 
 import java.util.ArrayList;
 
+/**
+ * Game Mode: A mine is added to the board each time the user makes a move
+ */
 public class MineTickModeGame extends NormalModeGame {
     /**
      * Constructor for Mine Tick mode

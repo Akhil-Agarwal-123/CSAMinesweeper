@@ -7,6 +7,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Handles translating strings to icons (images) from files
+ */
 public class IconHandler {
     /**
      * A map from the string representation of a cell to the icon to be displayed
