@@ -11,20 +11,54 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ControlPanelGUI extends JPanel {
+    /**
+     * The JSlider for the grid size
+     */
     private final JSlider gridSizeSlider;
+    /**
+     * The JSlider for the bomb percentage
+     */
     private final JSlider bombPercentageSlider;
+    /**
+     * The JSlider for the cluster threshold
+     */
     private final JSlider clusterThresholdSlider;
+    /**
+     * The max true cluster threshold that can be reached
+     */
     private final int MAX_CLUSTER_THRESHOLD = 6;
+    /**
+     * The JButton for the new game button
+     */
     private final JButton newGameButton;
+    /**
+     * The JButton for the hint button
+     */
     private final JButton hintButton;
-    private final JComboBox<String> boardShapeDropdown, gameModeDropdown;
+    /**
+     * The board shape dropdown
+     */
+    private final JComboBox<String> boardShapeDropdown;
+    /**
+     * The game mode dropdown
+     */
+    private final JComboBox<String> gameModeDropdown;
+    /**
+     * The JLabel for the timer
+     */
     private final JLabel timer;
 
+    /**
+     * A map to convert the string displayed in the options to the board gui class
+     */
     private final Map<String, Class<? extends BoardGUI>> BOARD_SHAPES = Map.of(
             "Square Board", SquareBoardGUI.class,
             "Hexagonal Board", HexagonBoardGUI.class,
             "Triangular Board", TriangleBoardGUI.class
     );
+    /**
+     * A map to convert the string displayed in the option to the game mode class
+     */
     private final Map<String, Class<? extends Game>> GAME_MODES = Map.of(
             "Original Mode", NormalModeGame.class,
             "Anti-Flag Mode", AntiFlagModeGame.class,
@@ -37,7 +71,7 @@ public class ControlPanelGUI extends JPanel {
     );
 
     /**
-     * Creates a control panel GUI with a certain layout manager
+     * Creates a control panel GUI
      */
     public ControlPanelGUI() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

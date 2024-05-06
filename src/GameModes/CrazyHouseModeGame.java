@@ -1,7 +1,6 @@
 package GameModes;
 
 import BoardUtil.GameStatus;
-import Global.Global;
 import GraphicsUtil.BoardGUI;
 
 import java.util.ArrayList;

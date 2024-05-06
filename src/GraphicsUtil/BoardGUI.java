@@ -9,10 +9,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public abstract class BoardGUI extends JPanel {
+    /**
+     * The board icons of each cell
+     */
     private final JLabel[][] boardIcons;
 
     /**
-     * Creates a board GUI with a certain layout manager
+     * Creates a board GUI
      */
     public BoardGUI() {
         setLayout(getLayoutManager());

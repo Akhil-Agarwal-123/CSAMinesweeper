@@ -4,28 +4,33 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TriangleLeftLabel extends JLabel {
-
+    /**
+     * The bounds for the triangle label
+     */
     Polygon bounds;
+    /**
+     * The icon to be displayed
+     */
     Icon icon;
+    /**
+     * The background color
+     */
     Color background;
 
     /**
-     * Creates a hexagonal button with a single character label
-     * @param icon the icon to display on the button
+     * Creates a triangular button with an icon
+     * @param icon the icon to display
      */
     public TriangleLeftLabel(Icon icon) {
         super(icon);
         this.calculateBounds();
         this.icon = icon;
         this.setOpaque(true);
-//        this.setBo(false);
-//        this.setContentAreaFilled(false);
     }
 
     /**
-     * Creates a hexagonal button with a single character label
-     * @param icon the icon to display on the button
-     * @param background the background color of the button
+     * Sets the background color
+     * @param background the desired background color
      */
     @Override
     public void setBackground(Color background) {
@@ -33,10 +38,10 @@ public class TriangleLeftLabel extends JLabel {
     }
 
     /**
-     * Creates a hexagon of certain height / width and ratio multiplier
-     * @param width the width of the hexagon
-     * @param height the height of the hexagon
-     * @return a hexagon polygon
+     * Creates a triangle of certain height / width and ratio multiplier
+     * @param width the width of the triangle
+     * @param height the height of the triangle
+     * @return the triangle polygon
      */
     private Polygon triangle(int width, int height) {
         Polygon tri = new Polygon();
@@ -119,8 +124,8 @@ public class TriangleLeftLabel extends JLabel {
     }
 
     /**
-     * Sets the location of the button
-     * @param graphics the graphics object to paint on
+     * Draws the button
+     * @param graphics the graphics object
      */
     @Override
     protected void paintComponent(Graphics graphics) {
@@ -135,7 +140,7 @@ public class TriangleLeftLabel extends JLabel {
 
     /**
      * Paints the button
-     * @param g the graphics object to paint on
+     * @param g the graphics object
      */
     @Override
     public void paint(Graphics g) {

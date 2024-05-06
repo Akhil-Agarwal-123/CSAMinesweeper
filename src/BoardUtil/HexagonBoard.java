@@ -39,9 +39,8 @@ public class HexagonBoard extends MinesweeperBoard {
     }
 
     /**
-     * Gets the string representation of the board
-     * @param hidden whether the board is hidden
-     * @return the string representation of the board
+     * Prints the board with a certain visibility
+     * @param hidden whether or not the board is hidden
      */
     protected void printBoard(boolean hidden) {
         for (int i = 0; i < dim; i++) {
@@ -54,10 +53,10 @@ public class HexagonBoard extends MinesweeperBoard {
     }
 
     /**
-     * Gets the string representation of a certain cell
+     * Gets the cell id for coloring based on the indices
      * @param i the row index
      * @param j the column index
-     * @return the string representation of the cell
+     * @return the cell id of the indices
      */
     public int getCellId(int i, int j) {
         if (i % 2 == 0) {

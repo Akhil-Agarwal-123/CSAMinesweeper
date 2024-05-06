@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IconHandler {
+    /**
+     * A map from the string representation of a cell to the icon to be displayed
+     */
     private final Map<String, ImageIcon> ICON_MAP = new HashMap<>();
 
     /**
@@ -24,7 +27,7 @@ public class IconHandler {
      * Regenerates the icons with a certain height, width, and dimension
      * @param h the height of the icon
      * @param w the width of the icon
-     * @param dim the dimension of the icon
+     * @param dim the dimension of the board
      */
     public void regen(int h, int w, int dim) {
         ICON_MAP.clear();

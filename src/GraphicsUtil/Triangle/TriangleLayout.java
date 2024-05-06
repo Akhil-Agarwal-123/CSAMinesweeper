@@ -3,12 +3,16 @@ package GraphicsUtil.Triangle;
 import Global.Global;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TriangleLayout implements LayoutManager {
-    private Map<Component, Dimension> componentSizes = new HashMap<>();
-    private int widthOfEach, heightOfEach;
+    /**
+     * The width of each triangle
+     */
+    private int widthOfEach;
+    /**
+     * The height of each triangle
+     */
+    private int heightOfEach;
 
     /**
      * Sets the width and height of each triangle
@@ -31,16 +35,16 @@ public class TriangleLayout implements LayoutManager {
     }
 
     /**
-     * Lays out the components
+     * Removes a layout component
      * @param comp the container
      */
     @Override
     public void removeLayoutComponent(Component comp) {
-        componentSizes.remove(comp);
+        // Not used
     }
 
     /**
-     * Lays out the components
+     * Gets the preferred size
      * @param parent the container
      */
     @Override
@@ -53,7 +57,7 @@ public class TriangleLayout implements LayoutManager {
     }
 
     /**
-     * Lays out the components
+     * Gets the minimum size
      * @param parent the container
      */
     @Override
@@ -62,7 +66,7 @@ public class TriangleLayout implements LayoutManager {
     }
 
     /**
-     * Lays out the components
+     * Updates the layout
      * @param parent the container
      */
     @Override

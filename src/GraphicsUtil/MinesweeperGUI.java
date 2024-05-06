@@ -6,7 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MinesweeperGUI extends JFrame {
+    /**
+     * The board GUI handler
+     */
     public BoardGUI boardGUI;
+    /**
+     * The control panel GUI handler
+     */
     public ControlPanelGUI controlPanelGUI;
 
     /**

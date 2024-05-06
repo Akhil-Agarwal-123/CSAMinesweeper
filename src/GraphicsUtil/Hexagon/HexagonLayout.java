@@ -2,16 +2,17 @@ package GraphicsUtil.Hexagon;
 
 import Global.Global;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.LayoutManager;
-import java.util.HashMap;
-import java.util.Map;
+import java.awt.*;
 
 public class HexagonLayout implements LayoutManager {
-    private Map<Component, Dimension> componentSizes = new HashMap<>();
-    private int widthOfEach, heightOfEach;
+    /**
+     * The width of each hexagon
+     */
+    private int widthOfEach;
+    /**
+     * The height of each hexagon
+     */
+    private int heightOfEach;
 
     /**
      * Sets the width and height of each hexagon
@@ -34,16 +35,16 @@ public class HexagonLayout implements LayoutManager {
     }
 
     /**
-     * Lays out the components
+     * Removes a layout component
      * @param comp the container
      */
     @Override
     public void removeLayoutComponent(Component comp) {
-        componentSizes.remove(comp);
+        // Not used
     }
 
     /**
-     * Lays out the components
+     * Gets the preferred size
      * @param parent the container
      */
     @Override
@@ -56,7 +57,7 @@ public class HexagonLayout implements LayoutManager {
     }
 
     /**
-     * Lays out the components
+     * Gets the minimum size
      * @param parent the container
      */
     @Override
@@ -65,7 +66,7 @@ public class HexagonLayout implements LayoutManager {
     }
 
     /**
-     * Lays out the components
+     * Updates the layout
      * @param parent the container
      */
     @Override

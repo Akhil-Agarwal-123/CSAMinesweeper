@@ -16,14 +16,41 @@ import java.util.Map;
 
 
 public abstract class Game {
+    /**
+     * The board
+     */
     protected MinesweeperBoard board;
+    /**
+     * The board status
+     */
     protected GameStatus status;
+    /**
+     * The icon handler
+     */
     protected IconHandler iconHandler;
+    /**
+     * Whether the first click has not occurred
+     */
     protected boolean firstClick;
+    /**
+     * A background task to run in parallel with the game running
+     */
     protected Thread backgroundTask;
+    /**
+     * A thread for handling the timer
+     */
     protected Thread timerTask;
+    /**
+     * The current time calculated by the timer thread
+     */
     protected double currentTime;
+    /**
+     * The start time of the timer
+     */
     protected double startTime;
+    /**
+     * A map from a square theme to an arraylist storing variations of the colors to use on the board based on cell id
+     */
     protected final Map<String, ArrayList<Color>> colorMap = Map.of(
             "GRASS", new ArrayList<>(List.of(new Color(172, 208, 94))),
             "SAND", new ArrayList<>(List.of(new Color(215, 184, 153))),
@@ -31,12 +58,17 @@ public abstract class Game {
             "MINE", new ArrayList<>(List.of(new Color(255, 0, 0))),
             "WALL", new ArrayList<>(List.of(new Color(150, 150, 150)))
     );
+    /**
+     * A map from the type of board GUI to the type of board
+     */
     protected final Map<Class<? extends BoardGUI>, Class<? extends MinesweeperBoard>> BOARD_TYPES = Map.of(
             SquareBoardGUI.class, SquareBoard.class,
             HexagonBoardGUI.class, HexagonBoard.class,
             TriangleBoardGUI.class, TriangleBoard.class
     );
-
+    /**
+     * The amount to offset each square by within a theme
+     */
     private final double COLOR_OFFSET = 0.97;
 
     /**
@@ -109,7 +141,7 @@ public abstract class Game {
     }
 
     /**
-     * Gets the flagged status of a spot on the board
+     * Runs when the user does their first left click on the board
      * @param i the row index
      * @param j the column index
      */
@@ -141,7 +173,7 @@ public abstract class Game {
     }
 
     /**
-     * Left click handler for Game
+     * Left click handler for Game (when not first click)
      * @param i the row index
      * @param j the column index
      */
@@ -155,8 +187,8 @@ public abstract class Game {
     public abstract void rightClick(int i, int j);
 
     /**
-     * Gets the game status
-     * @return the game status
+     * Gets a hint for the user from the board
+     * @return whether a hint was given
      */
     public abstract boolean hint();
 
@@ -180,24 +212,24 @@ public abstract class Game {
     }
 
     /**
-     * Gets the string representation of the board
+     * Gets the background color of a spot on the board
      * @param i the row index
      * @param j the column index
-     * @return the string representation of the board
+     * @return the background color of the spot
      */
     public abstract Color getBackgroundColor(int i, int j);
 
     /**
-     * Gets the string representation of the board
+     * Gets the icon for a spot on the board
      * @param i the row index
      * @param j the column index
-     * @return the string representation of the board
+     * @return the icon for the spot
      */
     public abstract ImageIcon getIcon(int i, int j);
 
     /**
-     * Gets the string representation of the board
-     * @return the string representation of the board
+     * Gets the dimension of the board
+     * @return the dimension of the board
      */
     public int getDimension() {
         return board.getDimension();

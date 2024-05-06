@@ -4,24 +4,34 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HexagonLabel extends JLabel {
-
+    /**
+     * The bounds for the hexagon label
+     */
     Polygon bounds;
+    /**
+     * The icon to be displayed
+     */
     Icon icon;
+    /**
+     * The background color
+     */
     Color background;
 
     /**
-     * Creates a hexagonal button with a single character label
-     * @param icon
+     * Creates a hexagonal button with an icon
+     * @param icon the icon to display
      */
     public HexagonLabel(Icon icon) {
         super(icon);
         this.calculateBounds();
         this.icon = icon;
         this.setOpaque(true);
-//        this.setBo(false);
-//        this.setContentAreaFilled(false);
     }
 
+    /**
+     * Sets the background color
+     * @param background the desired background color
+     */
     @Override
     public void setBackground(Color background) {
         this.background = background;

@@ -5,11 +5,37 @@ import Global.Global;
 import java.util.ArrayList;
 
 public abstract class MinesweeperBoard {
+    /**
+     * Statuses of each place on the board
+     */
     protected int[][] statuses;
+    /**
+     * Dimension of the board
+     */
     protected final int dim;
+    /**
+     * Number of mines on the board
+     */
     protected int mines;
+    /**
+     * How much the board should cluster its mines
+     */
     protected final double clusteringThreshold;
-    protected boolean[][] visited, flagged, walled;
+    /**
+     * Has the user revealed each space?
+     */
+    protected boolean[][] visited;
+    /**
+     * Has the user flagged each space?
+     */
+    protected boolean[][] flagged;
+    /**
+     * Has the space been walled?
+     */
+    protected boolean[][] walled;
+    /**
+     * Number of spaces flagged by user
+     */
     protected int flagCount;
 
     /**
@@ -230,7 +256,7 @@ public abstract class MinesweeperBoard {
     }
 
     /**
-     * Get the flag count
+     * Expands all of the 0s on the board
      */
     public void expandZeros() {
         boolean[][] prevVisited = new boolean[dim][dim];
@@ -252,7 +278,7 @@ public abstract class MinesweeperBoard {
     }
 
     /**
-     * Generates a board with a mine at (i, j)
+     * Generates a board with no mine at (i, j)
      * @param i the row index
      * @param j the column index
      */
@@ -417,9 +443,7 @@ public abstract class MinesweeperBoard {
     }
 
     /**
-     * Reveals a certain spot on the board
-     * @param i the row index
-     * @param j the column index
+     * Reveals a spot on the board as a hint
      */
     public boolean hint() {
         ArrayList<int[]> possible = new ArrayList<>();
@@ -520,24 +544,24 @@ public abstract class MinesweeperBoard {
     }
 
     /**
-     * Gets the flag count
-     * @return the flag count
+     * Gets the board dimensions
+     * @return the board dimensions
      */
     public int getDimension() {
         return dim;
     }
 
     /**
-     * Gets the flag count
-     * @return the flag count
+     * Gets the number of mines
+     * @return the number of mines
      */
     public int getNumMines() {
         return mines;
     }
 
     /**
-     * Gets the flag count
-     * @return the flag count
+     * Gets the clustering threshold
+     * @return the clustering threshold
      */
     public double getClusteringThreshold() {
         return clusteringThreshold;

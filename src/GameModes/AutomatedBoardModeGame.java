@@ -4,7 +4,6 @@ import BoardUtil.GameStatus;
 import Global.Global;
 import GraphicsUtil.BoardGUI;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class AutomatedBoardModeGame extends NormalModeGame {
