@@ -42,15 +42,15 @@ public class HexagonLabel extends JLabel {
 
     /**
      * Creates a hexagon of certain height / width and ratio multiplier
-     * @param width the width of the hexagon
+     * @param width  the width of the hexagon
      * @param height the height of the hexagon
      * @return the hexagon polygon
      */
-    private Polygon hexagon(int width, int height, double ratio) {
+    private Polygon hexagon(int width, int height) {
         Polygon hexagon = new Polygon();
         for (int i = 0; i < 6; i++) {
             int x = (i == 1 || i == 4) ? (width/2) : ((i == 2 || i == 3) ? 0 : width);
-            int y = height / 2 + (int)((height) / 2 * Math.sin(i * 2 * Math.PI / 6 + Math.PI/6) * ratio);
+            int y = height / 2 + (int)((height) / 2 * Math.sin(i * 2 * Math.PI / 6 + Math.PI/6));
             hexagon.addPoint(x,y);
         }
         return hexagon;
@@ -60,7 +60,7 @@ public class HexagonLabel extends JLabel {
      * Calculates the bounds of the button
      */
     private void calculateBounds() {
-        this.bounds = this.hexagon(this.getWidth(), this.getHeight(), 1);
+        this.bounds = this.hexagon(this.getWidth(), this.getHeight());
     }
 
     /**

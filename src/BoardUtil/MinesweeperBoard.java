@@ -447,6 +447,7 @@ public abstract class MinesweeperBoard {
 
     /**
      * Reveals a spot on the board as a hint
+     * @return whether a hint could be given or not
      */
     public boolean hint() {
         ArrayList<int[]> possible = new ArrayList<>();
