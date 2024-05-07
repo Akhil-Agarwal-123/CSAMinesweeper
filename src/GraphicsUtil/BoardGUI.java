@@ -70,6 +70,9 @@ public abstract class BoardGUI extends JPanel {
      * Updates the board
      */
     public void update() {
+        if (Global.game.getLastUpdatedGameStatus() != GameStatus.ONGOING) {
+            return;
+        }
         Global.game.updateGameStatus();
 
         if (Global.game.getLastUpdatedGameStatus() == GameStatus.WON) {

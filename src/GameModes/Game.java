@@ -152,19 +152,15 @@ public abstract class Game {
         normalClick(i, j);
 
         timerTask = new Thread(() -> {
-            //
             startTime = System.currentTimeMillis();
             while (status == GameStatus.ONGOING) {
+                currentTime = System.currentTimeMillis() - startTime;
+                Global.minesweeperGUI.controlPanelGUI.updateTimer(currentTime);
                 try {
                     Thread.sleep(995);
                 } catch (InterruptedException e) {
                     break;
                 }
-                if (status != GameStatus.ONGOING) {
-                    break;
-                }
-                currentTime = System.currentTimeMillis() - startTime;
-                Global.minesweeperGUI.controlPanelGUI.updateTimer(currentTime);
             }
         });
         timerTask.start();
@@ -202,6 +198,9 @@ public abstract class Game {
 
         if (status != GameStatus.ONGOING && backgroundTask != null) {
             backgroundTask.interrupt();
+        }
+        if (status != GameStatus.ONGOING && timerTask != null) {
+            timerTask.interrupt();
         }
     }
 
