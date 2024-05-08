@@ -241,4 +241,12 @@ public abstract class Game {
     public int getDimension() {
         return board.getDimension();
     }
+
+    /**
+     * Gets the internal board
+     * @return the internal board
+     */
+    public MinesweeperBoard getBoard() {
+        return board;
+    }
 }
