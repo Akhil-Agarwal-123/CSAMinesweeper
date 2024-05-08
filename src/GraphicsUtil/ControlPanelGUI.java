@@ -51,6 +51,7 @@ public class ControlPanelGUI extends JPanel {
      */
     private final JLabel timer;
 
+    private final JLabel flagCounter;
     /**
      * A map to convert the string displayed in the options to the board gui class
      */
@@ -123,6 +124,8 @@ public class ControlPanelGUI extends JPanel {
 
         timer = new JLabel("Time: ");
 
+        flagCounter = new JLabel("Bombs flagged: ");
+
         add(boardShapeDropdown);
         add(gameModeDropdown);
         add(gridSizeSlider);
@@ -134,6 +137,7 @@ public class ControlPanelGUI extends JPanel {
         add(newGameButton);
         add(hintButton);
         add(timer);
+        add(flagCounter);
     }
 
     /**
@@ -143,6 +147,13 @@ public class ControlPanelGUI extends JPanel {
     public void updateTimer(double time) {
         int a = (int) (time / 1000);
         timer.setText("Time: " + a);
+        Global.minesweeperGUI.revalidate();
+        Global.minesweeperGUI.repaint();
+    }
+
+    public void updateFlag(int n) {
+        int k = n + 1;
+        flagCounter.setText("Bombs flagged: " + k);
         Global.minesweeperGUI.revalidate();
         Global.minesweeperGUI.repaint();
     }
