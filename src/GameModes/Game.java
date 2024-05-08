@@ -113,6 +113,9 @@ public abstract class Game {
             e.printStackTrace();
         }
 
+        if (timerTask != null && timerTask.isAlive()) {
+            timerTask.interrupt();
+        }
         status = GameStatus.ONGOING;
         iconHandler = new IconHandler(h, w, dim);
         firstClick = true;
@@ -242,5 +245,14 @@ public abstract class Game {
      */
     public MinesweeperBoard getBoard() {
         return board;
+    }
+
+    public void endAllBackgroundTasks() {
+        if (timerTask != null && timerTask.isAlive()) {
+            timerTask.interrupt();
+        }
+        if (backgroundTask != null && backgroundTask.isAlive()) {
+            backgroundTask.interrupt();
+        }
     }
 }

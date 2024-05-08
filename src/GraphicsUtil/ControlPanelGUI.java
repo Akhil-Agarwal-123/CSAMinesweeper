@@ -177,6 +177,9 @@ public class ControlPanelGUI extends JPanel {
      * Starts a new game
      */
     public void newGame() {
+        if (Global.game != null) {
+            Global.game.endAllBackgroundTasks();
+        }
         int gridSize = Integer.parseInt(gridSizeSlider.getValue() + "");
         int bombPercentage = Integer.parseInt(bombPercentageSlider.getValue() + "");
         int clusterThreshold = Integer.parseInt(clusterThresholdSlider.getValue() + "");
