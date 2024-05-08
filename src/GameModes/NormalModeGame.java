@@ -1,6 +1,7 @@
 package GameModes;
 
 import BoardUtil.GameStatus;
+import Global.Global;
 import GraphicsUtil.BoardGUI;
 
 import javax.swing.*;
@@ -39,6 +40,8 @@ public class NormalModeGame extends Game {
      */
     public void rightClick(int i, int j) {
         board.toggleFlag(i, j);
+        Global.minesweeperGUI.controlPanelGUI.updateFlag(flags);
+        flags++;
     }
 
     /**
