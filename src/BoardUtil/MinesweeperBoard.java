@@ -209,14 +209,14 @@ public abstract class MinesweeperBoard {
      */
     public void setFlagged(int i, int j, boolean value) {
         if (flagged[i][j] != value) {
-            if (value) {
-                flagCount++;
-            } else {
-                flagCount--;
-            }
+            flagCount += value ? 1 : -1;
         }
 
         flagged[i][j] = value;
+    }
+
+    public int getRemainingFlagCount() {
+        return mines - flagCount;
     }
 
     /**
@@ -544,7 +544,7 @@ public abstract class MinesweeperBoard {
      * @param j the column index
      */
     public void toggleFlag(int i, int j) {
-        flagged[i][j] = !flagged[i][j];
+        setFlagged(i, j, !flagged[i][j]);
     }
 
     /**

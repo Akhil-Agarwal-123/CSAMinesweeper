@@ -40,8 +40,6 @@ public class NormalModeGame extends Game {
      */
     public void rightClick(int i, int j) {
         board.toggleFlag(i, j);
-        Global.minesweeperGUI.controlPanelGUI.updateFlag(flags);
-        flags++;
     }
 
     /**

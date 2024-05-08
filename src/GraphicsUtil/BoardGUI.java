@@ -44,6 +44,7 @@ public abstract class BoardGUI extends JPanel {
                         if (e.getButton() == MouseEvent.BUTTON3) {
                             Global.game.rightClick(finalI, finalJ);
                         }
+                        Global.minesweeperGUI.controlPanelGUI.updateFlagCounter(Global.game.getBoard().getRemainingFlagCount());
                         update();
                     }
                 });

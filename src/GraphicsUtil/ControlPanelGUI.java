@@ -124,7 +124,7 @@ public class ControlPanelGUI extends JPanel {
 
         timer = new JLabel("Time: ");
 
-        flagCounter = new JLabel("Bombs flagged: ");
+        flagCounter = new JLabel("Remaining flags: ");
 
         add(boardShapeDropdown);
         add(gameModeDropdown);
@@ -151,9 +151,8 @@ public class ControlPanelGUI extends JPanel {
         Global.minesweeperGUI.repaint();
     }
 
-    public void updateFlag(int n) {
-        int k = n + 1;
-        flagCounter.setText("Bombs flagged: " + k);
+    public void updateFlagCounter(int n) {
+        flagCounter.setText("Remaining flags: " + n);
         Global.minesweeperGUI.revalidate();
         Global.minesweeperGUI.repaint();
     }
@@ -204,6 +203,8 @@ public class ControlPanelGUI extends JPanel {
                     .newInstance();
 
             Global.minesweeperGUI.add(Global.minesweeperGUI.boardGUI);
+
+            updateFlagCounter(0);
         } catch (Exception e) {
             e.printStackTrace();
         }

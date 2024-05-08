@@ -73,12 +73,6 @@ public abstract class Game {
      */
     private final double COLOR_OFFSET = 0.97;
 
-    protected int flags = 0;
-
-    public int returnFlag() {
-        return flags;
-    }
-
     /**
      * Constructor for Game
      * @param boardType the type of board
