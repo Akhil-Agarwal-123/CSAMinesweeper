@@ -81,10 +81,10 @@ public class ControlPanelGUI extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         boardShapeDropdown = new JComboBox<>(BOARD_SHAPES.keySet().toArray(new String[0]));
-        boardShapeDropdown.setSelectedItem(BOARD_SHAPES.keySet().iterator().next());
+        boardShapeDropdown.setSelectedItem("Square Board");
 
         gameModeDropdown = new JComboBox<>(GAME_MODES.keySet().toArray(new String[0]));
-        gameModeDropdown.setSelectedItem(GAME_MODES.keySet().iterator().next());
+        gameModeDropdown.setSelectedItem("Original Mode");
 
         gridSizeSlider = new JSlider(2, 100, 10);
         JLabel gridSizeLabel = new JLabel("Grid Size: " + gridSizeSlider.getValue());
