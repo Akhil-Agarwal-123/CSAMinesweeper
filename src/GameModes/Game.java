@@ -158,7 +158,8 @@ public abstract class Game {
             startTime = System.currentTimeMillis();
             while (status == GameStatus.ONGOING) {
                 currentTime = System.currentTimeMillis() - startTime;
-                Global.minesweeperGUI.controlPanelGUI.updateTimer(currentTime);
+                if (Global.minesweeperGUI != null)
+                    Global.minesweeperGUI.controlPanelGUI.updateTimer(currentTime);
                 try {
                     Thread.sleep(995);
                 } catch (InterruptedException e) {

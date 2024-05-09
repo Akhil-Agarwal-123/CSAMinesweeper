@@ -59,7 +59,8 @@ public class AutomatedBoardModeGame extends NormalModeGame {
                     normalClick(randomSpot[0], randomSpot[1]);
                 }
 
-                Global.minesweeperGUI.boardGUI.update();
+                if (Global.minesweeperGUI != null)
+                    Global.minesweeperGUI.boardGUI.update();
             }
         });
     }

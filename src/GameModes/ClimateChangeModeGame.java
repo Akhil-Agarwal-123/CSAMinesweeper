@@ -49,7 +49,6 @@ public class ClimateChangeModeGame extends NormalModeGame {
         for (Class<? extends BoardGUI> boardGUIType : BOARD_TYPES.keySet()) {
             Class<? extends MinesweeperBoard> boardType = BOARD_TYPES.get(boardGUIType);
 
-            // currently disabling triangle board because still in prototype phase
             if (boardType.getTypeName().equals("BoardUtil.TriangleBoard")) {
                 continue;
             }
@@ -74,14 +73,16 @@ public class ClimateChangeModeGame extends NormalModeGame {
             board.calculateNumbers();
 
             // setup boardGUI
-            if (Global.minesweeperGUI.boardGUI != null) {
-                Global.minesweeperGUI.remove(Global.minesweeperGUI.boardGUI);
-            }
-            Global.minesweeperGUI.boardGUI = newBoardGUIType.getDeclaredConstructor().newInstance();
-            Global.minesweeperGUI.add(Global.minesweeperGUI.boardGUI);
+            if (Global.minesweeperGUI != null) {
+                if (Global.minesweeperGUI.boardGUI != null) {
+                    Global.minesweeperGUI.remove(Global.minesweeperGUI.boardGUI);
+                }
+                Global.minesweeperGUI.boardGUI = newBoardGUIType.getDeclaredConstructor().newInstance();
+                Global.minesweeperGUI.add(Global.minesweeperGUI.boardGUI);
 
-            Global.minesweeperGUI.revalidate();
-            Global.minesweeperGUI.repaint();
+                Global.minesweeperGUI.revalidate();
+                Global.minesweeperGUI.repaint();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -92,7 +92,8 @@ public class AtomicModeGame extends NormalModeGame {
                 board.calculateNumbers();
                 board.expandZeros();
 
-                Global.minesweeperGUI.boardGUI.update();
+                if (Global.minesweeperGUI != null)
+                    Global.minesweeperGUI.boardGUI.update();
             }
         });
     }
