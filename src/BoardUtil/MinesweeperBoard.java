@@ -46,6 +46,7 @@ public abstract class MinesweeperBoard {
      * @param dim the dimension of the board
      * @param mines the number of mines on the board
      * @param clusteringThreshold the clustering threshold value
+     * @author Akhil
      */
     public MinesweeperBoard(int dim, int mines, double clusteringThreshold) {
         statuses = new int[dim][dim];
@@ -72,6 +73,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return whether or not (i, j) is in the board
+     * @author Akhil
      */
     public boolean inRange(int i, int j) {
         return i >= 0 && i < dim && j >= 0 && j < dim;
@@ -93,6 +95,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return the non-walled neighbors of the point at (i, j)
+     * @author Akhil
      */
     public ArrayList<int[]> getValidNeighbors(int i, int j) {
         ArrayList<int[]> ret = new ArrayList<>();
@@ -110,6 +113,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return the neighbors of the point at (i, j)
+     * @author Akhil
      */
     protected abstract ArrayList<int[]> getAllNeighbors(int i, int j);
 
@@ -215,6 +219,10 @@ public abstract class MinesweeperBoard {
         flagged[i][j] = value;
     }
 
+    /**
+     * Gets the number of flags remaining to be placed
+     * @return remaining flag count
+     */
     public int getRemainingFlagCount() {
         return mines - flagCount;
     }
@@ -242,6 +250,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @param value the value to set (i, j) to
+     * @author Akhil
      */
     public void setWalled(int i, int j, boolean value) {
         walled[i][j] = value;
@@ -253,6 +262,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return whether or not (i, j) is walled
+     * @author Akhil
      */
     public boolean getWalled(int i, int j) {
         return walled[i][j];
@@ -501,6 +511,7 @@ public abstract class MinesweeperBoard {
      * Reveals a certain spot on the board
      * @param i the row index
      * @param j the column index
+     * @author Akhil
      */
     public void revealSpot(int i, int j) {
         if (visited[i][j]) return;
@@ -521,6 +532,7 @@ public abstract class MinesweeperBoard {
     /**
      * Gets the game state
      * @return the game state
+     * @author Akhil
      */
     public GameStatus getGameState() {
         boolean uncoveredAllNonBombs = true;

@@ -7,6 +7,7 @@ import java.awt.*;
 
 /**
  * Overall GUI handler for entire screen
+ * @author Akhil
  */
 public class MinesweeperGUI extends JFrame {
     /**
@@ -21,6 +22,7 @@ public class MinesweeperGUI extends JFrame {
     /**
      * Creates a minesweeper GUI with a certain title
      * @param title the title of the minesweeper GUI
+     * @author Akhil
      */
     public MinesweeperGUI(String title) {
         super(title);

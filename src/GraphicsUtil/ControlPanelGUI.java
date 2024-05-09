@@ -50,8 +50,11 @@ public class ControlPanelGUI extends JPanel {
      * The JLabel for the timer
      */
     private final JLabel timer;
-
+    /**
+     * The JLabel for the flag counter
+     */
     private final JLabel flagCounter;
+
     /**
      * A map to convert the string displayed in the options to the board gui class
      */
@@ -151,6 +154,10 @@ public class ControlPanelGUI extends JPanel {
         Global.minesweeperGUI.repaint();
     }
 
+    /**
+     * Updates the flag counter displayed to a certain number
+     * @param n the current flag count
+     */
     public void updateFlagCounter(int n) {
         flagCounter.setText("Remaining flags: " + n);
         Global.minesweeperGUI.revalidate();
@@ -175,6 +182,7 @@ public class ControlPanelGUI extends JPanel {
 
     /**
      * Starts a new game
+     * @author Arjun and Akhil
      */
     public void newGame() {
         if (Global.game != null) {

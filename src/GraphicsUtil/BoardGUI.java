@@ -19,6 +19,7 @@ public abstract class BoardGUI extends JPanel {
 
     /**
      * Creates a board GUI
+     * @author Akhil
      */
     public BoardGUI() {
         setLayout(getLayoutManager());
@@ -56,6 +57,7 @@ public abstract class BoardGUI extends JPanel {
     /**
      * Returns the layout manager of the board
      * @return the layout manager of the board
+     * @author Akhil
      */
     protected abstract LayoutManager getLayoutManager();
 
@@ -69,6 +71,7 @@ public abstract class BoardGUI extends JPanel {
 
     /**
      * Updates the board
+     * @author Akhil
      */
     public void update() {
         if (Global.game.getLastUpdatedGameStatus() != GameStatus.ONGOING) {

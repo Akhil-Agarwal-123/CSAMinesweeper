@@ -7,6 +7,7 @@ import java.util.Random;
 
 /**
  * Stores all variables which must be accessed by all classes
+ * @author Akhil
  */
 public class Global {
     /**

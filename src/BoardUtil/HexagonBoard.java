@@ -11,6 +11,7 @@ public class HexagonBoard extends MinesweeperBoard {
      * @param dim the dimension of the board
      * @param mines the number of mines on the board
      * @param clusteringThreshold the clustering threshold value
+     * @author Akhil
      */
     public HexagonBoard(int dim, int mines, double clusteringThreshold) {
         super(dim, mines, clusteringThreshold);
@@ -21,6 +22,7 @@ public class HexagonBoard extends MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return the neighbors of the point at (i, j)
+     * @author Akhil
      */
     protected ArrayList<int[]> getAllNeighbors(int i, int j) {
         ArrayList<int[]> neighbors = new ArrayList<>();
@@ -41,6 +43,7 @@ public class HexagonBoard extends MinesweeperBoard {
     /**
      * Prints the board with a certain visibility
      * @param hidden whether or not the board is hidden
+     * @author Akhil
      */
     protected void printBoard(boolean hidden) {
         for (int i = 0; i < dim; i++) {

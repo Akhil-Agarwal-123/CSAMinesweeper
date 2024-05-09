@@ -2,6 +2,7 @@ package BoardUtil;
 
 /**
  * Stores the status of the game
+ * @author Akhil
  */
 public enum GameStatus {
     /**

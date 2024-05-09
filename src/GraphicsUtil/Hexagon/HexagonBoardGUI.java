@@ -8,11 +8,13 @@ import java.awt.*;
 
 /**
  * Board GUI to handle hexagonal labels and layout
+ * @author Akhil
  */
 public class HexagonBoardGUI extends BoardGUI {
     /**
      * Gets the layout manager for a hexagon board
      * @return the layout manager
+     * @author Akhil
      */
     @Override
     protected LayoutManager getLayoutManager() {
@@ -28,6 +30,7 @@ public class HexagonBoardGUI extends BoardGUI {
      * @param i the row index
      * @param j the column index
      * @return the label for the spot
+     * @author Akhil
      */
     @Override
     protected JLabel getLabel(int i, int j) {

@@ -6,14 +6,17 @@ import java.awt.*;
 
 /**
  * Handles the layout of all hexagonal labels for the board
+ * @author Akhil
  */
 public class HexagonLayout implements LayoutManager {
     /**
      * The width of each hexagon
+     * @author Akhil
      */
     private int widthOfEach;
     /**
      * The height of each hexagon
+     * @author Akhil
      */
     private int heightOfEach;
 
@@ -21,6 +24,7 @@ public class HexagonLayout implements LayoutManager {
      * Sets the width and height of each hexagon
      * @param wOfEach the width of each hexagon
      * @param hOfEach the height of each hexagon
+     * @author Akhil
      */
     public void setWidthHeight(double wOfEach, double hOfEach) {
         widthOfEach = (int) wOfEach;
@@ -31,6 +35,7 @@ public class HexagonLayout implements LayoutManager {
      * Adds a layout component
      * @param name the name of the component
      * @param comp the component
+     * @author Akhil
      */
     @Override
     public void addLayoutComponent(String name, Component comp) {
@@ -40,6 +45,7 @@ public class HexagonLayout implements LayoutManager {
     /**
      * Removes a layout component
      * @param comp the container
+     * @author Akhil
      */
     @Override
     public void removeLayoutComponent(Component comp) {
@@ -49,6 +55,7 @@ public class HexagonLayout implements LayoutManager {
     /**
      * Gets the preferred size
      * @param parent the container
+     * @author Akhil
      */
     @Override
     public Dimension preferredLayoutSize(Container parent) {
@@ -62,6 +69,7 @@ public class HexagonLayout implements LayoutManager {
     /**
      * Gets the minimum size
      * @param parent the container
+     * @author Akhil
      */
     @Override
     public Dimension minimumLayoutSize(Container parent) {
@@ -71,6 +79,7 @@ public class HexagonLayout implements LayoutManager {
     /**
      * Updates the layout
      * @param parent the container
+     * @author Akhil
      */
     @Override
     public void layoutContainer(Container parent) {

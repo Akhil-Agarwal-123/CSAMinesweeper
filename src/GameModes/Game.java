@@ -104,6 +104,7 @@ public abstract class Game {
      * @param clusteringThreshold the clustering threshold value
      * @param h the height of the board
      * @param w the width of the board
+     * @author Akhil
      */
     public void newGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         try {
@@ -125,6 +126,7 @@ public abstract class Game {
      * Left click handler for Game
      * @param i the row index
      * @param j the column index
+     * @author Akhil
      */
     public void leftClick(int i, int j) {
         if (board.getWalled(i, j)) return;
@@ -178,6 +180,7 @@ public abstract class Game {
      * Left click handler for Game (when not first click)
      * @param i the row index
      * @param j the column index
+     * @author Akhil
      */
     protected abstract void normalClick(int i, int j);
 
@@ -185,12 +188,14 @@ public abstract class Game {
      * Right click handler for Game
      * @param i the row index
      * @param j the column index
+     * @author Akhil
      */
     public abstract void rightClick(int i, int j);
 
     /**
      * Gets a hint for the user from the board
      * @return whether a hint was given
+     * @author Akhil
      */
     public abstract boolean hint();
 
@@ -221,6 +226,7 @@ public abstract class Game {
      * @param i the row index
      * @param j the column index
      * @return the background color of the spot
+     * @author Akhil
      */
     public abstract Color getBackgroundColor(int i, int j);
 
@@ -229,6 +235,7 @@ public abstract class Game {
      * @param i the row index
      * @param j the column index
      * @return the icon for the spot
+     * @author Akhil
      */
     public abstract ImageIcon getIcon(int i, int j);
 
@@ -248,6 +255,10 @@ public abstract class Game {
         return board;
     }
 
+    /**
+     * Ends all background tasks that are still occurring
+     * @author Akhil
+     */
     public void endAllBackgroundTasks() {
         if (timerTask != null && timerTask.isAlive()) {
             timerTask.interrupt();

@@ -5,6 +5,7 @@ import java.awt.*;
 
 /**
  * Class to handle hexagonal labels
+ * @author Akhil
  */
 public class HexagonLabel extends JLabel {
     /**
@@ -23,6 +24,7 @@ public class HexagonLabel extends JLabel {
     /**
      * Creates a hexagonal button with an icon
      * @param icon the icon to display
+     * @author Akhil
      */
     public HexagonLabel(Icon icon) {
         super(icon);
@@ -34,6 +36,7 @@ public class HexagonLabel extends JLabel {
     /**
      * Sets the background color
      * @param background the desired background color
+     * @author Akhil
      */
     @Override
     public void setBackground(Color background) {
@@ -45,6 +48,7 @@ public class HexagonLabel extends JLabel {
      * @param width  the width of the hexagon
      * @param height the height of the hexagon
      * @return the hexagon polygon
+     * @author Akhil
      */
     private Polygon hexagon(int width, int height) {
         Polygon hexagon = new Polygon();
@@ -58,6 +62,7 @@ public class HexagonLabel extends JLabel {
 
     /**
      * Calculates the bounds of the button
+     * @author Akhil
      */
     private void calculateBounds() {
         this.bounds = this.hexagon(this.getWidth(), this.getHeight());
@@ -67,6 +72,7 @@ public class HexagonLabel extends JLabel {
      * Returns whether a certain point is within the bounds of this button.
      * @param p the point
      * @return whether the point is within the bounds
+     * @author Akhil
      */
     @Override
     public boolean contains(Point p) {
@@ -78,6 +84,7 @@ public class HexagonLabel extends JLabel {
      * @param x the x coordinate
      * @param y the y coordinate
      * @return whether the point is within the bounds
+     * @author Akhil
      */
     @Override
     public boolean contains(int x, int y) {
@@ -87,6 +94,7 @@ public class HexagonLabel extends JLabel {
     /**
      * Sets the dimension of the button
      * @param d the dimension
+     * @author Akhil
      */
     @Override
     public void setSize(Dimension d) {
@@ -98,6 +106,7 @@ public class HexagonLabel extends JLabel {
      * Sets the dimension of the button
      * @param w the width
      * @param h the height
+     * @author Akhil
      */
     @Override
     public void setSize(int w, int h) {
@@ -111,6 +120,7 @@ public class HexagonLabel extends JLabel {
      * @param y the y coordinate
      * @param width the width
      * @param height the height
+     * @author Akhil
      */
     @Override
     public void setBounds(int x, int y, int width, int height) {
@@ -121,6 +131,7 @@ public class HexagonLabel extends JLabel {
     /**
      * Sets the bounds of the button
      * @param r the rectangle
+     * @author Akhil
      */
     @Override
     public void setBounds(Rectangle r) {
@@ -131,6 +142,7 @@ public class HexagonLabel extends JLabel {
     /**
      * Draws the button
      * @param graphics the graphics object
+     * @author Akhil
      */
     @Override
     protected void paintComponent(Graphics graphics) {
@@ -146,6 +158,7 @@ public class HexagonLabel extends JLabel {
     /**
      * Paints the button
      * @param g the graphics object
+     * @author Akhil
      */
     @Override
     public void paint(Graphics g) {
@@ -156,6 +169,7 @@ public class HexagonLabel extends JLabel {
     /**
      * Sets the icon of the button
      * @param icon the icon
+     * @author Akhil
      */
     @Override
     public void setIcon(Icon icon) {

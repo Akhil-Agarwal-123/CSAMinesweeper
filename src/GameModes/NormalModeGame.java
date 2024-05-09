@@ -19,6 +19,7 @@ public class NormalModeGame extends Game {
      * @param clusteringThreshold the clustering threshold value
      * @param h the height of the board
      * @param w the width of the board
+     * @author Akhil
      */
     public NormalModeGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         super(boardType, dim, mines, clusteringThreshold, h, w);
@@ -89,6 +90,7 @@ public class NormalModeGame extends Game {
      * @param i the row index
      * @param j the column index
      * @return the icon for the spot
+     * @author Akhil
      */
     public ImageIcon getIcon(int i, int j) {
         if (status == GameStatus.WON)
