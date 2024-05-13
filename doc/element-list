@@ -7,3 +7,7 @@ GraphicsUtil.Hexagon
 GraphicsUtil.Square
 GraphicsUtil.Triangle
 Testing
+Testing.UnitTests
+Testing.UnitTests.Hexagon
+Testing.UnitTests.Square
+Testing.UnitTests.Triangle

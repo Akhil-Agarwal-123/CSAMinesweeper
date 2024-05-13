@@ -1,4 +1,4 @@
-package Testing;
+package Testing.UnitTests;
 
 import BoardUtil.GameStatus;
 import GameModes.Game;
@@ -21,11 +21,13 @@ public abstract class UnitTest {
     /**
      * Returns a new instance of a game to play on
      * @return the game to start off with
+     * @author Akhil
      */
     protected abstract Game getGame();
 
     /**
      * Default constructor which creates a game
+     * @author Akhil
      */
     public UnitTest() {
         game = getGame();
@@ -37,6 +39,7 @@ public abstract class UnitTest {
      * @param leftClick did the user left click?
      * @param i the row index
      * @param j the column index
+     * @author Akhil
      */
     public void playMove(boolean leftClick, int i, int j) {
         if (leftClick) {
@@ -50,6 +53,7 @@ public abstract class UnitTest {
     /**
      * Prints out the board, either all revealed or only the visited revealed
      * @param hidden whether to reveal only the visited cells
+     * @author Akhil
      */
     public void printBoard(boolean hidden) {
         if (hidden) game.getBoard().printBoardHidden();
@@ -59,6 +63,7 @@ public abstract class UnitTest {
     /**
      * Makes one move in the game based on the user's input
      * @param printHidden whether the board should be printed hidden or not
+     * @author Akhil
      */
     public void moveWithUserInput(boolean printHidden) {
         System.out.print("Which row are you clicking on (1-" + game.getDimension() + "): ");
@@ -89,6 +94,7 @@ public abstract class UnitTest {
     /**
      * Plays until the board is either won or lost based on user input
      * @param printHidden whether to print the board in its hidden state or not
+     * @author Akhil
      */
     public void playUntilEnd(boolean printHidden) {
         while (game.getLastUpdatedGameStatus() == GameStatus.ONGOING) {

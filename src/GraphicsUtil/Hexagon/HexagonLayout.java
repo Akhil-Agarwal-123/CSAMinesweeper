@@ -11,12 +11,10 @@ import java.awt.*;
 public class HexagonLayout implements LayoutManager {
     /**
      * The width of each hexagon
-     * @author Akhil
      */
     private int widthOfEach;
     /**
      * The height of each hexagon
-     * @author Akhil
      */
     private int heightOfEach;
 
