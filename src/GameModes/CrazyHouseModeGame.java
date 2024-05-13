@@ -17,6 +17,7 @@ public class CrazyHouseModeGame extends NormalModeGame {
      * @param clusteringThreshold the clustering threshold value
      * @param h the height of the board
      * @param w the width of the board
+     * @author Arjun
      */
     public CrazyHouseModeGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         super(boardType, dim, mines, clusteringThreshold, h, w);
@@ -26,6 +27,7 @@ public class CrazyHouseModeGame extends NormalModeGame {
      * Left click handler for Crazy House mode
      * @param i the row index
      * @param j the column index
+     * @author Arjun
      */
     protected void normalClick(int i, int j) {
         board.revealSpot(i, j);

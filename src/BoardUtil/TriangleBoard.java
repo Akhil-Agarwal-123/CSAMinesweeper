@@ -11,6 +11,7 @@ public class TriangleBoard extends MinesweeperBoard {
      * @param dim the dimension of the board
      * @param mines the number of mines on the board
      * @param clusteringThreshold the clustering threshold value
+     * @author Arjun
      */
     public TriangleBoard(int dim, int mines, double clusteringThreshold) {
         super(dim, mines, clusteringThreshold);
@@ -21,6 +22,7 @@ public class TriangleBoard extends MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return the neighbors of the point at (i, j)
+     * @author Arjun
      */
     protected ArrayList<int[]> getAllNeighbors(int i, int j) {
         ArrayList<int[]> neighbors = new ArrayList<>();
@@ -49,6 +51,7 @@ public class TriangleBoard extends MinesweeperBoard {
     /**
      * Prints the board with a certain visibility
      * @param hidden whether or not the board is hidden
+     * @author Arjun
      */
     protected void printBoard(boolean hidden) {
         for (int i = 0; i < dim; i++) {
@@ -65,6 +68,7 @@ public class TriangleBoard extends MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return the cell id of the indices
+     * @author Arjun
      */
     public int getCellId(int i, int j) {
         return (i + j) % 2;

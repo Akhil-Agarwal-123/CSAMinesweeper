@@ -13,6 +13,7 @@ public class TriangleBoardGUI extends BoardGUI {
     /**
      * Gets the layout manager for a triangle board
      * @return the layout manager
+     * @author Arjun
      */
     @Override
     protected LayoutManager getLayoutManager() {
@@ -28,6 +29,7 @@ public class TriangleBoardGUI extends BoardGUI {
      * @param i the row index
      * @param j the column index
      * @return the label for the spot
+     * @author Arjun
      */
     @Override
     protected JLabel getLabel(int i, int j) {

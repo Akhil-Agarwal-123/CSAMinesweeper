@@ -21,6 +21,7 @@ public class TriangleLayout implements LayoutManager {
      * Sets the width and height of each triangle
      * @param wOfEach the width of each triangle
      * @param hOfEach the height of each triangle
+     * @author Arjun
      */
     public void setWidthHeight(double wOfEach, double hOfEach) {
         widthOfEach = (int) wOfEach;
@@ -31,6 +32,7 @@ public class TriangleLayout implements LayoutManager {
      * Adds a layout component
      * @param name the name of the component
      * @param comp the component
+     * @author Arjun
      */
     @Override
     public void addLayoutComponent(String name, Component comp) {
@@ -40,6 +42,7 @@ public class TriangleLayout implements LayoutManager {
     /**
      * Removes a layout component
      * @param comp the container
+     * @author Arjun
      */
     @Override
     public void removeLayoutComponent(Component comp) {
@@ -49,6 +52,7 @@ public class TriangleLayout implements LayoutManager {
     /**
      * Gets the preferred size
      * @param parent the container
+     * @author Arjun
      */
     @Override
     public Dimension preferredLayoutSize(Container parent) {
@@ -62,6 +66,7 @@ public class TriangleLayout implements LayoutManager {
     /**
      * Gets the minimum size
      * @param parent the container
+     * @author Arjun
      */
     @Override
     public Dimension minimumLayoutSize(Container parent) {
@@ -71,6 +76,7 @@ public class TriangleLayout implements LayoutManager {
     /**
      * Updates the layout
      * @param parent the container
+     * @author Arjun
      */
     @Override
     public void layoutContainer(Container parent) {

@@ -14,6 +14,7 @@ public class AntiFlagModeGame extends NormalModeGame {
      * @param clusteringThreshold the clustering threshold value
      * @param h the height of the board
      * @param w the width of the board
+     * @author Arjun
      */
     public AntiFlagModeGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         super(boardType, dim, mines, clusteringThreshold, h, w);
@@ -23,6 +24,7 @@ public class AntiFlagModeGame extends NormalModeGame {
      * Right click handler for Anti-Flag mode
      * @param i the row index
      * @param j the column index
+     * @author Arjun
      */
     public void rightClick(int i, int j) {
         javax.swing.JOptionPane.showMessageDialog(null, "You can't flag in Anti-Flag mode!");

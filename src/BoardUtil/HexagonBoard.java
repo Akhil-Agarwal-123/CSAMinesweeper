@@ -60,6 +60,7 @@ public class HexagonBoard extends MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return the cell id of the indices
+     * @author Arjun
      */
     public int getCellId(int i, int j) {
         if (i % 2 == 0) {

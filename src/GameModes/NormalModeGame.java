@@ -46,6 +46,7 @@ public class NormalModeGame extends Game {
     /**
      * Gets a hint for the user from the board
      * @return whether a hint was given
+     * @author Arjun
      */
     public boolean hint() {
         return board.hint();
@@ -56,6 +57,7 @@ public class NormalModeGame extends Game {
      * @param i the row index
      * @param j the column index
      * @return the background color of the spot
+     * @author Arjun
      */
     public Color getBackgroundColor(int i, int j) {
         if (board.getWalled(i, j)) {

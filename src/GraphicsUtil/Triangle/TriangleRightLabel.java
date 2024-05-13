@@ -23,6 +23,7 @@ public class TriangleRightLabel extends JLabel {
     /**
      * Creates a triangular button with an icon
      * @param icon the icon to display
+     * @author Arjun
      */
     public TriangleRightLabel(Icon icon) {
         super(icon);
@@ -34,6 +35,7 @@ public class TriangleRightLabel extends JLabel {
     /**
      * Sets the background color
      * @param background the desired background color
+     * @author Arjun
      */
     @Override
     public void setBackground(Color background) {
@@ -45,6 +47,7 @@ public class TriangleRightLabel extends JLabel {
      * @param width the width of the triangle
      * @param height the height of the triangle
      * @return the triangle polygon
+     * @author Arjun
      */
     private Polygon triangle(int width, int height) {
         Polygon tri = new Polygon();
@@ -56,6 +59,7 @@ public class TriangleRightLabel extends JLabel {
 
     /**
      * Calculates the bounds of the button
+     * @author Arjun
      */
     private void calculateBounds() {
         this.bounds = this.triangle(this.getWidth(), this.getHeight());
@@ -65,6 +69,7 @@ public class TriangleRightLabel extends JLabel {
      * Returns whether a certain point is within the bounds of this button.
      * @param p the point to check
      * @return whether the point is within the bounds of the button
+     * @author Arjun
      */
     @Override
     public boolean contains(Point p) {
@@ -76,6 +81,7 @@ public class TriangleRightLabel extends JLabel {
      * @param x the x coordinate of the point
      * @param y the y coordinate of the point
      * @return whether the point is within the bounds of the button
+     * @author Arjun
      */
     @Override
     public boolean contains(int x, int y) {
@@ -85,6 +91,7 @@ public class TriangleRightLabel extends JLabel {
     /**
      * Sets the dimension of the button
      * @param d the dimension of the button
+     * @author Arjun
      */
     @Override
     public void setSize(Dimension d) {
@@ -96,6 +103,7 @@ public class TriangleRightLabel extends JLabel {
      * Sets the size of the button
      * @param w the width of the button
      * @param h the height of the button
+     * @author Arjun
      */
     @Override
     public void setSize(int w, int h) {
@@ -109,6 +117,7 @@ public class TriangleRightLabel extends JLabel {
      * @param y the y coordinate of the button
      * @param width the width of the button
      * @param height the height of the button
+     * @author Arjun
      */
     @Override
     public void setBounds(int x, int y, int width, int height) {
@@ -119,6 +128,7 @@ public class TriangleRightLabel extends JLabel {
     /**
      * Sets the bounds of the button
      * @param r the rectangle of the button
+     * @author Arjun
      */
     @Override
     public void setBounds(Rectangle r) {
@@ -129,6 +139,7 @@ public class TriangleRightLabel extends JLabel {
     /**
      * Draws the button
      * @param graphics the graphics object
+     * @author Arjun
      */
     @Override
     protected void paintComponent(Graphics graphics) {
@@ -144,6 +155,7 @@ public class TriangleRightLabel extends JLabel {
     /**
      * Paints the button
      * @param g the graphics object
+     * @author Arjun
      */
     @Override
     public void paint(Graphics g) {
@@ -154,6 +166,7 @@ public class TriangleRightLabel extends JLabel {
     /**
      * Sets the icon of the button
      * @param icon the icon to set
+     * @author Arjun
      */
     @Override
     public void setIcon(Icon icon) {

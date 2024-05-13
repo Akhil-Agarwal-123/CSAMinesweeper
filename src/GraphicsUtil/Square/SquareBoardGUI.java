@@ -13,6 +13,7 @@ public class SquareBoardGUI extends BoardGUI {
     /**
      * Gets the layout manager for a square board
      * @return the layout manager
+     * @author Arjun
      */
     @Override
     protected LayoutManager getLayoutManager() {
@@ -24,6 +25,7 @@ public class SquareBoardGUI extends BoardGUI {
      * @param i the row index
      * @param j the column index
      * @return the label for the spot
+     * @author Arjun
      */
     @Override
     protected JLabel getLabel(int i, int j) {

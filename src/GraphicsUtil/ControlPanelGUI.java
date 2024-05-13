@@ -79,6 +79,7 @@ public class ControlPanelGUI extends JPanel {
 
     /**
      * Creates a control panel GUI
+     * @author Arjun
      */
     public ControlPanelGUI() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

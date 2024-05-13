@@ -81,6 +81,7 @@ public abstract class MinesweeperBoard {
 
     /**
      * Clears all of the flags on the board
+     * @author Arjun
      */
     public void clearFlags() {
         for (int i = 0; i < dim; i++) {
@@ -122,12 +123,14 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return the cell id of the indices
+     * @author Arjun
      */
     public abstract int getCellId(int i, int j);
 
     /**
      * Gets the statuses of each cell on the board
      * @return the statuses
+     * @author Arjun
      */
     public int[][] getStatuses() {
         return statuses;
@@ -136,6 +139,7 @@ public abstract class MinesweeperBoard {
     /**
      * Sets the statuses on the board
      * @param statuses the statuses to update the board with
+     * @author Arjun
      */
     public void setStatuses(int[][] statuses) {
         this.statuses = statuses;
@@ -146,6 +150,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return the status at (i, j)
+     * @author Arjun
      */
     public int getStatus(int i, int j) {
         return statuses[i][j];
@@ -156,6 +161,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @param value the value to set the status to
+     * @author Arjun
      */
     public void setStatus(int i, int j, int value) {
         statuses[i][j] = value;
@@ -166,6 +172,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return whether or not (i, j) is flagged
+     * @author Arjun
      */
     public boolean getFlagged(int i, int j) {
         return flagged[i][j];
@@ -270,6 +277,7 @@ public abstract class MinesweeperBoard {
 
     /**
      * Expands all of the 0s on the board
+     * @author Arjun
      */
     public void expandZeros() {
         boolean[][] prevVisited = new boolean[dim][dim];
@@ -294,6 +302,7 @@ public abstract class MinesweeperBoard {
      * Generates a board with no mine at (i, j)
      * @param i the row index
      * @param j the column index
+     * @author Arjun
      */
     public void genBoard(int i, int j) {
         double[][] mineMask = new double[dim][dim];
@@ -318,6 +327,7 @@ public abstract class MinesweeperBoard {
     /**
      * Generates a board with a certain mine mask
      * @param mineMask the mine mask to generate the board with
+     * @author Arjun
      */
     public void genBoard(double[][] mineMask) {
         generateBoard(mineMask);
@@ -326,6 +336,7 @@ public abstract class MinesweeperBoard {
     /**
      * Generates a board with a certain mine mask
      * @param mineMask the mine mask to generate the board with
+     * @author Arjun
      */
     protected void generateBoard(double[][] mineMask) {
         for (int i = 0; i < dim; i++) {
@@ -342,6 +353,7 @@ public abstract class MinesweeperBoard {
      * Places mines on the board based on a mine mask
      * @param mineMask the mine mask to place mines on the board with
      * @param mines the number of mines to place
+     * @author Arjun
      */
     public void placeMines(double[][] mineMask, int mines) {
         double[] thresholds = new double[dim * dim];
@@ -396,6 +408,7 @@ public abstract class MinesweeperBoard {
 
     /**
      * Calculates the numbers on the board
+     * @author Arjun
      */
     public void calculateNumbers() {
         for (int i = 0; i < dim; i++) {

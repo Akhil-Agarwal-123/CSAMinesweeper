@@ -19,6 +19,7 @@ public class AtomicModeGame extends NormalModeGame {
      * @param clusteringThreshold the clustering threshold value
      * @param h the height of the board
      * @param w the width of the board
+     * @author Arjun
      */
     public AtomicModeGame(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         super(boardType, dim, mines, clusteringThreshold, h, w);

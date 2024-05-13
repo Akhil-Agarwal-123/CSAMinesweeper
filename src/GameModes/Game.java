@@ -81,6 +81,7 @@ public abstract class Game {
      * @param clusteringThreshold the clustering threshold value
      * @param h the height of the board
      * @param w the width of the board
+     * @author Arjun
      */
     public Game(Class<? extends BoardGUI> boardType, int dim, int mines, double clusteringThreshold, int h, int w) {
         newGame(boardType, dim, mines, clusteringThreshold, h, w);
@@ -151,6 +152,7 @@ public abstract class Game {
      * Runs when the user does their first left click on the board
      * @param i the row index
      * @param j the column index
+     * @author Arjun
      */
     protected void onFirstClick(int i, int j) {
         board.genBoard(i, j);
