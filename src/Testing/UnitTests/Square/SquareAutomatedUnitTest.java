@@ -12,6 +12,7 @@ public class SquareAutomatedUnitTest extends UnitTest {
     /**
      * Returns the initial game
      * @return the initial game
+     * @author Kushaan
      */
     @Override
     protected Game getGame() {

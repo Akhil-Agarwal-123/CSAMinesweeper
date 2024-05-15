@@ -12,9 +12,11 @@ public class SquareAtomicUnitTest extends UnitTest {
     /**
      * Returns the initial game
      * @return the initial game
+     * @author Kushaan
      */
     @Override
     protected Game getGame() {
         return new AtomicModeGame(SquareBoardGUI.class, 10, 20, 0, 0, 0);
     }
 }
+
