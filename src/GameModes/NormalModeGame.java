@@ -29,6 +29,7 @@ public class NormalModeGame extends Game {
      * Left click handler for Normal mode
      * @param i the row index
      * @param j the column index
+     * @author David
      */
     protected void normalClick(int i, int j) {
         board.revealSpot(i, j);
@@ -38,6 +39,7 @@ public class NormalModeGame extends Game {
      * Right click handler for Normal mode
      * @param i the row index
      * @param j the column index
+     * @author David
      */
     public void rightClick(int i, int j) {
         board.toggleFlag(i, j);

@@ -183,6 +183,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return whether or not (i, j) is visited
+     * @author Kushaan
      */
     public boolean getVisited(int i, int j) {
         return visited[i][j];
@@ -191,6 +192,7 @@ public abstract class MinesweeperBoard {
     /**
      * Gets the full visited array
      * @return the visited array
+     * @author Kushaan
      */
     public boolean[][] getAllVisited() {
         return visited;
@@ -199,6 +201,7 @@ public abstract class MinesweeperBoard {
     /**
      * Gets the full flag array
      * @return the flagged array
+     * @author Kushaan
      */
     public boolean[][] getAllFlagged() {
         return flagged;
@@ -207,6 +210,7 @@ public abstract class MinesweeperBoard {
     /**
      * Sets the flag array to the parameter
      * @param flagged the new flag array
+     * @author Sumukh
      */
     public void setAllFlagged(boolean[][] flagged) {
         this.flagged = flagged;
@@ -217,6 +221,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @param value the value to update to
+     * @author David
      */
     public void setFlagged(int i, int j, boolean value) {
         if (flagged[i][j] != value) {
@@ -229,6 +234,7 @@ public abstract class MinesweeperBoard {
     /**
      * Gets the number of flags remaining to be placed
      * @return remaining flag count
+     * @author David
      */
     public int getRemainingFlagCount() {
         return mines - flagCount;
@@ -239,6 +245,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @param value the new value
+     * @author David
      */
     public void setVisited(int i, int j, boolean value) {
         visited[i][j] = value;
@@ -247,6 +254,7 @@ public abstract class MinesweeperBoard {
     /**
      * Sets the whole visited array to the parameter
      * @param visited the new visited array
+     * @author David
      */
     public void setAllVisited(boolean[][] visited) {
         this.visited = visited;
@@ -433,6 +441,7 @@ public abstract class MinesweeperBoard {
 
     /**
      * Prints the board with all cells revealed
+     * @author Kushaan
      */
     public void printBoardAllRevealed() {
         printBoard(false);
@@ -440,6 +449,7 @@ public abstract class MinesweeperBoard {
 
     /**
      * Prints the board as it would be seen by the player
+     * @author Sumukh
      */
     public void printBoardHidden() {
         printBoard(true);
@@ -448,6 +458,7 @@ public abstract class MinesweeperBoard {
     /**
      * Prints the board with a certain visibility
      * @param hidden whether or not the board is hidden
+     * @author David
      */
     protected abstract void printBoard(boolean hidden);
 
@@ -457,6 +468,7 @@ public abstract class MinesweeperBoard {
      * @param j the column index
      * @param hidden whether or not the board is hidden
      * @return the string representation of the cell
+     * @author Kushaan
      */
     public String getStringFor(int i, int j, boolean hidden) {
         if (walled[i][j]) return "W";
@@ -471,6 +483,7 @@ public abstract class MinesweeperBoard {
     /**
      * Reveals a spot on the board as a hint
      * @return whether a hint could be given or not
+     * @author David
      */
     public boolean hint() {
         ArrayList<int[]> possible = new ArrayList<>();
@@ -495,6 +508,7 @@ public abstract class MinesweeperBoard {
      * Reveals a certain spot on the board
      * @param i the row index
      * @param j the column index
+     * @author Kushaan
      */
     public void placeMine(int i, int j) {
         statuses[i][j] = -1;
@@ -515,6 +529,7 @@ public abstract class MinesweeperBoard {
      * @param i the row index
      * @param j the column index
      * @return whether or not (i, j) is a mine
+     * @author David
      */
     public boolean getMine(int i, int j) {
         return statuses[i][j] == -1;

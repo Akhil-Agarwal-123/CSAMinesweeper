@@ -154,6 +154,7 @@ public class ControlPanelGUI extends JPanel {
         timer.setText("Time: " + a);
         Global.minesweeperGUI.revalidate();
         Global.minesweeperGUI.repaint();
+
     }
 
     /**
