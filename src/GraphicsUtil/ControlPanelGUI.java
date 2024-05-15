@@ -160,7 +160,7 @@ public class ControlPanelGUI extends JPanel {
     /**
      * Updates the flag counter displayed to a certain number
      * @param n the current flag count
-     * @author David & Kushaan
+     * @author David and Kushaan
      */
     public void updateFlagCounter(int n) {
         flagCounter.setText("Remaining flags: " + n);

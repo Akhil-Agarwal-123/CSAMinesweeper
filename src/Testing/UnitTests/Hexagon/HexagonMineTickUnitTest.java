@@ -19,4 +19,3 @@ public class HexagonMineTickUnitTest extends UnitTest {
         return new MineTickModeGame(HexagonBoardGUI.class, 10, 20, 0, 0, 0);
     }
 }
-@author Kushaan

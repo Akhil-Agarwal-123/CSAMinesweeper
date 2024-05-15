@@ -153,7 +153,7 @@ public abstract class Game {
      * Runs when the user does their first left click on the board
      * @param i the row index
      * @param j the column index
-     * @author Arjun & David
+     * @author Arjun and David
      */
     protected void onFirstClick(int i, int j) {
         board.genBoard(i, j);
