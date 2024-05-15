@@ -66,6 +66,7 @@ public abstract class BoardGUI extends JPanel {
      * @param i the row of the label
      * @param j the column of the label
      * @return the label at a certain position on the board
+     * @author Akhil
      */
     protected abstract JLabel getLabel(int i, int j);
 

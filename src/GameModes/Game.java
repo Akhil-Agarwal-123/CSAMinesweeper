@@ -143,6 +143,7 @@ public abstract class Game {
      * @param i the row index
      * @param j the column index
      * @return the visited status of the spot
+     * @author David
      */
     public boolean getVisited(int i, int j) {
         return board.getVisited(i, j);
@@ -203,6 +204,7 @@ public abstract class Game {
 
     /**
      * Gets the game status
+     * @author Arjun
      */
     public void updateGameStatus() {
         status = board.getGameState();
@@ -218,6 +220,7 @@ public abstract class Game {
     /**
      * Gets the game status
      * @return the game status
+     * @author David
      */
     public GameStatus getLastUpdatedGameStatus() {
         return status;
@@ -244,6 +247,7 @@ public abstract class Game {
     /**
      * Gets the dimension of the board
      * @return the dimension of the board
+     * @author David
      */
     public int getDimension() {
         return board.getDimension();
@@ -252,6 +256,7 @@ public abstract class Game {
     /**
      * Gets the internal board
      * @return the internal board
+     * @author David
      */
     public MinesweeperBoard getBoard() {
         return board;
