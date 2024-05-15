@@ -147,6 +147,7 @@ public class ControlPanelGUI extends JPanel {
     /**
      * Updates the timer
      * @param time the time to update the timer to
+     * @author David
      */
     public void updateTimer(double time) {
         int a = (int) (time / 1000);
@@ -158,6 +159,7 @@ public class ControlPanelGUI extends JPanel {
     /**
      * Updates the flag counter displayed to a certain number
      * @param n the current flag count
+     * @author David & Kushaan
      */
     public void updateFlagCounter(int n) {
         flagCounter.setText("Remaining flags: " + n);
@@ -168,6 +170,7 @@ public class ControlPanelGUI extends JPanel {
     /**
      * Returns the board type
      * @return the board type
+     * @author David
      */
     public String getBoardType() {
         return Objects.requireNonNull(boardShapeDropdown.getSelectedItem()).toString();
@@ -176,6 +179,7 @@ public class ControlPanelGUI extends JPanel {
     /**
      * Returns the game mode
      * @return the game mode
+     * @author Kushaan
      */
     public String getGameMode() {
         return Objects.requireNonNull(gameModeDropdown.getSelectedItem()).toString();

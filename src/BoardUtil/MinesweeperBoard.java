@@ -567,6 +567,7 @@ public abstract class MinesweeperBoard {
      * Toggles the flag at a certain point
      * @param i the row index
      * @param j the column index
+     * @author David
      */
     public void toggleFlag(int i, int j) {
         setFlagged(i, j, !flagged[i][j]);
@@ -575,6 +576,7 @@ public abstract class MinesweeperBoard {
     /**
      * Gets the board dimensions
      * @return the board dimensions
+     * @author David
      */
     public int getDimension() {
         return dim;
@@ -583,6 +585,7 @@ public abstract class MinesweeperBoard {
     /**
      * Gets the number of mines
      * @return the number of mines
+     * @author Kushaan
      */
     public int getNumMines() {
         return mines;
@@ -591,6 +594,7 @@ public abstract class MinesweeperBoard {
     /**
      * Gets the clustering threshold
      * @return the clustering threshold
+     * @author Kushaan
      */
     public double getClusteringThreshold() {
         return clusteringThreshold;

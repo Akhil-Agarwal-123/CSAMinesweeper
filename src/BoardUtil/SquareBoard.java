@@ -41,6 +41,7 @@ public class SquareBoard extends MinesweeperBoard {
     /**
      * Prints the board with a certain visibility
      * @param hidden whether or not the board is hidden
+     * @author Kushaan
      */
     protected void printBoard(boolean hidden) {
         for (int i = 0; i < dim; i++) {
