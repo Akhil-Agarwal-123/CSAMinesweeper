@@ -28,6 +28,3 @@ An AP Computer Science A class project, made with Java swing.
 - Mine clustering algorithm
 - Hints when stuck
 - Resizeable GUI
-
-## TODO:
-- [ ] Improve control center UI
